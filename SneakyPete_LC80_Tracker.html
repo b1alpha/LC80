@@ -28,6 +28,10 @@
   #projectBody.hide-done tr.status-done { display: none; }
   #tab-2026-Strategy td.strat-check { text-align: center; width: 36px; padding: 6px 4px; }
   #tab-2026-Strategy input[type="checkbox"] { width: 18px; height: 18px; accent-color: #f0a500; cursor: pointer; }
+  #tab-Spend-Summary th,
+  #tab-Spend-Summary td { padding-top: 4px; padding-bottom: 4px; line-height: 1.25; }
+  #tab-Spend-Summary th:first-child,
+  #tab-Spend-Summary td:first-child { min-width: 180px; width: 180px; white-space: nowrap; }
   tr:hover td { background: rgba(240,165,0,0.06); }
   tr.status-done td   { background: #1a2e1a; }
   tr.status-warn td   { background: #2e2a10; }
@@ -1115,22 +1119,22 @@
 <tr class="status-low project-main"><td>Fuel Door Release Cable Replacement</td><td>Body / Maint.</td><td>Steve — EBI Cruisers</td><td>🟡 NEEDS PARTS</td><td>50</td><td>1</td><td>1 🔴 TOP</td></tr>
 <tr class="parts-sub status-low"><td colspan="7">📝 <strong>Notes:</strong> Hood cable ordered but fuel door cable still needed. Order from Partsouq using HDJ81 VIN. Both cables often fail together on 30yr old LC80s.</td></tr>
 <tr class="parts-sub status-low"><td colspan="7">🔍 <strong>Still Needed:</strong> Fuel door cable — NOT YET ORDERED — Source: Partsouq (OEM Toyota) or aftermarket</td></tr>
-<tr class="status-low project-main"><td>New Dash + Interior Bulbs (all around)</td><td>Electrical</td><td>DIY — Brennon</td><td>🟡 NEEDS PARTS</td><td>60</td><td>0.33</td><td>3 🟡 Medium</td></tr>
-<tr class="parts-sub status-low"><td colspan="7">📝 <strong>Notes:</strong> Check fuse, swap to LED kit on hand. 20 min DIY, $0. Not a shop job.</td></tr>
-<tr class="parts-sub status-low"><td colspan="7">🔍 <strong>Still Needed:</strong> LED bulb kit — HDJ81 specific dash + interior sizes</td></tr>
+<tr class="status-done project-main"><td>New Dash + Interior Bulbs (all around)</td><td>Electrical</td><td>DIY — Brennon</td><td>✅ DONE</td><td>60</td><td>0.33</td><td>—</td></tr>
+<tr class="parts-sub status-done"><td colspan="7">📝 <strong>Notes:</strong> Electrical fault resolved: repaired ground and replaced burned dome fuse. Door sensors now read correctly, clock is working, and dome lights are working.</td></tr>
+<tr class="parts-sub status-done"><td colspan="7">🔍 <strong>Still Needed:</strong> None.</td></tr>
 <tr class="status-low project-main"><td>Replace Door Glass Running Strips</td><td>Interior</td><td>DIY</td><td>🟡 NEEDS PARTS</td><td>150</td><td>3</td><td>3 🟡 Medium</td></tr>
 <tr class="parts-sub status-low"><td colspan="7">📝 <strong>Notes:</strong> Prevents wind noise and water intrusion. Source OEM part numbers from Partsouq parts list in build doc.</td></tr>
 <tr class="parts-sub status-low"><td colspan="7">🔍 <strong>Still Needed:</strong> Door glass run channel seals — all 4 doors — Source: Partsouq or RADD Cruisers</td></tr>
 <tr class="status-low project-main"><td>Fender Flare Weather Stripping</td><td>Body / Paint</td><td>DIY</td><td>🟡 NEEDS PARTS</td><td>60</td><td>1</td><td>4 🟢 Low</td></tr>
 <tr class="parts-sub status-low"><td colspan="7">📝 <strong>Notes:</strong> Simple clip/adhesive install once parts arrive.</td></tr>
 <tr class="parts-sub status-low"><td colspan="7">🔍 <strong>Still Needed:</strong> Fender flare weather strip seal — Source: Partsouq</td></tr>
-<tr class="status-low project-main"><td>Fix Turbo Alarm</td><td>Electrical</td><td>DIY</td><td>🔍 NEEDS INVESTIGATION</td><td>30</td><td>1.5</td><td>3 🟡 Medium</td></tr>
-<tr class="parts-sub status-low"><td colspan="7">📝 <strong>Notes:</strong> Check turbo alarm wiring in HDJ80 electrical FSM. Likely a relay or boost sensor connection issue.</td></tr>
-<tr class="parts-sub status-low"><td colspan="7">🔍 <strong>Still Needed:</strong> TBD — likely relay or boost sensor wire</td></tr>
-<tr class="status-low project-main"><td>Interior Light Power Failed</td><td>Electrical</td><td>DIY</td><td>🔍 NEEDS INVESTIGATION</td><td>20</td><td>1.5</td><td>3 🟡 Medium</td></tr>
-<tr class="parts-sub status-low"><td colspan="7">📝 <strong>Notes:</strong> Trace fuse and circuit before replacing wire. Check fuse box for blown fuse on interior lamp circuit.</td></tr>
-<tr class="parts-sub status-low"><td colspan="7">📦 <strong>On Hand:</strong> 14ga wire (Chieftan)</td></tr>
-<tr class="parts-sub status-low"><td colspan="7">🔍 <strong>Still Needed:</strong> TBD after tracing circuit</td></tr>
+<tr class="status-done project-main"><td>Fix Turbo Alarm</td><td>Electrical</td><td>DIY</td><td>✅ DONE</td><td>30</td><td>1.5</td><td>—</td></tr>
+<tr class="parts-sub status-done"><td colspan="7">📝 <strong>Notes:</strong> Marked complete with electrical tasks closed.</td></tr>
+<tr class="parts-sub status-done"><td colspan="7">🔍 <strong>Still Needed:</strong> None.</td></tr>
+<tr class="status-done project-main"><td>Interior Light Power Failed</td><td>Electrical</td><td>DIY</td><td>✅ DONE</td><td>20</td><td>1.5</td><td>—</td></tr>
+<tr class="parts-sub status-done"><td colspan="7">📝 <strong>Notes:</strong> Completed: electrical ground repaired and dome fuse replaced. Interior lighting circuit now functions correctly, door-open indication is correct, clock is operational, and dome lights are operational.</td></tr>
+<tr class="parts-sub status-done"><td colspan="7">📦 <strong>Used:</strong> 14ga wire (Chieftan)</td></tr>
+<tr class="parts-sub status-done"><td colspan="7">🔍 <strong>Still Needed:</strong> None.</td></tr>
 <tr class="status-low project-main"><td>Solve AC Issue (over-filled?)</td><td>AC</td><td>Shop</td><td>🔍 NEEDS INVESTIGATION</td><td>0</td><td>2</td><td>3 🟡 Medium</td></tr>
 <tr class="parts-sub status-low"><td colspan="7">📝 <strong>Notes:</strong> System serviced and possibly over-filled. Have shop check pressures + correct charge. Sealer kit on hand if needed.</td></tr>
 <tr class="parts-sub status-low"><td colspan="7">📦 <strong>On Hand:</strong> A/C sealer cartridge x4 + professional A/C sealer injection kit (Lubeworx)</td></tr>
@@ -1150,8 +1154,8 @@
 <tr class="parts-sub status-planned"><td colspan="7">📝 <strong>Notes:</strong> Do bushings + Lubegard first. If 2nd gear still slipping after, take to trans shop. H151F triple-ring synchros.</td></tr>
 <tr class="parts-sub status-planned"><td colspan="7">📦 <strong>On Hand:</strong> ACDelco synchromesh fluid + Lubegard additive</td></tr>
 <tr class="parts-sub status-planned"><td colspan="7">🔍 <strong>Still Needed:</strong> ⚠️ Try shifter bushing fix + 2nd Lubegard dose FIRST. If still needed: trans shop assessment + synchro rebuild parts</td></tr>
-<tr class="status-planned project-main"><td>Glow Plug Circuit Diagnosis + Plug Replacement</td><td>Electrical / Engine</td><td>Steve — EBI / Eli</td><td>🔵 SHOP JOB (Pending)</td><td>0</td><td>1</td><td>4 🟢 Low</td></tr>
-<tr class="parts-sub status-planned"><td colspan="7">📝 <strong>Notes:</strong> Low priority while truck still starts clean. Diagnose circuit with Steve; complete plug replacement during engine rebuild window with Eli.</td></tr>
+<tr class="status-done project-main"><td>Glow Plug Circuit Diagnosis + Plug Replacement</td><td>Electrical / Engine</td><td>Steve — EBI / Eli</td><td>✅ DONE</td><td>0</td><td>1</td><td>—</td></tr>
+<tr class="parts-sub status-done"><td colspan="7">📝 <strong>Notes:</strong> Closed in tracker with electrical tasks marked complete.</td></tr>
 <tr class="status-planned project-main"><td>3" Exhaust System</td><td>Exhaust</td><td>Shop</td><td>🔵 SHOP JOB (Pending)</td><td>500</td><td>4</td><td>3 🟡 Medium</td></tr>
 <tr class="parts-sub status-planned"><td colspan="7">📝 <strong>Notes:</strong> Not side-pipe specific — any 3" system. Stainless preferred. Get quote from exhaust shop.</td></tr>
 <tr class="parts-sub status-planned"><td colspan="7">🔍 <strong>Still Needed:</strong> 3" mandrel-bent exhaust system — Confirm routing + exit point with shop</td></tr>
@@ -1251,7 +1255,7 @@
 <tr class=""><td>Gasket, Thermostat</td><td>Partsouq</td><td>1634666020</td><td>2.5</td><td>USD</td><td>3</td><td>Thermostat Replacement</td><td>📦 On Hand</td></tr>
 <tr class=""><td>Element Assy, Fuel Filter</td><td>Partsouq</td><td>2330364010</td><td>40.63</td><td>USD</td><td>55</td><td>Fuel Filter (spare)</td><td>📦 On Hand</td></tr>
 <tr class=""><td>Filter Sub-Assy, Fuel Suction Tube</td><td>Partsouq</td><td>7702360010</td><td>6.05</td><td>USD</td><td>8</td><td>Fuel Filter (spare)</td><td>📦 On Hand</td></tr>
-<tr class=""><td>Interior Trim Parts (assist grips, switch covers, door bezel)</td><td>Partsouq</td><td>Various</td><td>55.51</td><td>USD</td><td>75</td><td>Interior Trim</td><td>📦 On Hand</td></tr>
+<tr class="status-done"><td>Interior Trim Parts (assist grips, switch covers, door bezel)</td><td>Partsouq</td><td>Various</td><td>55.51</td><td>USD</td><td>75</td><td>Interior Trim</td><td>✅ Installed</td></tr>
 <tr class="status-done"><td>LUBEGARD Gear Oil Additive — 2 bottles remaining</td><td>Amazon CA</td><td>—</td><td>0</td><td>CAD</td><td>0</td><td>Trans Additive 2nd + 3rd dose</td><td>✅ Used</td></tr>
 <tr class="status-done"><td>ACDelco Synchromesh Transmission Fluid 32oz</td><td>Amazon CA</td><td>10-4014</td><td>174</td><td>CAD</td><td>174</td><td>Transmission Fluid</td><td>✅ Used</td></tr>
 <tr class=""><td>12V 22A Relay</td><td>Amazon CA</td><td>9098702004</td><td>12.15</td><td>CAD</td><td>12</td><td>Relay / Electrical</td><td>📦 On Hand</td></tr>
@@ -1268,7 +1272,7 @@
 <tr class=""><td>Door Glass Run Sealing Strip (68141-60010 / 68151-60010 / 68142-60011 / 68152-60011)</td><td>Amazon CA</td><td>Various</td><td>79.84</td><td>CAD</td><td>80</td><td>Weatherstripping</td><td>📦 On Hand</td></tr>
 <tr class="status-done"><td>Hood Heat Shield Insulation Pad (LC80 80 Series)</td><td>Amazon CA</td><td>—</td><td>36.99</td><td>CAD</td><td>37</td><td>Engine Bay</td><td>✅ Installed</td></tr>
 <tr class="status-done"><td>Knuckle Stud Set — OEM Toyota Pack of 8 + Route Protection + Shipping</td><td>CruiserTeq</td><td>KS7997KSET</td><td>118.97</td><td>USD</td><td>161</td><td>Knuckle Repair (Campbell River)</td><td>✅ Installed</td></tr>
-<tr class=""><td>TOTAL APPROX. CAD — all parts purchased</td><td></td><td></td><td></td></tr>
+<tr class="status-done"><td colspan="5"><strong>TOTAL APPROX. CAD — all parts purchased</strong></td><td><strong>25818.14</strong></td><td colspan="2"></td></tr>
 <tr class=""><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr class=""><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr class=""><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -2221,54 +2225,60 @@
 <div id="tab-Spend-Summary" class="tab-content" style="display:none">
 <table><tbody>
 <tr class=""><th>💰  SNEAKY PETE — Spend Summary  |  All Invoices + Labour + Credits</th></tr>
-<tr class=""><th>Vendor / Invoice</th><th>Date</th><th>Description</th><th>Amount (CAD approx.)</th></tr>
-<tr class=""><td>HD Automotive (AUS) — Inv. 3894</td><td>Nov 2023</td><td>Intercooler kit, water pump, timing belt, gaskets, fan belt + shipping</td><td>2520</td></tr>
-<tr class=""><td>HD Automotive (AUS) — Inv. 3976</td><td>Nov 2023</td><td>Timing cover gasket, oil filter housing gasket, clutch slave cylinder</td><td>83</td></tr>
-<tr class=""><td>HD Automotive (AUS) — Inv. 4697</td><td>Jan 2024</td><td>UFI Turbo 1HD-T 18G 250hp + shipping</td><td>2021</td></tr>
-<tr class=""><td>Dilas International — Customs #99854</td><td>Jan 2024</td><td>Customs/duties — HD Auto turbo shipment</td><td>143</td></tr>
-<tr class=""><td>Dilas International — Customs #99855</td><td>Jan 2024</td><td>Customs/duties — HD Auto intercooler shipment</td><td>158</td></tr>
-<tr class=""><td>RADD Cruisers — ORD220722</td><td>Jan 2024</td><td>Injector seal kit, hub socket tool, rear hub bearing seal kit x2</td><td>296</td></tr>
-<tr class=""><td>RADD Cruisers — ORD220786</td><td>Feb 2024</td><td>Exhaust manifold gaskets x2</td><td>96</td></tr>
-<tr class=""><td>Partsouq — Order 627551</td><td>Dec 2023</td><td>Thermostat, fuel filter, assist grips, oil filter, switch covers</td><td>262</td></tr>
-<tr class=""><td>Partsouq — Order 630261</td><td>Dec 2023</td><td>Front diff rebuild parts (bearings, seals, pinion parts) + duties</td><td>335</td></tr>
-<tr class=""><td>Partsouq — Invoice 650630</td><td>Feb 2024</td><td>Diff gaskets, timing cover gasket, exhaust gaskets, turbo bolts</td><td>160</td></tr>
-<tr class=""><td>Terrain Tamer — Order 8870</td><td>Mar 2024</td><td>Eaton E-Locker 14212-1 + shipping + duties</td><td>1807</td></tr>
-<tr class=""><td>Chieftan Auto — Invoice 3578009 + Receipts</td><td>Feb 2024</td><td>AMS oil, gear lube, PS fluid, brake fluid, coolant, cleaner, wire</td><td>568</td></tr>
-<tr class=""><td>Bill's Paint Shop — Inv. 1376</td><td>May 2024</td><td>Roof strip, sand, and epoxy prime</td><td>1569</td></tr>
-<tr class=""><td>Lubeworx — Order 57935</td><td>Oct 2023</td><td>TerraClean products + A/C sealer kit (shop wholesale)</td><td>1695</td></tr>
-<tr class=""><td>West Coast Offroaders</td><td>2024</td><td>ARB cargo drawers x2, floor adaptors, BASE81 roof rack</td><td>5963</td></tr>
-<tr class=""><td>EBI Cruisers</td><td>2024</td><td>Rear tailgate replacement + taxes</td><td>844</td></tr>
-<tr class=""><td>Dobinsons</td><td>2024</td><td>Coil springs front + rear (Slinky) + shipping + duties</td><td>1521</td></tr>
-<tr class=""><td>VEVOR Canada</td><td>Mar 2024</td><td>13,000lb electric winch + bearing puller tool</td><td>646</td></tr>
-<tr class=""><td>Amazon CA — Parts &amp; Electronics</td><td>2023–2024</td><td>Lubegard, LED bulbs, Sony head unit, speakers, wiring, relay, trans fluid, gauges</td><td>1903</td></tr>
-<tr class=""><td>CruiserParts LLC — Order 2371691</td><td>Dec 2023</td><td>1HD-T Engine Repair Manual + shipping</td><td>224</td></tr>
-<tr class=""><td>Princess Auto</td><td>Feb 2024</td><td>Measurement tools (deflection gauge + magnetic tray)</td><td>48</td></tr>
-<tr class=""><td>EBI Cruisers — Estimate #92098</td><td>Nov 2025</td><td>Knuckle rebuild — Koyo bearing kit, chassis grease, brake cleaner, 80/90 gear oil, 5.5hrs labour @ $175/hr (passenger + driver knuckle)</td><td>1298.14</td></tr>
-<tr class=""><td>Steel Inc — Custom Fabrication</td><td>2024</td><td>Custom winch plate — fabricated + powder coated</td><td>200</td></tr>
-<tr class=""><td>Amazon CA — Air Horn</td><td>2024</td><td>HK 150DB Air Train Horn Kit (twin tone chrome)</td><td>30</td></tr>
-<tr class=""><td>Amazon CA — Engine Hoses</td><td>2024</td><td>Silicone radiator hose set 10PCS (HDJ80 1HD-T 4.2L)</td><td>101</td></tr>
-<tr class=""><td>Amazon CA — Lighting</td><td>2025</td><td>Front bumper parking / signal lights + LED (FJ80 / LX450) x2</td><td>83</td></tr>
-<tr class=""><td>Amazon CA — Weatherstripping</td><td>2025</td><td>Door glass run sealing strip set (68141/68151/68142/68152)</td><td>80</td></tr>
-<tr class=""><td>Amazon CA — Engine Bay</td><td>2025</td><td>Hood heat shield insulation pad (LC80 80 Series)</td><td>37</td></tr>
-<tr class=""><td>DX Engineering — Order #0004937</td><td>Aug 2024</td><td>Yaesu FTM-6000R 50W dual band FM mobile transceiver (YSU-FTM-6000R) $229.95 + shipping $40.91</td><td>366</td></tr>
-<tr class=""><td>CruiserTeq — Order #99023695</td><td>—</td><td>Knuckle Stud Set OEM Toyota x8 (KS7997KSET) $64 + Route Protection $1.95 + shipping $53.02 — shipped to Puller's Repairs, Campbell River</td><td>161</td></tr>
-<tr class=""><td>Puller's Repairs Ltd (Pete Puller) — Campbell River</td><td>—</td><td>Emergency steering knuckle repair labour — studs fell out, temp fix to get truck to Vancouver/Steve at EBI</td><td>600</td></tr>
-<tr class=""><td>GRAND TOTAL — All Parts &amp; Materials (CAD approx.)</td><td>25818.14</td></tr>
-<tr class=""><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr class=""><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr class=""><td>Labour — Liam Schram @ $80/hr</td><td>Date</td><td>Hours</td><td>Amount (CAD)</td></tr>
-<tr class=""><td></td><td>Dec 27, 2023</td><td>5</td><td>400</td></tr>
-<tr class=""><td></td><td>Dec 28, 2023</td><td>5</td><td>400</td></tr>
-<tr class=""><td></td><td>Feb 16, 2024</td><td>2</td><td>160</td></tr>
-<tr class=""><td></td><td>Feb 17, 2024</td><td>2.5</td><td>200</td></tr>
-<tr class=""><td></td><td>Feb 18, 2024</td><td>5</td><td>400</td></tr>
-<tr class=""><td></td><td>Feb 19, 2024</td><td>5</td><td>400</td></tr>
-<tr class=""><td></td><td>Mar 24, 2024</td><td>5</td><td>400</td></tr>
-<tr class=""><td></td><td>Mar 30, 2024</td><td>9</td><td>720</td></tr>
-<tr class=""><td></td><td>Mar 31, 2024</td><td>6</td><td>480</td></tr>
-<tr class=""><td></td><td>Apr 1, 2024</td><td>14</td><td>1120</td></tr>
-<tr class=""><td></td><td>May 19, 2024</td><td>4</td><td>320</td></tr>
-<tr class=""><td>TOTAL LABOUR</td><td>62.5</td><td>5000</td></tr>
+<tr class=""><th>Date</th><th>Vendor / Invoice</th><th>Description</th><th>Amount (CAD approx.)</th></tr>
+<tr class="status-warn"><td>Jul 21, 2023</td><td>INITIAL PURCHASE — LC80</td><td>Purchase price of LC80</td><td>23990</td></tr>
+<tr class=""><td>Nov 2023</td><td>HD Automotive (AUS) — Inv. 3894</td><td>Intercooler kit, water pump, timing belt, gaskets, fan belt + shipping</td><td>2520</td></tr>
+<tr class=""><td>Nov 2023</td><td>HD Automotive (AUS) — Inv. 3976</td><td>Timing cover gasket, oil filter housing gasket, clutch slave cylinder</td><td>83</td></tr>
+<tr class=""><td>Jan 2024</td><td>HD Automotive (AUS) — Inv. 4697</td><td>UFI Turbo 1HD-T 18G 250hp + shipping</td><td>2021</td></tr>
+<tr class=""><td>Jan 2024</td><td>Dilas International — Customs #99854</td><td>Customs/duties — HD Auto turbo shipment</td><td>143</td></tr>
+<tr class=""><td>Jan 2024</td><td>Dilas International — Customs #99855</td><td>Customs/duties — HD Auto intercooler shipment</td><td>158</td></tr>
+<tr class=""><td>Jan 2024</td><td>RADD Cruisers — ORD220722</td><td>Injector seal kit, hub socket tool, rear hub bearing seal kit x2</td><td>296</td></tr>
+<tr class=""><td>Feb 2024</td><td>RADD Cruisers — ORD220786</td><td>Exhaust manifold gaskets x2</td><td>96</td></tr>
+<tr class=""><td>Dec 2023</td><td>Partsouq — Order 627551</td><td>Thermostat, fuel filter, assist grips, oil filter, switch covers</td><td>262</td></tr>
+<tr class=""><td>Dec 2023</td><td>Partsouq — Order 630261</td><td>Front diff rebuild parts (bearings, seals, pinion parts) + duties</td><td>335</td></tr>
+<tr class=""><td>Feb 2024</td><td>Partsouq — Invoice 650630</td><td>Diff gaskets, timing cover gasket, exhaust gaskets, turbo bolts</td><td>160</td></tr>
+<tr class=""><td>Mar 2024</td><td>Terrain Tamer — Order 8870</td><td>Eaton E-Locker 14212-1 + shipping + duties</td><td>1807</td></tr>
+<tr class=""><td>Feb 2024</td><td>Chieftan Auto — Invoice 3578009 + Receipts</td><td>AMS oil, gear lube, PS fluid, brake fluid, coolant, cleaner, wire</td><td>568</td></tr>
+<tr class=""><td>May 2024</td><td>Bill's Paint Shop — Inv. 1376</td><td>Roof strip, sand, and epoxy prime</td><td>1569</td></tr>
+<tr class=""><td>Oct 2023</td><td>Lubeworx — Order 57935</td><td>TerraClean products + A/C sealer kit (shop wholesale)</td><td>1695</td></tr>
+<tr class=""><td>2024</td><td>West Coast Offroaders</td><td>ARB cargo drawers x2, floor adaptors, BASE81 roof rack</td><td>5963</td></tr>
+<tr class=""><td>2024</td><td>EBI Cruisers</td><td>Rear tailgate replacement + taxes</td><td>844</td></tr>
+<tr class=""><td>2024</td><td>Dobinsons</td><td>Coil springs front + rear (Slinky) + shipping + duties</td><td>1521</td></tr>
+<tr class=""><td>Mar 2024</td><td>VEVOR Canada</td><td>13,000lb electric winch + bearing puller tool</td><td>646</td></tr>
+<tr class=""><td>2023–2024</td><td>Amazon CA — Parts &amp; Electronics</td><td>Lubegard, LED bulbs, Sony head unit, speakers, wiring, relay, trans fluid, gauges</td><td>1903</td></tr>
+<tr class=""><td>Dec 2023</td><td>CruiserParts LLC — Order 2371691</td><td>1HD-T Engine Repair Manual + shipping</td><td>224</td></tr>
+<tr class=""><td>Feb 2024</td><td>Princess Auto</td><td>Measurement tools (deflection gauge + magnetic tray)</td><td>48</td></tr>
+<tr class=""><td>Nov 2025</td><td>EBI Cruisers — Estimate #92098</td><td>Knuckle rebuild — Koyo bearing kit, chassis grease, brake cleaner, 80/90 gear oil, 5.5hrs labour @ $175/hr (passenger + driver knuckle)</td><td>1298.14</td></tr>
+<tr class=""><td>2024</td><td>Steel Inc — Custom Fabrication</td><td>Custom winch plate — fabricated + powder coated</td><td>200</td></tr>
+<tr class=""><td>2024</td><td>Amazon CA — Air Horn</td><td>HK 150DB Air Train Horn Kit (twin tone chrome)</td><td>30</td></tr>
+<tr class=""><td>2024</td><td>Amazon CA — Engine Hoses</td><td>Silicone radiator hose set 10PCS (HDJ80 1HD-T 4.2L)</td><td>101</td></tr>
+<tr class=""><td>2025</td><td>Amazon CA — Lighting</td><td>Front bumper parking / signal lights + LED (FJ80 / LX450) x2</td><td>83</td></tr>
+<tr class=""><td>2025</td><td>Amazon CA — Weatherstripping</td><td>Door glass run sealing strip set (68141/68151/68142/68152)</td><td>80</td></tr>
+<tr class=""><td>2025</td><td>Amazon CA — Engine Bay</td><td>Hood heat shield insulation pad (LC80 80 Series)</td><td>37</td></tr>
+<tr class=""><td>Aug 2024</td><td>DX Engineering — Order #0004937</td><td>Yaesu FTM-6000R 50W dual band FM mobile transceiver (YSU-FTM-6000R) $229.95 + shipping $40.91</td><td>366</td></tr>
+<tr class=""><td>Mon, Sep 16, 2024</td><td>CruiserTeq — Order #99023695</td><td>Knuckle Stud Set OEM Toyota x8 (KS7997KSET) $64 + Route Protection $1.95 + shipping $53.02 — shipped to Puller's Repairs, Campbell River</td><td>161</td></tr>
+<tr class=""><td>—</td><td>Puller's Repairs Ltd (Pete Puller) — Campbell River</td><td>Emergency steering knuckle repair labour — studs fell out, temp fix to get truck to Vancouver/Steve at EBI</td><td>600</td></tr>
+<tr class="status-warn"><td></td><td><strong>TOTAL PARTS</strong></td><td></td><td><strong>25818.14</strong></td></tr>
+<tr class=""><td></td><td></td><td></td><td></td></tr>
+<tr class=""><td></td><td></td><td></td><td></td></tr>
+<tr class=""><td></td><td></td><td></td><td></td></tr>
+<tr class=""><td></td><td></td><td></td><td></td></tr>
+<tr class=""><td>Date</td><td>Labour @ $80/hr</td><td>Hours</td><td>Amount (CAD)</td></tr>
+<tr class=""><td>Dec 27, 2023</td><td>Liam Schram</td><td>5</td><td>400</td></tr>
+<tr class=""><td>Dec 28, 2023</td><td>Liam Schram</td><td>5</td><td>400</td></tr>
+<tr class=""><td>Feb 16, 2024</td><td>Liam Schram</td><td>2</td><td>160</td></tr>
+<tr class=""><td>Feb 17, 2024</td><td>Liam Schram</td><td>2.5</td><td>200</td></tr>
+<tr class=""><td>Feb 18, 2024</td><td>Liam Schram</td><td>5</td><td>400</td></tr>
+<tr class=""><td>Feb 19, 2024</td><td>Liam Schram</td><td>5</td><td>400</td></tr>
+<tr class=""><td>Mar 24, 2024</td><td>Liam Schram</td><td>5</td><td>400</td></tr>
+<tr class=""><td>Mar 30, 2024</td><td>Liam Schram</td><td>9</td><td>720</td></tr>
+<tr class=""><td>Mar 31, 2024</td><td>Liam Schram</td><td>6</td><td>480</td></tr>
+<tr class=""><td>Apr 1, 2024</td><td>Liam Schram</td><td>14</td><td>1120</td></tr>
+<tr class=""><td>May 19, 2024</td><td>Liam Schram</td><td>4</td><td>320</td></tr>
+<tr class="status-warn"><td></td><td><strong>TOTAL LABOUR</strong></td><td><strong>62.5</strong></td><td><strong>5000</strong></td></tr>
+<tr class=""><td></td><td></td><td></td><td></td></tr>
+<tr class=""><td></td><td></td><td></td><td></td></tr>
+<tr class="status-done"><td></td><td><strong>GRAND TOTAL (PURCHASE + PARTS + LABOUR)</strong></td><td></td><td><strong>54808.14</strong></td></tr>
 <!--
 <tr class=""><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr class=""><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -4267,7 +4277,7 @@
 <tr class="status-urgent"><td class="strat-check"><input type="checkbox" data-strat="strat-window"></td><td>🔴</td><td>Passenger Front Window Diagnosis</td><td>Liam Schram</td><td>~$30 parts + $120 labour = ~$150</td><td>1–1.5 hrs</td><td>Window moves slowly — mechanical friction issue. Likely dried-out felt channel guides + sticky regulator pivots. ~$30 parts. Motor likely fine.</td></tr>
 <tr class="status-urgent"><td class="strat-check"><input type="checkbox" data-strat="strat-suspension"></td><td>🔴</td><td>Centre Rear Suspension + Linkage Adjust</td><td>Steve — EBI Cruisers</td><td>~$100 parts + $525 labour = ~$625</td><td>3 hrs</td><td>Have shop measure lateral rod centering and fix broken end links, adjust linkages for current ride height.</td></tr>
 <tr class="status-done"><td class="strat-check"><input type="checkbox" data-strat="strat-lubegard" checked></td><td>✅</td><td>Add 2nd Lubegard Dose</td><td>DIY</td><td>$0 — already purchased</td><td>15 min</td><td>✅ Done. Drained ~100ml trans fluid, added 1 bottle.</td></tr>
-<tr class="status-low"><td class="strat-check"><input type="checkbox" data-strat="strat-bulbs"></td><td>🟡</td><td>New Dash + Interior Bulbs</td><td>DIY</td><td>~$40</td><td>20 min</td><td>Check for blown fuse no power. Investigate dash lights being out. Fix interior light issue. Use existing LED bulb kit.</td></tr>
+<tr class="status-done"><td class="strat-check"><input type="checkbox" data-strat="strat-bulbs" checked></td><td>✅</td><td>New Dash + Interior Bulbs</td><td>DIY</td><td>~$40</td><td>20 min</td><td>✅ Electrical issue resolved: repaired ground + replaced burned dome fuse. Door sensors, clock, and dome lights now working.</td></tr>
 <tr class="status-done"><td class="strat-check"><input type="checkbox" data-strat="strat-glow-diag" checked></td><td>✅</td><td>Glow Plug Circuit Diagnosis</td><td>Steve — EBI Cruisers</td><td>~$0–180</td><td>1 hr</td><td>LOW PRIORITY — truck starts in 1 crank without glow plugs. Deferred to engine rebuild with Eli (Edmonton).</td></tr>
 <tr class="status-urgent"><td class="strat-check"><input type="checkbox" data-strat="strat-oil-monitor"></td><td>🔴</td><td>Monitor Oil Consumption</td><td>DIY</td><td>$0</td><td>Ongoing</td><td>Currently 2.3L / 9,000 km (one worn ring). Track at every oil change. If accelerates → move rebuild forward.</td></tr>
 <tr class="status-done"><td class="strat-check"><input type="checkbox" data-strat="strat-birfield" checked></td><td>✅</td><td>Passenger Birfield Joint Replacement</td><td>EBI Cruisers</td><td>Included in Estimate #92098 ($1,298.14)</td><td>5.5 hrs</td><td>✅ Done Nov 2025 — EBI Cruisers. Knuckle rebuild incl. Koyo bearing kit. Both sides now done.</td></tr>
@@ -4287,7 +4297,7 @@
 <tr class="status-low"><td class="strat-check"><input type="checkbox" data-strat="strat-bigend-moved"></td><td>🟡</td><td>Big End Bearings ✅ → Moved to Phase 2</td><td>Eli — Edmonton</td><td>—</td><td>—</td><td>Now a standalone Phase 2 job — do before engine rebuild, not during.</td></tr>
 <tr class="status-low"><td class="strat-check"><input type="checkbox" data-strat="strat-valve"></td><td>🟡</td><td>Valve Clearance Check</td><td>Eli — Edmonton</td><td>Incl. in rebuild</td><td>—</td><td>Deferred to engine rebuild. 1HD-T spec: inlet 0.20mm, exhaust 0.35mm cold.</td></tr>
 <tr class="status-low"><td class="strat-check"><input type="checkbox" data-strat="strat-vacuum"></td><td>🟡</td><td>Vacuum System Rebuild Quote</td><td>Eli — Edmonton</td><td>Incl. in rebuild</td><td>—</td><td>Get assessment as part of engine rebuild planning.</td></tr>
-<tr class="status-planned"><td class="strat-check"><input type="checkbox" data-strat="strat-glow-plugs"></td><td>🔩</td><td>Glow Plug Circuit Diagnosis + Plug Replacement</td><td>Steve — EBI / Eli</td><td>Incl. in rebuild</td><td>—</td><td>LOW PRIORITY — truck starts in 1 crank, no urgency. Circuit diagnosis: Steve at EBI. Plug replacement: Eli as part of engine rebuild.</td></tr>
+<tr class="status-done"><td class="strat-check"><input type="checkbox" data-strat="strat-glow-plugs" checked></td><td>✅</td><td>Glow Plug Circuit Diagnosis + Plug Replacement</td><td>Steve — EBI / Eli</td><td>Incl. in rebuild</td><td>—</td><td>✅ Closed in tracker with other electrical items marked complete.</td></tr>
 </tbody></table>
 </div>
 <div id="tab-Build" class="tab-content" style="display:none">
