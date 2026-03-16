@@ -2,7 +2,7 @@
 
 **Date:** 2026-03-14
 **Branch:** feature/data-layer
-**Scope:** Unit, component, and integration tests for the data layer implemented in `tracker-site/`
+**Scope:** Unit, component, and integration tests for the data layer in `tracker-site/`
 
 ---
 
@@ -14,20 +14,20 @@ Verify that `data.json` is fetched, parsed, and rendered correctly into all 8 ta
 
 ## Context
 
-The data layer was recently rewritten:
-- All tab data lives in `tracker-site/data.json` (64KB, 8 keys)
-- `tracker-site/index.html` fetches `/data.json` on load and calls 8 render functions
-- All render functions are currently inline in a single `<script>` block in `index.html`
-- No build step, no framework, no existing tests
-- Node 20 and pytest available
+- Vanilla HTML/CSS/JS static site, no build step, no framework
+- All render logic is currently inline in a single `<script>` block in `index.html`
+- `tracker-site/data.json` (64KB) is fetched at runtime via `fetch('/data.json')`
+- 8 render functions + 4 utility functions (all in the inline script)
+- Tab buttons use `onclick="showTab('...')"` HTML attributes
+- Node 20, pytest, no existing `package.json`
 
 ---
 
 ## Architecture
 
-### Refactor: Extract to `tracker-site/render.js`
+### Step 1: Extract to `tracker-site/render.js`
 
-All render functions and utility functions are extracted from the inline `<script>` in `index.html` to `tracker-site/render.js` as an ES module.
+All render and utility functions are moved from the inline `<script>` to `tracker-site/render.js` as an ES module.
 
 **Exported from `render.js`:**
 - `renderBuild(cards, meta)`
@@ -43,7 +43,17 @@ All render functions and utility functions are extracted from the inline `<scrip
 - `applyDoneVisibility()`
 - `toggleDoneRows()`
 
-**`index.html` becomes:**
+**`window.*` assignment in `render.js` at module top-level (not async, not inside fetch callback):**
+```js
+// Must be top-level so onclick attributes resolve immediately on page load
+window.showTab = showTab;
+window.sortProjectTable = sortProjectTable;
+window.toggleDoneRows = toggleDoneRows;
+```
+
+This is required because `onclick="showTab(...)"` attributes resolve bare identifiers from the global scope. ES modules do not pollute global scope by default, so the assignments must happen before any `await` to ensure buttons work before data loads.
+
+**`index.html` init block:**
 ```html
 <script type="module">
   import { renderBuild, renderFluidGuide, renderStrategy, renderProjectTracker,
@@ -54,18 +64,24 @@ All render functions and utility functions are extracted from the inline `<scrip
     .then(r => r.json())
     .then(data => {
       renderBuild(data.build, data.meta);
-      // ... all 8 renders
+      renderFluidGuide(data.fluid_guide);
+      renderStrategy(data.strategy_2026);
+      renderProjectTracker(data.project_tracker);
+      renderPartsInventory(data.parts_inventory);
+      renderSpendSummary(data.spend_summary);
+      renderScheduledMaintenance(data.scheduled_maintenance);
+      renderShopContacts(data.shop_contacts);
       applyDoneVisibility();
       // hash routing
+      const hash = window.location.hash.replace('#','');
+      if (hash) showTab(hash.split('-').map(w => w[0].toUpperCase()+w.slice(1)).join(' '));
     });
-</script>
-```
 
-The tab-switching buttons in the HTML call `showTab()` via `onclick`, so `showTab` must also be exposed on `window`:
-```js
-window.showTab = showTab;
-window.sortProjectTable = sortProjectTable;
-window.toggleDoneRows = toggleDoneRows;
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#','');
+    if (hash) showTab(hash.split('-').map(w => w[0].toUpperCase()+w.slice(1)).join(' '));
+  });
+</script>
 ```
 
 ---
@@ -79,49 +95,100 @@ tests/
   render.integration.test.js # Full fetch → render pipeline with real data.json
 ```
 
+### DOM Reset Between Tests
+
+All test files use `beforeEach` to reset the 8 tab containers and any relevant state:
+
+```js
+beforeEach(() => {
+  document.body.innerHTML = `
+    <div id="tab-Build" class="tab-content" style="display:block"></div>
+    <div id="tab-Fluid-Guide" class="tab-content" style="display:none"></div>
+    <div id="tab-2026-Strategy" class="tab-content" style="display:none"></div>
+    <div id="tab-Project-Tracker" class="tab-content" style="display:none"></div>
+    <div id="tab-Parts-Inventory" class="tab-content" style="display:none"></div>
+    <div id="tab-Spend-Summary" class="tab-content" style="display:none"></div>
+    <div id="tab-Scheduled-Maintenance" class="tab-content" style="display:none"></div>
+    <div id="tab-Shop-Contacts" class="tab-content" style="display:none"></div>
+    <button class="tab-btn active" onclick="showTab('Build')">Build</button>
+    <button class="tab-btn" onclick="showTab('Fluid Guide')">Fluid Guide</button>
+  `;
+});
+```
+
+Jest resets jsdom between test *files* automatically. `beforeEach` handles reset within a file.
+
+---
+
 ### Unit Tests (`render.unit.test.js`)
 
-Each render function is called with **minimal valid fixture data** (1–2 items). Assertions check:
+Each render function is called with **minimal valid fixture data** (1–2 items). Assertions check specific rendered content from the fixture — not just non-emptiness — to catch wrong field names or broken traversal.
 
-| Render function | Key assertions |
-|----------------|----------------|
-| `renderBuild` | `#tab-Build` has `.build-card`, items have `.bi-name`, installed items have class `installed`, urgent items show `🔴` emoji |
-| `renderFluidGuide` | `#tab-Fluid-Guide` has `<table>`, correct number of `<tr>` in tbody |
-| `renderStrategy` | `#tab-2026-Strategy` has checkboxes with `data-strat` attrs, phase header rows, urgent rows have `status-urgent` class |
-| `renderProjectTracker` | `#tab-Project-Tracker` has `#projectBody`, project-main rows, parts-sub rows for notes/on_hand/still_needed |
-| `renderPartsInventory` | `#tab-Parts-Inventory` has correct row count, status labels rendered |
-| `renderSpendSummary` | Total rows get `status-warn` class, non-total rows render date/vendor/description |
-| `renderScheduledMaintenance` | Urgent items get `status-urgent` class, ok items get `status-done` |
-| `renderShopContacts` | `#tab-Shop-Contacts` has correct row count, null phone renders as `—` |
+| Function | Fixture has | Key assertions |
+|----------|-------------|----------------|
+| `renderBuild` | 1 card, 2 items (1 installed, 1 urgent) | `#tab-Build` contains `.build-card`; installed item name has class `installed`; urgent item has `🔴`; card icon rendered |
+| `renderFluidGuide` | 2 rows | `#tab-Fluid-Guide` has `<table>`; both system names appear in DOM |
+| `renderStrategy` | 1 phase, 2 tasks (1 urgent, 1 done) | Phase header row rendered; urgent row has `status-urgent`; done row has `status-done`; checkboxes have `data-strat` attr |
+| `renderProjectTracker` | 1 section, 2 projects (1 with notes, 1 without) | `#projectBody` exists; project name rendered; notes sub-row appears; project without notes has no sub-row |
+| `renderPartsInventory` | 2 parts (1 installed, 1 on_hand) | Row count = 2 data rows; installed shows `✅ Installed`; on_hand shows `📦 On Hand` |
+| `renderSpendSummary` | 2 rows + 1 total | Total row has `status-warn` class; vendor text present; `$` rendered in amount cell |
+| `renderScheduledMaintenance` | 3 items (ok, urgent, overdue) | ok → `status-done`; urgent → `status-urgent`; overdue → `status-warn`; item names rendered |
+| `renderShopContacts` | 2 contacts (1 with phone, 1 without) | Both names rendered; null phone shows `—` |
+
+---
 
 ### Component Tests (`render.component.test.js`)
 
-Tests DOM interactions using jsdom:
+Tests call functions directly (e.g., `showTab('Fluid Guide')`) rather than simulating clicks on `onclick`-attributed buttons, because jsdom evaluates inline `onclick` attributes in a restricted scope that does not reliably resolve bare global identifiers.
 
 | Scenario | Assertion |
 |----------|-----------|
-| `showTab('Fluid Guide')` | `#tab-Fluid-Guide` becomes `display:block`, `#tab-Build` becomes `display:none`, active tab button gets `active` class, `location.hash` is set |
-| `showTab` with unknown name | No crash, no tab shown |
-| `toggleDoneRows()` twice | Done rows hidden after first call, visible after second |
-| `sortProjectTable(0)` | Rows reordered alphabetically by project name |
-| `applyDoneVisibility()` | Toggle button text updates, done rows hide/show |
+| `showTab('Fluid Guide')` | `#tab-Fluid-Guide` is `display:block`; `#tab-Build` is `display:none`; `Fluid Guide` button has class `active` |
+| `showTab('Build')` | `#tab-Build` is `display:block`; hash updated |
+| `showTab('Nonexistent')` | No throw; no tab shown |
+| `toggleDoneRows()` once | Done rows hidden (doneHidden = true by default → first call flips to false, shows done rows) |
+| `toggleDoneRows()` twice | Back to hidden |
+| `applyDoneVisibility()` | `#toggleDoneBtn` text and style updated per `doneHidden` state |
+| `sortProjectTable(0)` | Rows reordered alphabetically by col 0 text |
+
+---
 
 ### Integration Tests (`render.integration.test.js`)
 
-Mocks `fetch` to return the real `tracker-site/data.json` content. After the fetch resolves:
+Mocks `global.fetch` using `fs.readFileSync` to load the real `tracker-site/data.json` from the filesystem. This avoids needing a running HTTP server.
 
-| Tab container | Assertion |
-|---------------|-----------|
-| `#tab-Build` | `innerHTML` is not empty, contains at least one `.build-card` |
-| `#tab-Fluid-Guide` | `innerHTML` contains `<table>` |
-| `#tab-2026-Strategy` | `innerHTML` contains `<input type="checkbox">` |
-| `#tab-Project-Tracker` | `innerHTML` contains `#projectBody` |
-| `#tab-Parts-Inventory` | `innerHTML` contains at least one `<tr>` |
-| `#tab-Spend-Summary` | `innerHTML` contains `<table>` |
-| `#tab-Scheduled-Maintenance` | `innerHTML` contains at least one `<tr>` |
-| `#tab-Shop-Contacts` | `innerHTML` contains `<table>` |
+**Setup pattern:**
+```js
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-Also asserts that all 8 keys are present in `data.json` and that each array has length > 0.
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const realData = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../tracker-site/data.json'), 'utf8')
+);
+
+beforeEach(() => {
+  global.fetch = jest.fn().mockResolvedValue({
+    json: () => Promise.resolve(realData)
+  });
+});
+```
+
+**Assertions (specific values from real `data.json`, not just non-empty):**
+
+| Tab | Specific assertion |
+|-----|--------------------|
+| `#tab-Build` | Contains text `"UFI 18G Turbo"` (first build item name) |
+| `#tab-Fluid-Guide` | Contains text `"Engine Oil (1HD-T)"` (first fluid row) |
+| `#tab-2026-Strategy` | Contains `data-strat="strat-rear-diff"` attribute |
+| `#tab-Project-Tracker` | Contains `id="projectBody"` and text `"Rear Differential Fluid Service"` |
+| `#tab-Parts-Inventory` | Contains text `"PDI Intercooler Kit"` |
+| `#tab-Spend-Summary` | Contains text `"INITIAL PURCHASE"` |
+| `#tab-Scheduled-Maintenance` | Contains text `"Engine Oil + Filter"` |
+| `#tab-Shop-Contacts` | Contains text `"Liam Schram"` |
+
+Also asserts: `data.json` has all 8 expected keys, each array has `length > 0`.
 
 ---
 
@@ -131,21 +198,37 @@ Also asserts that all 8 keys are present in `data.json` and that each array has 
 ```json
 {
   "type": "module",
-  "scripts": { "test": "node --experimental-vm-modules node_modules/.bin/jest" },
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
   "devDependencies": {
     "jest": "^29",
-    "jest-environment-jsdom": "^29"
+    "jest-environment-jsdom": "^29",
+    "@jest/globals": "^29",
+    "babel-jest": "^29",
+    "@babel/preset-env": "^7"
   }
 }
 ```
+
+**`babel.config.json`:**
+```json
+{
+  "presets": [["@babel/preset-env", { "targets": { "node": "current" } }]]
+}
+```
+
+Using Babel transform ensures compatibility if any transitive dependency ships CJS. The `--experimental-vm-modules` flag is still required for Jest 29 ESM support and is explicitly set in the npm script.
 
 **`jest.config.js`:**
 ```js
 export default {
   testEnvironment: 'jsdom',
-  transform: {},
   extensionsToTreatAsEsm: ['.js'],
-  testMatch: ['**/tests/**/*.test.js']
+  testMatch: ['**/tests/**/*.test.js'],
+  transform: {
+    '^.+\\.js$': ['babel-jest', { configFile: './babel.config.json' }]
+  }
 };
 ```
 
@@ -153,15 +236,18 @@ export default {
 
 ## What This Does NOT Cover
 
-- Visual/pixel correctness (no screenshots)
+- Visual/pixel correctness
 - Vercel deployment
 - FastAPI server behaviour
-- The `localStorage` persistence of strategy checkboxes (deferred — needs browser storage mock)
+- `localStorage` persistence of strategy checkboxes (deferred)
+- The `file://` runtime limitation (needs server; not a code bug)
 
 ---
 
 ## Success Criteria
 
 - `npm test` passes with all tests green
-- Integration test confirms all 8 tab containers populate from real `data.json`
-- No test requires a running server
+- Integration test confirms all 8 tab containers populate from real `data.json` with known content values
+- Unit tests assert on specific fixture values
+- Component tests call functions directly (no onclick simulation)
+- No test requires a running HTTP server
