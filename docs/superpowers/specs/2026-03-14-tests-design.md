@@ -19,7 +19,7 @@ Verify that `data.json` is fetched, parsed, and rendered correctly into all 8 ta
 - `tracker-site/data.json` (64KB) is fetched at runtime via `fetch('/data.json')`
 - 8 render functions + 4 utility functions (all in the inline script)
 - Tab buttons use `onclick="showTab('...')"` HTML attributes
-- Node 20, pytest, no existing `package.json`
+- Node 20, no existing `package.json`
 
 ---
 
@@ -178,7 +178,7 @@ beforeEach(() => {
 **Assertions (specific values from real `data.json`, not just non-empty):**
 
 | Tab | Specific assertion |
-|-----|--------------------|
+|-----|---------------------|
 | `#tab-Build` | Contains text `"UFI 18G Turbo"` (first build item name) |
 | `#tab-Fluid-Guide` | Contains text `"Engine Oil (1HD-T)"` (first fluid row) |
 | `#tab-2026-Strategy` | Contains `data-strat="strat-rear-diff"` attribute |
@@ -194,12 +194,11 @@ Also asserts: `data.json` has all 8 expected keys, each array has `length > 0`.
 
 ## Tooling
 
-**`package.json`:**
+**`package.json`** (no `"type": "module"` — Babel handles ESM→CJS transform for Jest):
 ```json
 {
-  "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "jest"
   },
   "devDependencies": {
     "jest": "^29",
@@ -218,19 +217,22 @@ Also asserts: `data.json` has all 8 expected keys, each array has `length > 0`.
 }
 ```
 
-Using Babel transform ensures compatibility if any transitive dependency ships CJS. The `--experimental-vm-modules` flag is still required for Jest 29 ESM support and is explicitly set in the npm script.
+Babel transforms `import`/`export` in both `render.js` and test files to CJS at test-time. This is the standard Jest approach for testing ES module source without `--experimental-vm-modules`. The browser still loads `render.js` as a native ES module via `<script type="module">` — Babel only runs during `npm test`.
 
 **`jest.config.js`:**
 ```js
 export default {
   testEnvironment: 'jsdom',
-  extensionsToTreatAsEsm: ['.js'],
   testMatch: ['**/tests/**/*.test.js'],
   transform: {
     '^.+\\.js$': ['babel-jest', { configFile: './babel.config.json' }]
   }
 };
 ```
+
+No `extensionsToTreatAsEsm`, no `--experimental-vm-modules`. Babel handles the transform.
+
+> **Note:** `jest.config.js` uses `export default` syntax — Babel will transform it just like any other `.js` file. This is consistent with the rest of the project.
 
 ---
 
