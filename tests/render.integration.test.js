@@ -1,14 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import {
   renderBuild, renderFluidGuide, renderStrategy, renderProjectTracker,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
   renderShopContacts, _resetStateForTest
 } from '../tracker-site/render.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dataPath = path.resolve(__dirname, '../tracker-site/data.json');
+const dataPath = path.resolve(process.cwd(), 'tracker-site/data.json');
 const realData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
 const FULL_DOM = `
