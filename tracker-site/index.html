@@ -14,20 +14,22 @@
   table { border-collapse: collapse; width: 100%; font-size: 0.88em; }
   th { background: #2a2a2a; color: #f0a500; padding: 8px 10px; text-align: left; border: 1px solid #333; white-space: nowrap; }
   td { padding: 7px 10px; border: 1px solid #2e2e2e; vertical-align: top; }
-  #tab-Project-Tracker { overflow-x: auto; }
-  #tab-Project-Tracker table { width: 100%; table-layout: auto; border-collapse: collapse; }
-  #tab-Project-Tracker td,
-  #tab-Project-Tracker th { padding: 10px 14px; line-height: 1.5; vertical-align: top; }
-  #tab-Project-Tracker .sortable-header th { cursor: pointer; user-select: none; white-space: nowrap; }
-  #tab-Project-Tracker .sortable-header th:hover { background: #3a3a2a; color: #ffd050; }
-  #tab-Project-Tracker tr.parts-sub td { padding: 5px 14px 5px 32px; border-top: none; font-size: 0.92em; color: #bbb; line-height: 1.7; }
-  #tab-Project-Tracker tr.parts-sub td strong { color: #f0a500; }
-  #tab-Project-Tracker tr.project-main td { border-bottom: none; }
-  #tab-Project-Tracker tr.project-main + tr.parts-sub + tr:not(.parts-sub) td,
-  #tab-Project-Tracker tr.parts-sub:last-child td { border-bottom: 1px solid #2e2e2e; }
-  #projectBody.hide-done tr.status-done { display: none; }
+  #tab-2026-Strategy { overflow-x: auto; }
+  #tab-2026-Strategy table { width: 100%; table-layout: auto; border-collapse: collapse; }
+  #tab-2026-Strategy td,
+  #tab-2026-Strategy th { padding: 10px 14px; line-height: 1.5; vertical-align: top; }
+  #tab-2026-Strategy tr.parts-sub td { padding: 5px 14px 5px 32px; border-top: none; font-size: 0.92em; color: #bbb; line-height: 1.7; }
+  #tab-2026-Strategy tr.parts-sub td strong { color: #f0a500; }
+  #tab-2026-Strategy tr.project-main td { border-bottom: none; }
+  #tab-2026-Strategy tr.project-main + tr.parts-sub + tr:not(.parts-sub) td,
+  #tab-2026-Strategy tr.parts-sub:last-child td { border-bottom: 1px solid #2e2e2e; }
+  #strategyBody.hide-done tr.status-done { display: none; }
   #tab-2026-Strategy td.strat-check { text-align: center; width: 36px; padding: 6px 4px; }
   #tab-2026-Strategy input[type="checkbox"] { width: 18px; height: 18px; accent-color: #f0a500; cursor: pointer; }
+  #tab-Parts-Inventory details.parts-installed { margin-top: 18px; border: 1px solid #333; border-radius: 6px; background: #111; }
+  #tab-Parts-Inventory details.parts-installed summary { cursor: pointer; padding: 10px 14px; font-weight: bold; color: #aaa; user-select: none; }
+  #tab-Parts-Inventory details.parts-installed[open] summary { border-bottom: 1px solid #333; color: #f0a500; }
+  #tab-Parts-Inventory details.parts-installed table { margin: 0; }
   #tab-Spend-Summary th,
   #tab-Spend-Summary td { padding-top: 4px; padding-bottom: 4px; line-height: 1.25; }
   #tab-Spend-Summary th:first-child,
@@ -99,7 +101,6 @@
 <button class="tab-btn active" onclick="showTab('Build')">🔧 Build</button>
 <button class="tab-btn " onclick="showTab('Fluid Guide')">Fluid Guide</button>
 <button class="tab-btn " onclick="showTab('2026 Strategy')">2026 Strategy</button>
-<button class="tab-btn " onclick="showTab('Project Tracker')">Project Tracker</button>
 <button class="tab-btn " onclick="showTab('Parts Inventory')">Parts Inventory</button>
 <button class="tab-btn " onclick="showTab('Spend Summary')">Spend Summary</button>
 <button class="tab-btn " onclick="showTab('Scheduled Maintenance')">Scheduled Maintenance</button>
@@ -108,19 +109,19 @@
 <div id="tab-Build" class="tab-content" style="display:block"></div>
 <div id="tab-Fluid-Guide" class="tab-content" style="display:none"></div>
 <div id="tab-2026-Strategy" class="tab-content" style="display:none"></div>
-<div id="tab-Project-Tracker" class="tab-content" style="display:none"></div>
 <div id="tab-Parts-Inventory" class="tab-content" style="display:none"></div>
 <div id="tab-Spend-Summary" class="tab-content" style="display:none"></div>
 <div id="tab-Scheduled-Maintenance" class="tab-content" style="display:none"></div>
 <div id="tab-Shop-Contacts" class="tab-content" style="display:none"></div>
 <script type="module">
 import {
-  renderBuild, renderFluidGuide, renderStrategy, renderProjectTracker,
+  renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
   renderShopContacts, showTab, applyDoneVisibility
 } from './render.js';
 
 function tabNameFromHash(hash) {
+  if (hash === 'project-tracker') hash = '2026-strategy';
   return hash.split('-').map(function(w) {
     return w.charAt(0).toUpperCase() + w.slice(1);
   }).join(' ');
@@ -132,7 +133,6 @@ fetch('/data.json')
     renderBuild(data.build, data.meta);
     renderFluidGuide(data.fluid_guide);
     renderStrategy(data.strategy_2026);
-    renderProjectTracker(data.project_tracker);
     renderPartsInventory(data.parts_inventory);
     renderSpendSummary(data.spend_summary);
     renderScheduledMaintenance(data.scheduled_maintenance);
@@ -151,9 +151,15 @@ fetch('/data.json')
         var row = cb.closest('tr');
         if (!row) return;
         if (cb.checked) {
-          row.className = 'status-done';
+          var markDone = function(tr) {
+            tr.classList.remove('status-urgent', 'status-low', 'status-planned', 'status-warn');
+            tr.classList.add('status-done');
+          };
+          markDone(row);
           var prioCell = row.cells[1];
           if (prioCell) prioCell.textContent = '\u2705';
+          var sib = row.nextElementSibling;
+          while (sib && sib.classList.contains('parts-sub')) { markDone(sib); sib = sib.nextElementSibling; }
         }
       });
     });

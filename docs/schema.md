@@ -26,30 +26,24 @@
 
 ---
 
-## 2026 Strategy
+## 2026 Strategy (includes the former Project Tracker)
 
 **Required:** `phase`, `task`, `who`, `priority`
-**Optional:** `cost_cad`, `time`, `notes`, `checked` (default: false), `id` (slug)
+**Optional:** `category`, `status`, `cost_cad`, `time`, `notes`, `on_hand`, `still_needed`, `checked` (default: false), `id` (slug)
 
-**Allowed `priority`:** `urgent` | `done` | `low`
+**Allowed `priority`:** `urgent` | `done` | `low` — drives row colour. `checked` must be `true` exactly when `priority` is `done`.
+
+**Allowed `status`:** `URGENT SERVICE` | `NEEDS INVESTIGATION` | `BROKEN — REPLACE` | `NEEDS PARTS` | `ONGOING TRACKING` | `LEAKING — NEEDS BOOKING` | `NEEDS BOOKING` | `SHOP JOB (Pending)` | `PLANNING QUOTE` | `DEFERRED TO REBUILD` | `SCHEDULED 2026/27` | `CAN DO NOW` | `DONE`
+
+`notes`, `on_hand`, and `still_needed` each render as a sub-row under the task. Omit the field (do not use `null` or `"None"`) when there is nothing to say.
 
 **Existing phases:**
+- `PHASE 1 — 2024/2025 | Completed Groundwork` (done-only history)
 - `PHASE 2 — SPRING 2026 | Safety + Driveability + Pre-Summer`
 - `PHASE 3 — SUMMER/FALL 2026 | Cosmetic + Comfort + Rebuild Prep`
 - `PHASE 4 — ENGINE REBUILD PLANNING (Late 2026 / 2027)`
 
----
-
-## Project Tracker
-
-**Required:** `project`, `category`, `who`, `status`, `priority`
-**Optional:** `cost_cad`, `hours`, `notes`, `on_hand`, `still_needed`
-
-**Allowed `status`:** `URGENT SERVICE` | `NEEDS INVESTIGATION` | `BROKEN — REPLACE` | `NEEDS PARTS` | `ONGOING TRACKING` | `LEAKING — NEEDS BOOKING` | `NEEDS BOOKING` | `SHOP JOB (Pending)` | `PLANNING QUOTE` | `DEFERRED TO REBUILD` | `SCHEDULED 2026/27` | `CAN DO NOW` | `DONE`
-
-**Allowed `priority`:** `1 🔴 TOP` | `2 🔴 High` | `3 🟡 Medium` | `4 🟢 Low` | `—`
-
-**Existing sections:** URGENT — Action Required Now · NEEDS PARTS / BOOKING · NEEDS INVESTIGATION / PLANNING · SHOP JOBS — Pending Quote / Schedule · ENGINE REBUILD — Scheduled 2026/2027 · DONE
+**Existing categories:** AC · Body / Maint. · Body / Paint · Brakes / Safety · Drivetrain · Drivetrain / Fluids · Electrical · Electrical / Body · Electrical / Engine · Electrical / Interior · Engine · Engine / Fuel · Engine / Maint. · Engine / Vacuum · Engine Monitoring · Exhaust · Interior · Interior / Audio · Suspension
 
 ---
 

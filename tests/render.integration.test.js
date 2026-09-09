@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import {
-  renderBuild, renderFluidGuide, renderStrategy, renderProjectTracker,
+  renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
   renderShopContacts, _resetStateForTest
 } from '../tracker-site/render.js';
@@ -13,7 +13,6 @@ const FULL_DOM = `
   <div id="tab-Build" class="tab-content" style="display:block"></div>
   <div id="tab-Fluid-Guide" class="tab-content" style="display:none"></div>
   <div id="tab-2026-Strategy" class="tab-content" style="display:none"></div>
-  <div id="tab-Project-Tracker" class="tab-content" style="display:none"></div>
   <div id="tab-Parts-Inventory" class="tab-content" style="display:none"></div>
   <div id="tab-Spend-Summary" class="tab-content" style="display:none"></div>
   <div id="tab-Scheduled-Maintenance" class="tab-content" style="display:none"></div>
@@ -28,11 +27,11 @@ beforeEach(() => {
 describe('data.json structure', () => {
   const EXPECTED_KEYS = [
     'meta', 'build', 'fluid_guide', 'strategy_2026',
-    'project_tracker', 'parts_inventory', 'spend_summary',
+    'parts_inventory', 'spend_summary',
     'scheduled_maintenance', 'shop_contacts'
   ];
 
-  test('has all 9 expected top-level keys', () => {
+  test('has all 8 expected top-level keys', () => {
     EXPECTED_KEYS.forEach(key => {
       expect(realData).toHaveProperty(key);
     });
@@ -52,7 +51,6 @@ describe('full render pipeline with real data', () => {
     renderBuild(realData.build, realData.meta);
     renderFluidGuide(realData.fluid_guide);
     renderStrategy(realData.strategy_2026);
-    renderProjectTracker(realData.project_tracker);
     renderPartsInventory(realData.parts_inventory);
     renderSpendSummary(realData.spend_summary);
     renderScheduledMaintenance(realData.scheduled_maintenance);
@@ -71,10 +69,21 @@ describe('full render pipeline with real data', () => {
     expect(document.querySelector('[data-strat="strat-rear-diff"]')).not.toBeNull();
   });
 
-  test('#tab-Project-Tracker contains #projectBody and "Brake Inspection + Service"', () => {
-    expect(document.getElementById('projectBody')).not.toBeNull();
-    expect(document.getElementById('tab-Project-Tracker').innerHTML)
+  test('#tab-2026-Strategy contains #strategyBody and "Brake Inspection + Service"', () => {
+    expect(document.getElementById('strategyBody')).not.toBeNull();
+    expect(document.getElementById('tab-2026-Strategy').innerHTML)
       .toContain('Brake Inspection + Service');
+  });
+
+  test('#tab-2026-Strategy carries the merged tracker sub-rows (On Hand / Still Needed)', () => {
+    const html = document.getElementById('tab-2026-Strategy').innerHTML;
+    expect(html).toContain('On Hand:');
+    expect(html).toContain('Still Needed:');
+    expect(document.querySelectorAll('#strategyBody tr.parts-sub').length).toBeGreaterThan(20);
+  });
+
+  test('data.json no longer has a project_tracker key', () => {
+    expect(realData.project_tracker).toBeUndefined();
   });
 
   test('#tab-Parts-Inventory contains "PDI Intercooler Kit"', () => {

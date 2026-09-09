@@ -1,5 +1,5 @@
 import {
-  renderBuild, renderFluidGuide, renderStrategy, renderProjectTracker,
+  renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
   renderShopContacts, _resetStateForTest
 } from '../tracker-site/render.js';
@@ -8,7 +8,6 @@ const FULL_DOM = `
   <div id="tab-Build" class="tab-content" style="display:block"></div>
   <div id="tab-Fluid-Guide" class="tab-content" style="display:none"></div>
   <div id="tab-2026-Strategy" class="tab-content" style="display:none"></div>
-  <div id="tab-Project-Tracker" class="tab-content" style="display:none"></div>
   <div id="tab-Parts-Inventory" class="tab-content" style="display:none"></div>
   <div id="tab-Spend-Summary" class="tab-content" style="display:none"></div>
   <div id="tab-Scheduled-Maintenance" class="tab-content" style="display:none"></div>
@@ -114,43 +113,68 @@ describe('renderStrategy', () => {
   });
 });
 
-// ─── renderProjectTracker ────────────────────────────────────────────────────
+// ─── renderStrategy (merged project tracker fields) ─────────────────────────
 
-describe('renderProjectTracker', () => {
-  const sections = [{
-    section: 'URGENT — Action Required Now',
-    projects: [
+describe('renderStrategy merged tracker fields', () => {
+  const phases = [{
+    phase: 'PHASE 2 — SPRING 2026',
+    tasks: [
       {
-        project: 'Rear Differential Fluid Service', category: 'Drivetrain',
-        who: 'Me', status: 'URGENT SERVICE', priority: '1 🔴 TOP',
-        notes: 'Overdue fluid change'
+        id: 'strat-brakes', priority: 'urgent', task: 'Brake Inspection', category: 'Brakes / Safety',
+        who: 'Me', status: 'URGENT SERVICE', cost_cad: 200, time: '2 hrs', checked: false,
+        notes: 'Warning light on', on_hand: 'DOT3 fluid', still_needed: 'Pads if worn'
       },
-      {
-        project: 'Tyre Rotation', category: 'Tyres',
-        who: 'Shop', status: 'NEEDS BOOKING', priority: '3 🟡 Medium'
-      }
+      { id: 'strat-tyres', priority: 'low', task: 'Tyre Rotation', who: 'Shop', status: 'SHOP JOB (Pending)', checked: false },
+      { id: 'strat-oil', priority: 'done', task: 'Oil Change', who: 'Me', status: 'DONE', checked: true }
     ]
   }];
 
-  test('#projectBody exists after render', () => {
-    renderProjectTracker(sections);
-    expect(document.getElementById('projectBody')).not.toBeNull();
+  beforeEach(() => renderStrategy(phases));
+
+  test('#strategyBody and #toggleDoneBtn exist after render', () => {
+    expect(document.getElementById('strategyBody')).not.toBeNull();
+    expect(document.getElementById('toggleDoneBtn')).not.toBeNull();
   });
 
-  test('project name is rendered', () => {
-    renderProjectTracker(sections);
-    expect(document.getElementById('tab-Project-Tracker').innerHTML).toContain('Rear Differential Fluid Service');
+  test('category and status columns are rendered on the main row', () => {
+    const row = document.querySelector('#strategyBody tr.project-main');
+    expect(row.cells.length).toBe(8);
+    expect(row.cells[3].textContent).toBe('Brakes / Safety');
+    expect(row.cells[5].textContent).toBe('URGENT SERVICE');
   });
 
-  test('notes sub-row appears for project with notes', () => {
-    renderProjectTracker(sections);
-    expect(document.getElementById('tab-Project-Tracker').innerHTML).toContain('Overdue fluid change');
+  test('notes, on-hand, and still-needed render as parts-sub rows under the task', () => {
+    const subs = document.querySelectorAll('#strategyBody tr.parts-sub');
+    expect(subs.length).toBe(3);
+    expect(subs[0].textContent).toContain('Notes:');
+    expect(subs[0].textContent).toContain('Warning light on');
+    expect(subs[1].textContent).toContain('On Hand:');
+    expect(subs[1].textContent).toContain('DOT3 fluid');
+    expect(subs[2].textContent).toContain('Still Needed:');
+    expect(subs[2].textContent).toContain('Pads if worn');
   });
 
-  test('no notes sub-row for project without notes', () => {
-    renderProjectTracker(sections);
-    const subRows = document.querySelectorAll('#projectBody tr.parts-sub');
-    expect(subRows.length).toBe(1); // only one project has notes
+  test('sub-rows inherit the status class of their main row', () => {
+    const subs = document.querySelectorAll('#strategyBody tr.parts-sub');
+    subs.forEach(function(tr) { expect(tr.classList.contains('status-urgent')).toBe(true); });
+  });
+
+  test('missing category or status renders as an em dash', () => {
+    const rows = document.querySelectorAll('#strategyBody tr.project-main');
+    expect(rows[1].cells[3].textContent).toBe('—');
+    expect(rows[2].cells[5].textContent).toBe('DONE');
+  });
+
+  test('shop jobs get the planned colour, done rows the done colour', () => {
+    const rows = document.querySelectorAll('#strategyBody tr.project-main');
+    expect(rows[1].classList.contains('status-planned')).toBe(true);
+    expect(rows[2].classList.contains('status-done')).toBe(true);
+  });
+
+  test('done rows are hidden by default (doneHidden starts true)', () => {
+    const rows = document.querySelectorAll('#strategyBody tr.project-main');
+    expect(rows[2].style.display).toBe('none');
+    expect(rows[0].style.display).toBe('');
   });
 });
 
@@ -176,6 +200,38 @@ describe('renderPartsInventory', () => {
   test('on_hand status shows 📦 On Hand', () => {
     renderPartsInventory(parts);
     expect(document.getElementById('tab-Parts-Inventory').innerHTML).toContain('📦 On Hand');
+  });
+
+  test('on_hand rows render before the collapsed installed section', () => {
+    renderPartsInventory(parts);
+    const html = document.getElementById('tab-Parts-Inventory').innerHTML;
+    expect(html.indexOf('Diff Fluid')).toBeLessThan(html.indexOf('<details'));
+    expect(html.indexOf('PDI Intercooler Kit')).toBeGreaterThan(html.indexOf('<details'));
+  });
+
+  test('installed section is a collapsed <details> with a count in its summary', () => {
+    renderPartsInventory(parts);
+    const details = document.querySelector('#tab-Parts-Inventory details');
+    expect(details).not.toBeNull();
+    expect(details.open).toBe(false);
+    expect(details.querySelector('summary').textContent).toContain('(1)');
+  });
+
+  test('used parts are grouped with installed and labelled ✅ Installed', () => {
+    renderPartsInventory([
+      { name: 'Old Filter', vendor: 'Toyota', status: 'used' },
+      { name: 'Spare Belt', vendor: 'Toyota', status: 'on_hand' }
+    ]);
+    const details = document.querySelector('#tab-Parts-Inventory details');
+    expect(details.innerHTML).toContain('Old Filter');
+    expect(details.innerHTML).toContain('✅ Installed');
+    expect(details.innerHTML).not.toContain('Used');
+    expect(details.querySelector('summary').textContent).toContain('(1)');
+  });
+
+  test('no <details> rendered when nothing is installed', () => {
+    renderPartsInventory([{ name: 'Spare Belt', vendor: 'Toyota', status: 'on_hand' }]);
+    expect(document.querySelector('#tab-Parts-Inventory details')).toBeNull();
   });
 });
 

@@ -1,13 +1,12 @@
 import {
-  showTab, toggleDoneRows, applyDoneVisibility, sortProjectTable,
-  renderProjectTracker, _resetStateForTest
+  showTab, toggleDoneRows, applyDoneVisibility,
+  renderStrategy, _resetStateForTest
 } from '../tracker-site/render.js';
 
 const TAB_DOM = `
   <div id="tab-Build" class="tab-content" style="display:block"></div>
   <div id="tab-Fluid-Guide" class="tab-content" style="display:none"></div>
   <div id="tab-2026-Strategy" class="tab-content" style="display:none"></div>
-  <div id="tab-Project-Tracker" class="tab-content" style="display:none"></div>
   <div id="tab-Parts-Inventory" class="tab-content" style="display:none"></div>
   <div id="tab-Spend-Summary" class="tab-content" style="display:none"></div>
   <div id="tab-Scheduled-Maintenance" class="tab-content" style="display:none"></div>
@@ -46,26 +45,29 @@ describe('showTab', () => {
 
 // ─── toggleDoneRows / applyDoneVisibility ────────────────────────────────────
 
+const DONE_PHASE = [{
+  phase: 'PHASE 1',
+  tasks: [{ id: 'strat-oil', priority: 'done', task: 'Oil Change', who: 'Me', status: 'DONE', checked: true, notes: 'Fresh oil' }]
+}];
+
 describe('toggleDoneRows', () => {
   beforeEach(() => {
-    // Render project tracker so #projectBody and #toggleDoneBtn exist
-    document.body.innerHTML += `
-      <div id="tab-Project-Tracker" class="tab-content" style="display:none"></div>
-    `;
-    renderProjectTracker([{
-      section: 'DONE',
-      projects: [{ project: 'Oil Change', category: 'Engine', who: 'Me', status: 'DONE', priority: '—' }]
-    }]);
+    // Render the merged strategy tab so #strategyBody and #toggleDoneBtn exist
+    renderStrategy(DONE_PHASE);
   });
 
   test('first call flips doneHidden to false — done rows become visible', () => {
     // Initial state: doneHidden = true (done rows hidden)
     const btn = document.getElementById('toggleDoneBtn');
     expect(btn.textContent).toBe('Show ✅ Done');
+    expect(document.querySelector('#strategyBody tr.project-main').style.display).toBe('none');
+    expect(document.querySelector('#strategyBody tr.parts-sub').style.display).toBe('none');
 
     toggleDoneRows();
 
     expect(btn.textContent).toBe('Hide ✅ Done');
+    expect(document.querySelector('#strategyBody tr.project-main').style.display).toBe('');
+    expect(document.querySelector('#strategyBody tr.parts-sub').style.display).toBe('');
   });
 
   test('second call flips doneHidden back to true', () => {
@@ -79,10 +81,7 @@ describe('toggleDoneRows', () => {
 
 describe('applyDoneVisibility', () => {
   beforeEach(() => {
-    renderProjectTracker([{
-      section: 'DONE',
-      projects: [{ project: 'Oil Change', category: 'Engine', who: 'Me', status: 'DONE', priority: '—' }]
-    }]);
+    renderStrategy(DONE_PHASE);
   });
 
   test('updates #toggleDoneBtn text and style based on doneHidden state', () => {
@@ -90,34 +89,5 @@ describe('applyDoneVisibility', () => {
     const btn = document.getElementById('toggleDoneBtn');
     expect(btn.textContent).toBe('Show ✅ Done');
     expect(btn.style.background).toBe('rgb(240, 165, 0)'); // #f0a500
-  });
-});
-
-// ─── sortProjectTable ────────────────────────────────────────────────────────
-
-describe('sortProjectTable', () => {
-  beforeEach(() => {
-    renderProjectTracker([{
-      section: 'TEST',
-      projects: [
-        { project: 'Zebra Job', category: 'Engine', who: 'Me', status: 'DONE', priority: '—' },
-        { project: 'Alpha Job', category: 'Engine', who: 'Me', status: 'DONE', priority: '—' }
-      ]
-    }]);
-  });
-
-  test('sorts rows alphabetically by col 0 asc', () => {
-    sortProjectTable(0);
-    const rows = document.querySelectorAll('#projectBody tr.project-main');
-    expect(rows[0].cells[0].textContent).toBe('Alpha Job');
-    expect(rows[1].cells[0].textContent).toBe('Zebra Job');
-  });
-
-  test('second call on same col reverses to desc', () => {
-    sortProjectTable(0);
-    sortProjectTable(0);
-    const rows = document.querySelectorAll('#projectBody tr.project-main');
-    expect(rows[0].cells[0].textContent).toBe('Zebra Job');
-    expect(rows[1].cells[0].textContent).toBe('Alpha Job');
   });
 });

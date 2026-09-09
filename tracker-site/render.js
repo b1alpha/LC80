@@ -19,42 +19,6 @@ export function showTab(name) {
   window.location.hash = name.replace(/ /g, '-').toLowerCase();
 }
 
-export function sortProjectTable(colIdx) {
-  var tbody = document.getElementById('projectBody');
-  if (!tbody) return;
-  var allRows = Array.from(tbody.querySelectorAll('tr'));
-  var groups = [];
-  var current = null;
-  allRows.forEach(function(row) {
-    if (row.classList.contains('project-main')) {
-      current = { main: row, subs: [] };
-      groups.push(current);
-    } else if (current) {
-      current.subs.push(row);
-    }
-  });
-  var dir = projectSortDir[colIdx] === 'asc' ? 'desc' : 'asc';
-  projectSortDir[colIdx] = dir;
-  groups.sort(function(a, b) {
-    var aCell = a.main.cells[colIdx];
-    var bCell = b.main.cells[colIdx];
-    if (!aCell || !bCell) return 0;
-    var aVal = aCell.textContent.trim();
-    var bVal = bCell.textContent.trim();
-    var aNum = parseFloat(aVal);
-    var bNum = parseFloat(bVal);
-    if (!isNaN(aNum) && !isNaN(bNum)) {
-      return dir === 'asc' ? aNum - bNum : bNum - aNum;
-    }
-    return dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-  });
-  groups.forEach(function(g) {
-    tbody.appendChild(g.main);
-    g.subs.forEach(function(s) { tbody.appendChild(s); });
-  });
-  applyDoneVisibility();
-}
-
 export function applyDoneVisibility() {
   var btn = document.getElementById('toggleDoneBtn');
   if (btn) {
@@ -62,7 +26,7 @@ export function applyDoneVisibility() {
     btn.style.background = doneHidden ? '#f0a500' : '#333';
     btn.style.color = doneHidden ? '#111' : '#ccc';
   }
-  var tbody = document.getElementById('projectBody');
+  var tbody = document.getElementById('strategyBody');
   if (!tbody) return;
   tbody.classList.toggle('hide-done', doneHidden);
   var inDoneGroup = false;
@@ -138,94 +102,79 @@ export function renderFluidGuide(rows) {
 }
 
 export function renderStrategy(phases) {
-  var html = '<table><thead>' +
-    '<tr><th colspan="7">\ud83d\udccb SNEAKY PETE \u2014 2026 Strategy &amp; Roadmap | Updated Feb 2026</th></tr>' +
-    '<tr><th style="width:36px">\u2713</th><th>Priority</th><th>Task</th><th>Who</th><th>Est. Cost</th><th>Est. Time</th><th>Notes / Action</th></tr>' +
-    '</thead><tbody>';
-  for (var i = 0; i < phases.length; i++) {
-    var phase = phases[i];
-    html += '<tr><td colspan="7" style="background:#222;color:#f0a500;font-weight:bold;padding:10px 14px;">' + phase.phase + '</td></tr>';
-    for (var j = 0; j < phase.tasks.length; j++) {
-      var t = phase.tasks[j];
-      var rowClass = t.priority === 'urgent' ? 'status-urgent' : t.priority === 'done' ? 'status-done' : 'status-low';
-      var prioEmoji = t.priority === 'urgent' ? '\ud83d\udd34' : t.priority === 'done' ? '\u2705' : '\ud83d\udfe1';
-      html += '<tr class="' + rowClass + '">' +
-        '<td class="strat-check"><input type="checkbox" data-strat="' + t.id + '"' + (t.checked ? ' checked' : '') + '></td>' +
-        '<td>' + prioEmoji + '</td>' +
-        '<td>' + t.task + '</td><td>' + t.who + '</td>' +
-        '<td>' + (t.cost_cad ? '~$' + t.cost_cad : '$0') + '</td>' +
-        '<td>' + (t.time || '\u2014') + '</td><td>' + (t.notes || '') + '</td>' +
-        '</tr>';
-    }
-  }
-  html += '</tbody></table>';
-  document.getElementById('tab-2026-Strategy').innerHTML = html;
-}
-
-export function renderProjectTracker(sections) {
   var statusClass = {
-    'URGENT SERVICE': 'status-urgent', 'NEEDS INVESTIGATION': 'status-urgent',
-    'BROKEN \u2014 REPLACE': 'status-urgent', 'NEEDS PARTS': 'status-urgent',
-    'ONGOING TRACKING': 'status-urgent', 'LEAKING \u2014 NEEDS BOOKING': 'status-warn',
-    'DONE': 'status-done', 'DEFERRED TO REBUILD': 'status-low', 'PLANNING QUOTE': 'status-low',
-    'BRAKE LIGHT ON \u2014 INSPECT NOW': 'status-urgent',
-    'CAN DO NOW': 'status-low',
-    'SHOP JOB (Pending)': 'status-planned',
-    'SHOP JOB (Winter)': 'status-planned',
-    'NOT SOLVED \u2014 DEFERRED': 'status-low',
-    'SCHEDULED 2026/27': 'status-planned'
+    'SHOP JOB (Pending)': 'status-planned', 'SCHEDULED 2026/27': 'status-planned',
+    'LEAKING \u2014 NEEDS BOOKING': 'status-warn', 'NEEDS BOOKING': 'status-warn'
   };
   var html = '<div style="margin-bottom:10px;">' +
     '<button id="toggleDoneBtn" onclick="toggleDoneRows()" style="background:#333;color:#ccc;border:1px solid #555;padding:7px 16px;border-radius:4px;cursor:pointer;font-size:0.9em;">Hide \u2705 Done</button>' +
     '</div>' +
-    '<table id="projectTable">' +
-    '<colgroup><col style="width:22%"><col style="width:12%"><col style="width:14%"><col style="width:20%"><col style="width:8%"><col style="width:6%"><col style="width:10%"></colgroup>' +
-    '<thead>' +
-    '<tr><th colspan="7">\ud83d\udef3 SNEAKY PETE \u2014 LC80 HDJ81 Project Tracker | 170,000 km | 1HD-T | Updated Feb 2026</th></tr>' +
-    '<tr><td colspan="7" style="padding:8px 14px;color:#aaa;font-size:0.85em;">\ud83d\udfe2 CAN DO NOW &nbsp; \ud83d\udfe1 NEEDS PARTS &nbsp; \ud83d\udd0d NEEDS INVESTIGATION &nbsp; \ud83d\udd35 SHOP JOB (Pending) &nbsp; \ud83d\udcc5 SCHEDULED 2026/27 &nbsp; \u2705 DONE</td></tr>' +
-    '<tr class="sortable-header">' +
-    '<th onclick="sortProjectTable(0)">Project \u21c5</th>' +
-    '<th onclick="sortProjectTable(1)">Category \u21c5</th>' +
-    '<th onclick="sortProjectTable(2)">Who \u21c5</th>' +
-    '<th onclick="sortProjectTable(3)">Status \u21c5</th>' +
-    '<th onclick="sortProjectTable(4)">Est. CAD \u21c5</th>' +
-    '<th onclick="sortProjectTable(5)">Hrs \u21c5</th>' +
-    '<th onclick="sortProjectTable(6)">Priority \u21c5</th>' +
-    '</tr></thead><tbody id="projectBody">';
-  for (var i = 0; i < sections.length; i++) {
-    var section = sections[i];
-    html += '<tr><td colspan="7" style="background:#222;color:#f0a500;font-weight:bold;padding:10px 14px;">' + section.section + '</td></tr>';
-    for (var j = 0; j < section.projects.length; j++) {
-      var p = sections[i].projects[j];
-      var isDone = p.status === 'DONE' || (typeof p.status === 'string' && p.status.indexOf('DONE') === 0);
-      var rc = isDone ? 'status-done' : (statusClass[p.status] || 'status-low');
-      var doneClass = isDone ? ' status-done' : '';
-      html += '<tr class="' + rc + ' project-main' + doneClass + '">' +
-        '<td>' + p.project + '</td><td>' + p.category + '</td><td>' + p.who + '</td>' +
-        '<td>' + p.status + '</td><td>' + (p.cost_cad || 0) + '</td><td>' + (p.hours || 0) + '</td><td>' + (p.priority || '\u2014') + '</td>' +
+    '<table id="strategyTable"><thead>' +
+    '<tr><th colspan="8">\ud83d\udccb SNEAKY PETE \u2014 2026 Strategy &amp; Project Tracker | 170,000 km | 1HD-T</th></tr>' +
+    '<tr><td colspan="8" style="padding:8px 14px;color:#aaa;font-size:0.85em;">\ud83d\udd34 Urgent &nbsp; \ud83d\udfe1 Low / Later &nbsp; \u2705 Done &nbsp;|&nbsp; Status: CAN DO NOW \u00b7 NEEDS PARTS \u00b7 NEEDS INVESTIGATION \u00b7 SHOP JOB (Pending) \u00b7 SCHEDULED 2026/27 \u00b7 DEFERRED TO REBUILD</td></tr>' +
+    '<tr><th style="width:36px">\u2713</th><th>Priority</th><th>Task</th><th>Category</th><th>Who</th><th>Status</th><th>Est. Cost</th><th>Est. Time</th></tr>' +
+    '</thead><tbody id="strategyBody">';
+  for (var i = 0; i < phases.length; i++) {
+    var phase = phases[i];
+    html += '<tr><td colspan="8" style="background:#222;color:#f0a500;font-weight:bold;padding:10px 14px;">' + phase.phase + '</td></tr>';
+    for (var j = 0; j < phase.tasks.length; j++) {
+      var t = phase.tasks[j];
+      var isDone = t.priority === 'done';
+      var rc = isDone ? 'status-done' : t.priority === 'urgent' ? 'status-urgent' : (statusClass[t.status] || 'status-low');
+      var prioEmoji = isDone ? '\u2705' : t.priority === 'urgent' ? '\ud83d\udd34' : '\ud83d\udfe1';
+      html += '<tr class="' + rc + ' project-main">' +
+        '<td class="strat-check"><input type="checkbox" data-strat="' + t.id + '"' + (t.checked ? ' checked' : '') + '></td>' +
+        '<td>' + prioEmoji + '</td>' +
+        '<td>' + t.task + '</td><td>' + (t.category || '\u2014') + '</td><td>' + t.who + '</td>' +
+        '<td>' + (t.status || '\u2014') + '</td>' +
+        '<td>' + (t.cost_cad ? '~$' + t.cost_cad : '$0') + '</td>' +
+        '<td>' + (t.time || '\u2014') + '</td>' +
         '</tr>';
-      if (p.notes) html += '<tr class="parts-sub ' + rc + doneClass + '"><td colspan="7">\ud83d\udcdd <strong>Notes:</strong> ' + p.notes + '</td></tr>';
-      if (p.on_hand) html += '<tr class="parts-sub ' + rc + doneClass + '"><td colspan="7">\ud83d\udce6 <strong>On Hand:</strong> ' + p.on_hand + '</td></tr>';
-      if (p.still_needed) html += '<tr class="parts-sub ' + rc + doneClass + '"><td colspan="7">\ud83d\udd0d <strong>Still Needed:</strong> ' + p.still_needed + '</td></tr>';
+      if (t.notes) html += '<tr class="parts-sub ' + rc + '"><td colspan="8">\ud83d\udcdd <strong>Notes:</strong> ' + t.notes + '</td></tr>';
+      if (t.on_hand) html += '<tr class="parts-sub ' + rc + '"><td colspan="8">\ud83d\udce6 <strong>On Hand:</strong> ' + t.on_hand + '</td></tr>';
+      if (t.still_needed) html += '<tr class="parts-sub ' + rc + '"><td colspan="8">\ud83d\udd0d <strong>Still Needed:</strong> ' + t.still_needed + '</td></tr>';
     }
   }
   html += '</tbody></table>';
-  document.getElementById('tab-Project-Tracker').innerHTML = html;
+  document.getElementById('tab-2026-Strategy').innerHTML = html;
   applyDoneVisibility();
 }
 
+
 export function renderPartsInventory(parts) {
-  var statusClass = { installed: 'status-done', on_hand: '', sold: '', used: 'status-done', reference: '' };
-  var statusLabel = { installed: '\u2705 Installed', on_hand: '\ud83d\udce6 On Hand', sold: '\u21a9\ufe0f Sold', used: '\u2705 Used', reference: '\ud83d\udcd6 Reference' };
+  var statusLabel = { installed: '\u2705 Installed', on_hand: '\ud83d\udce6 On Hand', sold: '\u21a9\ufe0f Sold', used: '\u2705 Installed', reference: '\ud83d\udcd6 Reference' };
+  var isInstalled = function(p) { return p.status === 'installed' || p.status === 'used'; };
+  var order = { on_hand: 0, reference: 1, sold: 2 };
+
+  var active = parts.filter(function(p) { return !isInstalled(p); });
+  var installed = parts.filter(isInstalled);
+  active.sort(function(a, b) {
+    var ao = order[a.status] === undefined ? 9 : order[a.status];
+    var bo = order[b.status] === undefined ? 9 : order[b.status];
+    return ao - bo;
+  });
+
+  var headerRow = '<tr><th>Part / Item</th><th>Vendor</th><th>Part Number</th><th>Price Paid</th><th>Currency</th><th>Approx. CAD</th><th>Project / Use</th><th>Status</th></tr>';
+  var rowsHtml = function(list, rc) {
+    var out = '';
+    for (var i = 0; i < list.length; i++) {
+      var p = list[i];
+      out += '<tr class="' + rc + '"><td>' + p.name + '</td><td>' + p.vendor + '</td><td>' + (p.part_number || '\u2014') + '</td><td>' + (p.price_paid || '') + '</td><td>' + (p.currency || '') + '</td><td>' + (p.approx_cad || '') + '</td><td>' + (p.project || '') + '</td><td>' + (statusLabel[p.status] || p.status) + '</td></tr>';
+    }
+    return out;
+  };
+
   var html = '<table><tbody>' +
-    '<tr><th colspan="8">\ud83d\udce6 SNEAKY PETE \u2014 Parts Inventory | Updated Feb 2026</th></tr>' +
-    '<tr><th>Part / Item</th><th>Vendor</th><th>Part Number</th><th>Price Paid</th><th>Currency</th><th>Approx. CAD</th><th>Project / Use</th><th>Status</th></tr>';
-  for (var i = 0; i < parts.length; i++) {
-    var p = parts[i];
-    var rc = statusClass[p.status] || '';
-    html += '<tr class="' + rc + '"><td>' + p.name + '</td><td>' + p.vendor + '</td><td>' + (p.part_number || '\u2014') + '</td><td>' + (p.price_paid || '') + '</td><td>' + (p.currency || '') + '</td><td>' + (p.approx_cad || '') + '</td><td>' + (p.project || '') + '</td><td>' + (statusLabel[p.status] || p.status) + '</td></tr>';
+    '<tr><th colspan="8">\ud83d\udce6 SNEAKY PETE \u2014 Parts Inventory | On Hand (' + active.length + ')</th></tr>' +
+    headerRow + rowsHtml(active, '') +
+    '</tbody></table>';
+
+  if (installed.length) {
+    html += '<details class="parts-installed">' +
+      '<summary>\u2705 Installed (' + installed.length + ')</summary>' +
+      '<table><tbody>' + headerRow + rowsHtml(installed, 'status-done') + '</tbody></table>' +
+      '</details>';
   }
-  html += '</tbody></table>';
   document.getElementById('tab-Parts-Inventory').innerHTML = html;
 }
 
@@ -272,5 +221,4 @@ export function renderShopContacts(contacts) {
 }
 
 window.showTab = showTab;
-window.sortProjectTable = sortProjectTable;
 window.toggleDoneRows = toggleDoneRows;
