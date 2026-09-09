@@ -71,10 +71,10 @@ describe('full render pipeline with real data', () => {
     expect(document.querySelector('[data-strat="strat-rear-diff"]')).not.toBeNull();
   });
 
-  test('#tab-Project-Tracker contains #projectBody and "Rear Differential Fluid Service"', () => {
+  test('#tab-Project-Tracker contains #projectBody and "Brake Inspection + Service"', () => {
     expect(document.getElementById('projectBody')).not.toBeNull();
     expect(document.getElementById('tab-Project-Tracker').innerHTML)
-      .toContain('Rear Differential Fluid Service');
+      .toContain('Brake Inspection + Service');
   });
 
   test('#tab-Parts-Inventory contains "PDI Intercooler Kit"', () => {

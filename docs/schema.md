@@ -45,7 +45,7 @@
 **Required:** `project`, `category`, `who`, `status`, `priority`
 **Optional:** `cost_cad`, `hours`, `notes`, `on_hand`, `still_needed`
 
-**Allowed `status`:** `URGENT SERVICE` | `NEEDS INVESTIGATION` | `BROKEN — REPLACE` | `NEEDS PARTS` | `ONGOING TRACKING` | `LEAKING — NEEDS BOOKING` | `NEEDS BOOKING` | `SHOP JOB (Pending)` | `PLANNING QUOTE` | `DEFERRED TO REBUILD` | `SCHEDULED 2026/27` | `DONE`
+**Allowed `status`:** `URGENT SERVICE` | `NEEDS INVESTIGATION` | `BROKEN — REPLACE` | `NEEDS PARTS` | `ONGOING TRACKING` | `LEAKING — NEEDS BOOKING` | `NEEDS BOOKING` | `SHOP JOB (Pending)` | `PLANNING QUOTE` | `DEFERRED TO REBUILD` | `SCHEDULED 2026/27` | `CAN DO NOW` | `DONE`
 
 **Allowed `priority`:** `1 🔴 TOP` | `2 🔴 High` | `3 🟡 Medium` | `4 🟢 Low` | `—`
 
