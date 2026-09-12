@@ -61,13 +61,12 @@ export function renderFluidGuide(rows) {
 
 export function renderStrategy(phases) {
   var BUCKETS = [
-    { key: 'now', icon: '🔧', title: 'Can do now', statuses: ['CAN DO NOW', 'ONGOING TRACKING'] },
-    { key: 'parts', icon: '📦', title: 'Needs parts', statuses: ['NEEDS PARTS'] },
-    { key: 'shop', icon: '🏪', title: 'Needs shop / booking', statuses: ['URGENT SERVICE', 'NEEDS INVESTIGATION', 'LEAKING — NEEDS BOOKING', 'NEEDS BOOKING', 'SHOP JOB (Pending)', 'BROKEN — REPLACE'] },
-    { key: 'later', icon: '📅', title: 'Later / rebuild', statuses: ['PLANNING QUOTE', 'DEFERRED TO REBUILD', 'SCHEDULED 2026/27'] }
+    { key: 'now', icon: '🔧', title: 'To do', statuses: ['CAN DO NOW', 'ONGOING TRACKING', 'NEEDS PARTS', 'URGENT SERVICE', 'NEEDS INVESTIGATION', 'LEAKING — NEEDS BOOKING', 'NEEDS BOOKING', 'SHOP JOB (Pending)', 'BROKEN — REPLACE'] },
+    { key: 'later', icon: '📅', title: 'Rebuild planning', statuses: ['PLANNING QUOTE', 'DEFERRED TO REBUILD', 'SCHEDULED 2026/27'] }
   ];
   var bucketOf = {};
   BUCKETS.forEach(function(b) { b.statuses.forEach(function(st) { bucketOf[st] = b.key; }); });
+  var statusRank = { 'CAN DO NOW': 0, 'ONGOING TRACKING': 0, 'NEEDS PARTS': 1, 'URGENT SERVICE': 2, 'NEEDS INVESTIGATION': 2, 'LEAKING — NEEDS BOOKING': 2, 'NEEDS BOOKING': 2, 'SHOP JOB (Pending)': 2, 'BROKEN — REPLACE': 2 };
   var statusTag = {
     'CAN DO NOW': 'tag-installed', 'ONGOING TRACKING': 'tag-installed',
     'NEEDS PARTS': 'tag-onhand', 'URGENT SERVICE': 'tag-urgent', 'BROKEN — REPLACE': 'tag-urgent',
@@ -121,7 +120,8 @@ export function renderStrategy(phases) {
     var items = open.filter(function(x) { return (bucketOf[x.t.status] || 'later') === b.key; });
     items.sort(function(p, q) {
       var pu = p.t.priority === 'urgent' ? 0 : 1, qu = q.t.priority === 'urgent' ? 0 : 1;
-      return pu - qu || p.order - q.order;
+      var ps = statusRank[p.t.status] || 0, qs = statusRank[q.t.status] || 0;
+      return pu - qu || ps - qs || p.order - q.order;
     });
     html += '<div class="build-card col col-' + b.key + '"><div class="build-card-header"><span class="card-icon">' + b.icon + '</span> ' + b.title + '<span class="card-count col-count">' + items.length + '</span></div>';
     html += items.length ? items.map(row).join('') : '<div class="build-item col-empty">Nothing here</div>';

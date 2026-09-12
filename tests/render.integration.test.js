@@ -82,7 +82,7 @@ describe('full render pipeline with real data', () => {
   test('#tab-2026-Strategy renders one card per task across the board and done list', () => {
     const taskCount = realData.strategy_2026.reduce((n, p) => n + p.tasks.length, 0);
     expect(document.querySelectorAll('#strategyBody .task-row').length).toBe(taskCount);
-    expect(document.querySelectorAll('#strategyBody .board .col').length).toBe(4);
+    expect(document.querySelectorAll('#strategyBody .board .col').length).toBe(2);
     expect(document.querySelectorAll('#strategyBody .bi-need').length).toBeGreaterThan(5);
     expect(document.getElementById('tab-2026-Strategy').innerHTML).toContain('On hand:');
   });

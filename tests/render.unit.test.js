@@ -159,26 +159,25 @@ describe('renderStrategy board', () => {
     expect(document.querySelectorAll('#strategyBody input[type="checkbox"]').length).toBe(document.querySelectorAll('#strategyBody .task-row').length);
   });
 
-  test('renders four build-style cards as status columns with counts', () => {
+  test('renders two build-style cards: To do and Rebuild planning, with counts', () => {
     const cols = document.querySelectorAll('.board .col');
-    expect(cols.length).toBe(4);
+    expect(cols.length).toBe(2);
     cols.forEach(c => expect(c.classList.contains('build-card')).toBe(true));
-    expect(cols[0].querySelector('.build-card-header').textContent).toContain('Can do now');
-    expect(cols[0].querySelector('.col-count').textContent).toBe('1');
-    expect(cols[2].querySelector('.col-count').textContent).toBe('2');
+    expect(cols[0].querySelector('.build-card-header').textContent).toContain('To do');
+    expect(cols[1].querySelector('.build-card-header').textContent).toContain('Rebuild planning');
+    expect(cols[0].querySelector('.col-count').textContent).toBe('4');
+    expect(cols[1].querySelector('.col-count').textContent).toBe('2');
   });
 
-  test('open tasks land in the column for their status; unknown status goes to later', () => {
-    const [now, parts, shop, later] = colTitles();
-    expect(now).toEqual(['Sway Bar Off']);
-    expect(parts).toEqual(['Bulbs']);
-    expect(shop).toEqual(['Brake Inspection', 'Tyre Rotation']);
+  test('To do orders urgent, then can-do-now, needs-parts, shop; rebuild statuses and unknown go right', () => {
+    const [todo, later] = colTitles();
+    expect(todo).toEqual(['Brake Inspection', 'Sway Bar Off', 'Bulbs', 'Tyre Rotation']);
     expect(later).toEqual(['Valve Check', 'No Status Task']);
   });
 
   test('urgent tasks sort first within a column with the red icon', () => {
-    const shop = document.querySelectorAll('.board .col')[2];
-    const first = shop.querySelector('.task-row');
+    const todo = document.querySelectorAll('.board .col')[0];
+    const first = todo.querySelector('.task-row');
     expect(first.dataset.task).toBe('strat-brakes');
     expect(first.classList.contains('status-urgent')).toBe(true);
     expect(first.querySelector('.bi-status').textContent).toBe('🔴');
@@ -228,7 +227,7 @@ describe('renderStrategy board', () => {
 
   test('empty column shows a placeholder and no done card when nothing is done', () => {
     renderStrategy([{ phase: 'P', tasks: [{ id: 'a', priority: 'low', task: 'A', who: 'Me', status: 'NEEDS PARTS', checked: false }] }]);
-    expect(document.querySelectorAll('.col-empty').length).toBe(3);
+    expect(document.querySelectorAll('.col-empty').length).toBe(1);
     expect(document.querySelector('.strat-done')).toBeNull();
   });
 });
