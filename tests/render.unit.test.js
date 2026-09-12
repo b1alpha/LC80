@@ -1,7 +1,7 @@
 import {
   renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
-  renderShopContacts, _resetStateForTest
+  renderShopContacts
 } from '../tracker-site/render.js';
 
 const FULL_DOM = `
@@ -16,7 +16,6 @@ const FULL_DOM = `
 
 beforeEach(() => {
   document.body.innerHTML = FULL_DOM;
-  _resetStateForTest();
 });
 
 // ─── renderBuild ─────────────────────────────────────────────────────────────
@@ -106,10 +105,9 @@ describe('renderStrategy', () => {
     expect(document.querySelector('#tab-2026-Strategy .task-card.status-done')).not.toBeNull();
   });
 
-  test('checkboxes have data-strat attribute', () => {
+  test('cards carry the task id as data-task', () => {
     renderStrategy(phases);
-    const cb = document.querySelector('[data-strat="strat-rear-diff"]');
-    expect(cb).not.toBeNull();
+    expect(document.querySelector('.task-card[data-task="strat-rear-diff"]')).not.toBeNull();
   });
 });
 
@@ -141,9 +139,10 @@ describe('renderStrategy board', () => {
 
   const colTitles = () => [...document.querySelectorAll('.board .col')].map(c => [...c.querySelectorAll('.task-title')].map(t => t.textContent));
 
-  test('#strategyBody and #toggleDoneBtn exist after render', () => {
+  test('#strategyBody exists after render with no toggle or checkboxes', () => {
     expect(document.getElementById('strategyBody')).not.toBeNull();
-    expect(document.getElementById('toggleDoneBtn')).not.toBeNull();
+    expect(document.getElementById('toggleDoneBtn')).toBeNull();
+    expect(document.querySelector('#strategyBody input[type="checkbox"]')).toBeNull();
   });
 
   test('renders four status columns with counts', () => {
@@ -196,13 +195,13 @@ describe('renderStrategy board', () => {
     expect(card.querySelector('.task-more')).toBeNull();
   });
 
-  test('done tasks go to the done section, hidden by default, with a count', () => {
+  test('done tasks go to the visible done section below the board, with a count', () => {
     const done = document.querySelector('.strat-done');
     expect(done.querySelector('.col-count').textContent).toBe('1');
-    expect(done.style.display).toBe('none');
+    expect(done.style.display).toBe('');
+    expect(done.compareDocumentPosition(document.querySelector('.board')) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy();
     const card = done.querySelector('.task-card[data-task="strat-oil"]');
     expect(card.classList.contains('status-done')).toBe(true);
-    expect(card.querySelector('input').checked).toBe(true);
     expect(document.querySelectorAll('.board .task-card[data-task="strat-oil"]').length).toBe(0);
   });
 

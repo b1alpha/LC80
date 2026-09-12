@@ -16,7 +16,6 @@
   td { padding: 7px 10px; border: 1px solid #2e2e2e; vertical-align: top; }
   #tab-2026-Strategy { max-width: 1400px; }
   .strat-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
-  #toggleDoneBtn { background: #333; color: #ccc; border: 1px solid #555; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 0.85em; }
   .strat-summary { color: #8f8f8f; font-size: 0.9em; }
   .strat-summary strong { color: #fff; font-size: 1.25em; }
   .board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: start; }
@@ -27,8 +26,6 @@
   .task-card.status-urgent { border-left: 3px solid #e03a3a; }
   .task-card.status-done { background: #1c231c; border-color: #2a3a2a; }
   .task-card.status-done .task-title { color: #9c9; text-decoration: line-through; }
-  .task-check { padding-top: 1px; }
-  #tab-2026-Strategy input[type="checkbox"] { width: 17px; height: 17px; accent-color: #f0a500; cursor: pointer; margin: 0; }
   .task-body { flex: 1; min-width: 0; }
   .task-title { margin: 0; font-size: 0.95em; font-weight: 600; color: #f2f2f2; line-height: 1.35; }
   .task-meta { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 4px; font-size: 0.78em; color: #8f8f8f; line-height: 1.4; }
@@ -136,7 +133,7 @@
 import {
   renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
-  renderShopContacts, showTab, applyDoneVisibility
+  renderShopContacts, showTab
 } from './render.js';
 
 function tabNameFromHash(hash) {
@@ -156,28 +153,6 @@ fetch('/data.json')
     renderSpendSummary(data.spend_summary);
     renderScheduledMaintenance(data.scheduled_maintenance);
     renderShopContacts(data.shop_contacts);
-    applyDoneVisibility();
-
-    var boxes = document.querySelectorAll('#tab-2026-Strategy input[type="checkbox"]');
-    boxes.forEach(function(cb) {
-      var key = cb.getAttribute('data-strat');
-      if (!key) return;
-      var saved = localStorage.getItem(key);
-      if (saved === 'true') cb.checked = true;
-      else if (saved === 'false') cb.checked = false;
-      cb.addEventListener('change', function() {
-        localStorage.setItem(key, cb.checked);
-        var row = cb.closest('.task-card');
-        if (!row) return;
-        if (cb.checked) {
-          var markDone = function(tr) {
-            tr.classList.remove('status-urgent', 'status-low', 'status-planned', 'status-warn');
-            tr.classList.add('status-done');
-          };
-          markDone(row);
-        }
-      });
-    });
 
     var hash = window.location.hash.replace('#', '');
     if (hash) showTab(tabNameFromHash(hash));

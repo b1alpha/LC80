@@ -1,6 +1,5 @@
 import {
-  showTab, toggleDoneRows, applyDoneVisibility,
-  renderStrategy, _resetStateForTest
+  showTab, renderStrategy
 } from '../tracker-site/render.js';
 
 const TAB_DOM = `
@@ -17,7 +16,6 @@ const TAB_DOM = `
 
 beforeEach(() => {
   document.body.innerHTML = TAB_DOM;
-  _resetStateForTest();
 });
 
 // ─── showTab ─────────────────────────────────────────────────────────────────
@@ -43,51 +41,19 @@ describe('showTab', () => {
   });
 });
 
-// ─── toggleDoneRows / applyDoneVisibility ────────────────────────────────────
+// ─── done list ───────────────────────────────────────────────────────────────
 
-const DONE_PHASE = [{
-  phase: 'PHASE 1',
-  tasks: [{ id: 'strat-oil', priority: 'done', task: 'Oil Change', who: 'Me', status: 'DONE', checked: true, notes: 'Fresh oil' }]
-}];
-
-describe('toggleDoneRows', () => {
-  beforeEach(() => {
-    // Render the merged strategy tab so #strategyBody and #toggleDoneBtn exist
-    renderStrategy(DONE_PHASE);
-  });
-
-  test('first call flips doneHidden to false — done rows become visible', () => {
-    // Initial state: doneHidden = true (done rows hidden)
-    const btn = document.getElementById('toggleDoneBtn');
-    expect(btn.textContent).toBe('Show ✅ Done');
-    expect(document.querySelector('#strategyBody .task-card').style.display).toBe('none');
-    expect(document.querySelector('#strategyBody .strat-done').style.display).toBe('none');
-
-    toggleDoneRows();
-
-    expect(btn.textContent).toBe('Hide ✅ Done');
-    expect(document.querySelector('#strategyBody .task-card').style.display).toBe('');
-    expect(document.querySelector('#strategyBody .strat-done').style.display).toBe('');
-  });
-
-  test('second call flips doneHidden back to true', () => {
-    toggleDoneRows(); // → false
-    toggleDoneRows(); // → true
-
-    const btn = document.getElementById('toggleDoneBtn');
-    expect(btn.textContent).toBe('Show ✅ Done');
-  });
-});
-
-describe('applyDoneVisibility', () => {
-  beforeEach(() => {
-    renderStrategy(DONE_PHASE);
-  });
-
-  test('updates #toggleDoneBtn text and style based on doneHidden state', () => {
-    applyDoneVisibility();
-    const btn = document.getElementById('toggleDoneBtn');
-    expect(btn.textContent).toBe('Show ✅ Done');
-    expect(btn.style.background).toBe('rgb(240, 165, 0)'); // #f0a500
+describe('done list', () => {
+  test('done tasks render below the board, visible, with no toggle button', () => {
+    renderStrategy([{
+      phase: 'PHASE 1',
+      tasks: [{ id: 'strat-oil', priority: 'done', task: 'Oil Change', who: 'Me', status: 'DONE', checked: true, notes: 'Fresh oil' }]
+    }]);
+    const done = document.querySelector('#strategyBody .strat-done');
+    expect(done).not.toBeNull();
+    expect(done.style.display).toBe('');
+    expect(done.querySelector('.task-card.status-done .task-title').textContent).toBe('Oil Change');
+    expect(document.getElementById('toggleDoneBtn')).toBeNull();
+    expect(document.querySelector('#strategyBody input[type="checkbox"]')).toBeNull();
   });
 });

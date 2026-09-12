@@ -3,7 +3,7 @@ import path from 'path';
 import {
   renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
-  renderShopContacts, _resetStateForTest
+  renderShopContacts
 } from '../tracker-site/render.js';
 
 const dataPath = path.resolve(process.cwd(), 'tracker-site/data.json');
@@ -21,7 +21,6 @@ const FULL_DOM = `
 
 beforeEach(() => {
   document.body.innerHTML = FULL_DOM;
-  _resetStateForTest();
 });
 
 describe('data.json structure', () => {
@@ -65,8 +64,8 @@ describe('full render pipeline with real data', () => {
     expect(document.getElementById('tab-Fluid-Guide').innerHTML).toContain('Engine Oil (1HD-T)');
   });
 
-  test('#tab-2026-Strategy contains data-strat="strat-rear-diff"', () => {
-    expect(document.querySelector('[data-strat="strat-rear-diff"]')).not.toBeNull();
+  test('#tab-2026-Strategy contains the strat-rear-diff card', () => {
+    expect(document.querySelector('.task-card[data-task="strat-rear-diff"]')).not.toBeNull();
   });
 
   test('#tab-2026-Strategy contains #strategyBody and "Brake Inspection + Service"', () => {

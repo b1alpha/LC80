@@ -1,11 +1,3 @@
-let projectSortDir = {};
-let doneHidden = true;
-
-export function _resetStateForTest() {
-  projectSortDir = {};
-  doneHidden = true;
-}
-
 export function showTab(name) {
   document.querySelectorAll('.tab-content').forEach(function(el) { el.style.display = 'none'; });
   document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
@@ -17,28 +9,6 @@ export function showTab(name) {
     if (label === name || label.endsWith(name)) btn.classList.add('active');
   });
   window.location.hash = name.replace(/ /g, '-').toLowerCase();
-}
-
-export function applyDoneVisibility() {
-  var btn = document.getElementById('toggleDoneBtn');
-  if (btn) {
-    btn.textContent = doneHidden ? 'Show \u2705 Done' : 'Hide \u2705 Done';
-    btn.style.background = doneHidden ? '#f0a500' : '#333';
-    btn.style.color = doneHidden ? '#111' : '#ccc';
-  }
-  var body = document.getElementById('strategyBody');
-  if (!body) return;
-  body.classList.toggle('hide-done', doneHidden);
-  Array.from(body.querySelectorAll('.task-card.status-done')).forEach(function(card) {
-    card.style.display = doneHidden ? 'none' : '';
-  });
-  var done = body.querySelector('.strat-done');
-  if (done) done.style.display = doneHidden ? 'none' : '';
-}
-
-export function toggleDoneRows() {
-  doneHidden = !doneHidden;
-  applyDoneVisibility();
 }
 
 export function renderBuild(cards, meta) {
@@ -130,7 +100,6 @@ export function renderStrategy(phases) {
     var t = x.t;
     var rc = t.priority === 'urgent' ? 'status-urgent' : 'status-low';
     return '<article class="task-card ' + rc + '" data-task="' + t.id + '">' +
-      '<label class="task-check"><input type="checkbox" data-strat="' + t.id + '"' + (t.checked ? ' checked' : '') + '></label>' +
       '<div class="task-body">' +
       '<h4 class="task-title">' + t.task + '</h4>' +
       meta(x) +
@@ -145,7 +114,6 @@ export function renderStrategy(phases) {
 
   var html = '<div class="strat-toolbar">' +
     '<span class="strat-summary"><strong>' + open.length + '</strong> open \u00b7 <strong>' + urgentCount + '</strong> urgent \u00b7 <strong>' + done.length + '</strong> done</span>' +
-    '<button id="toggleDoneBtn" onclick="toggleDoneRows()">Hide \u2705 Done</button>' +
     '</div>' +
     '<div id="strategyBody"><div class="board">';
 
@@ -166,7 +134,6 @@ export function renderStrategy(phases) {
     done.forEach(function(x) {
       var t = x.t;
       html += '<div class="task-card status-done" data-task="' + t.id + '">' +
-        '<label class="task-check"><input type="checkbox" data-strat="' + t.id + '" checked></label>' +
         '<div class="task-body"><h4 class="task-title">' + t.task + '</h4>' + meta(x) +
         (t.notes ? '<details class="task-more"><summary>Notes</summary><p>' + t.notes + '</p></details>' : '') +
         '</div></div>';
@@ -175,7 +142,6 @@ export function renderStrategy(phases) {
   }
   html += '</div>';
   document.getElementById('tab-2026-Strategy').innerHTML = html;
-  applyDoneVisibility();
 }
 
 
@@ -259,4 +225,3 @@ export function renderShopContacts(contacts) {
 }
 
 window.showTab = showTab;
-window.toggleDoneRows = toggleDoneRows;
