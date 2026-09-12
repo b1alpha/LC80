@@ -16,80 +16,60 @@
       "category": "Engine / Power",
       "icon": "⚙️",
       "items": [
-        { "status": "installed", "name": "UFI 18G Turbo (20psi)", "note": "Upgraded from factory CT26. Direct bolt-on. Running at 20psi.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "PDI Front Mount Intercooler", "note": "50–100°C charge temp reduction. Confirmed installed with turbo. Critical safety margin for pump tune.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "TerraClean Fuel System Service", "note": "Full fuel system clean done at ~165,000 km. Injectors confirmed serviceable.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Engine Hoses (Replaced)", "note": "New rubber engine hoses installed.", "tags": ["INSTALLED"] },
-        { "status": "urgent", "name": "BEB Fix — ACL Race Bearings + Rod Bolts", "note": "Do before pump tune. Parts on hand. ~3–4hrs Liam. Common 1HD-T failure — do not run up boost on unresolved bearings.", "tags": ["PARTS ON HAND", "DO FIRST"] },
-        { "status": "planned", "name": "Valve Adjustment", "note": "Jon Fox recommended. Check before sending pump. Good time to do it while engine access is open for pump removal.", "tags": ["PLANNED"] },
-        { "status": "planned", "name": "3\" Exhaust", "note": "Reduces backpressure. Needed for full efficiency at 20psi+.", "tags": ["PLANNED"] },
-        { "status": "planned", "name": "Pump Tune — Jon Fox @ Black Fox Diesel", "note": "Remove pump → drain fuel → ship to Celista BC (5124 Meadow Creek Rd) → bench rebuild + tune → reinstall. $1,300 CAD basic (gaskets, seals, calibration). Jon already has full build context from Oct 2024 emails. Fine-tune after install recommended. No injector work needed.", "tags": ["PLANNED"] },
-        { "status": "planned", "name": "1HD-T Engine Rebuild — Eli (Edmonton)", "note": "Full long block rebuild scheduled with Eli in Edmonton. Head, block, crank, rods, pistons, bearings, cam. One worn cylinder ring confirmed — oil consumption 2.3L / 9,000 km. Target late 2026 / 2027. Most gasket + seal parts on hand.", "tags": ["PLANNED — 2026/27"] }
+        { "name": "UFI 18G Turbo (20psi)", "note": "Upgraded from factory CT26. Direct bolt-on. Running at 20psi." },
+        { "name": "PDI Front Mount Intercooler", "note": "50–100°C charge temp reduction. Confirmed installed with turbo. Critical safety margin for pump tune." },
+        { "name": "Injection Pump Tuned", "note": "Fuel pump tuned to suit the 18G turbo. (Jon Fox bench refurb of pump + injectors, quoted $1,600, still planned with the engine rebuild.)" },
+        { "name": "Air Filter + Cyclone Pre-Cleaner", "note": "New air filter, plus a cyclone pre-cleaner off a Manitou loader fitted ahead of the airbox to spin dust out before the filter." }
       ]
     },
     {
       "category": "Drivetrain / Axles",
       "icon": "🔩",
       "items": [
-        { "status": "installed", "name": "Rear Axle Rebuild + E-Brakes", "note": "Rear axles rebuilt and e-brakes serviced.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Passenger Birfield Rebuild", "note": "Done. EBI Cruisers Estimate #92098 (Nov 2025) — Koyo bearing kit, chassis grease, 80/90 gear oil.", "tags": ["INSTALLED"] },
-        { "status": "planned", "name": "Driver Knuckle Gaskets", "note": "EBI did hub-level only — knuckle not torn down. Now leaking. Liam job, ~2hrs, ~$200.", "tags": ["PLANNED — LEAKING"] },
-        { "status": "on_hand", "name": "Slave Cylinder Replacement", "note": "Part on hand. ~1hr Liam.", "tags": ["PARTS ON HAND"] },
-        { "status": "installed", "name": "Eaton E-Locker (Rear Diff)", "note": "Terrain Tamer 14212-1. Installed at ~160,000 km at Liam's alongside turbo install.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Rear Diff Fluid Service", "note": "Done alongside E-Locker install at ~160,000 km at Liam's.", "tags": ["INSTALLED"] }
+        { "name": "Eaton E-Locker (Rear Diff)", "note": "Terrain Tamer 14212-1. Installed at ~160,000 km at Liam's alongside turbo install." }
       ]
     },
     {
       "category": "Offroad Capability",
       "icon": "🏔️",
       "items": [
-        { "status": "installed", "name": "37\" Tires", "note": "Full set of 37\" tires fitted.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Aluminum Front Bumper", "note": "Aftermarket aluminum front bumper installed.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Custom Winch Plate (Fabricated + Powder Coated)", "note": "Custom fabricated by Steel Inc. Powder coated.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "VEVOR 13,000lb Electric Winch", "note": "Winch installed with control box relocated.", "tags": ["INSTALLED"] }
+        { "name": "37\" Tires", "note": "Full set of 37\" tires fitted." },
+        { "name": "Aluminum Front Bumper", "note": "Aftermarket aluminum front bumper installed." }
       ]
     },
     {
       "category": "Suspension",
       "icon": "🔧",
       "items": [
-        { "status": "installed", "name": "Dobinson Super Slinky Springs (Front + Rear)", "note": "C97-144VT front + C97-145VT rear. Installed.", "tags": ["INSTALLED"] },
-        { "status": "planned", "name": "Rear Sway Bar — Remove", "note": "Passenger side end link broke. Pulling the rear sway bar entirely instead of replacing the link (common 80-series mod, better articulation).", "tags": ["PLANNED"] }
+        { "name": "Dobinson Super Slinky Springs (Front + Rear)", "note": "C97-144VT front + C97-145VT rear. Installed." },
+        { "name": "Adjustable Control Arms + Panhard Rods", "note": "Adjustable bars fitted with the lift to set caster and centre the axles. Brand / part numbers to confirm." },
+        { "name": "Drop Brackets", "note": "Drop brackets fitted with the lift to correct link geometry at the new ride height. Brand to confirm." },
+        { "name": "New Suspension Links", "note": "All links replaced with the lift (control arm + end links). Rear sway bar is being removed rather than re-linked." }
       ]
     },
     {
-      "category": "Cooling / Fluids",
-      "icon": "🌡️",
-      "items": [
-        { "status": "installed", "name": "Full Coolant Flush", "note": "Done at ~160,000 km at Liam's alongside turbo install.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Trans Fluid Service (Red Line MT-90)", "note": "H151F. Refilled with Red Line MT-90 (GL-4) at ~170,000 km (Apr 2026, DIY).", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Rear Diff Fluid Change (AMSOIL 75W-140)", "note": "Drained dark oil + refilled with AMSOIL Severe Gear 75W-140 GL-5 at ~170,000 km (Apr 2026, DIY).", "tags": ["INSTALLED"] }
-      ]
-    },
-    {
-      "category": "Body / Paint",
+      "category": "Exterior",
       "icon": "🎨",
       "items": [
-        { "status": "installed", "name": "Rear Tailgate Replacement", "note": "Replacement tailgate from EBI Cruisers.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "ARB Base Rack 84\"×51\" (BASE81)", "note": "Full-size roof rack from West Coast Offroaders.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Roof Epoxy Prime", "note": "Bill's Paint Shop, May 2024 (Inv. 1376). Ready for final coat.", "tags": ["DONE"] },
-        { "status": "planned", "name": "Roof Final Paint + Bondo", "note": "Return to Bill's or Pro-Tech Collision (Prince George).", "tags": ["PLANNED"] }
+        { "name": "Roof Repainted", "note": "Roof stripped and epoxy primed at Bill's Paint Shop (May 2024, Inv. 1376), then finished in new paint." },
+        { "name": "Custom Winch Plate — Tiffany Blue", "note": "Custom fabricated by Steel Inc, powder coated Tiffany blue." },
+        { "name": "VEVOR 13,000 lb Electric Winch — Tiffany Blue", "note": "Finished in Tiffany blue to match the plate. Control box relocated, cut-off switch wired." },
+        { "name": "New Rear Tailgate", "note": "Replacement tailgate from EBI Cruisers." },
+        { "name": "ARB Base Rack 84\"×51\" (BASE81)", "note": "Full-size roof rack from West Coast Offroaders." }
       ]
     },
     {
       "category": "Interior / Electrical",
       "icon": "💡",
       "items": [
-        { "status": "installed", "name": "Sony DSX-GS80 Head Unit + Sub", "note": "45Wx4 head unit installed with subwoofer.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Rockford Fosgate R165-S Rear Door Speakers", "note": "6.5\" speakers + amp wiring.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Air Horn", "note": "Installed and wired.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Yaesu FTM-6000R Dual Band Radio", "note": "50W 144/430MHz FM mobile transceiver. DX Engineering Order #0004937.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Auber Digital Gauges (EGT + Boost)", "note": "SYL-2813 EGT + SYL-1813 Boost. Replaced GlowShift set.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "SEALIGHT LED Headlights", "note": "H4/9003 LED headlight bulbs.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "Wiring Cleanup (6-Relay Fuse Box + Winch Cut-Off)", "note": "Fuse box installed, winch cut-off wired, control box relocated.", "tags": ["INSTALLED"] },
-        { "status": "installed", "name": "ARB Outback Cargo Drawers x2", "note": "RD1045 x2 + floor adaptor kit from West Coast Offroaders.", "tags": ["INSTALLED"] },
-        { "status": "planned", "name": "Dash Bulb Replacement", "note": "First set fitted but poor output — reorder a different type and reinstall. ~$40 + 30 min.", "tags": ["PLANNED"] },
-        { "status": "installed", "name": "Fuel Door Cable", "note": "Installed alongside hood release cable. Partsouq OEM.", "tags": ["INSTALLED"] }
+        { "name": "Sony DSX-GS80 Head Unit + Sub", "note": "45Wx4 head unit installed with subwoofer." },
+        { "name": "Rockford Fosgate R165-S Rear Door Speakers", "note": "6.5\" speakers + amp wiring." },
+        { "name": "Air Horn", "note": "Installed and wired." },
+        { "name": "Yaesu FTM-6000R Dual Band Radio", "note": "50W 144/430MHz FM mobile transceiver. DX Engineering Order #0004937." },
+        { "name": "Auber Digital Gauges (EGT + Boost)", "note": "SYL-2813 EGT + SYL-1813 Boost. Replaced GlowShift set." },
+        { "name": "SEALIGHT LED Headlights", "note": "H4/9003 LED headlight bulbs." },
+        { "name": "Wiring Cleanup (6-Relay Fuse Box + Winch Cut-Off)", "note": "Fuse box installed, winch cut-off wired, control box relocated." },
+        { "name": "ARB Outback Cargo Drawers x2", "note": "RD1045 x2 + floor adaptor kit from West Coast Offroaders." }
       ]
     }
   ],
@@ -119,7 +99,13 @@
         { "id": "strat-led-signals", "checked": true, "priority": "done", "task": "LED Turn Signals — Install", "category": "Electrical", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "1.5 hrs" },
         { "id": "strat-birfield", "checked": true, "priority": "done", "task": "Passenger Birfield Joint Replacement", "category": "Drivetrain", "who": "EBI Cruisers", "status": "DONE", "cost_cad": 1298, "time": "5.5 hrs", "notes": "Passenger birfield rebuilt by EBI Cruisers (Nov 2025). Both sides now done." },
         { "id": "strat-brakes", "checked": true, "priority": "done", "task": "Brake Inspection + Service (~155k)", "category": "Brakes / Safety", "who": "Liam Schram", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "Inspected at ~155,000 km. No immediate brake service needed now." },
-        { "id": "strat-airfilter", "checked": true, "priority": "done", "task": "Air Filter Service / Check", "category": "Engine / Maint.", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "30 min", "notes": "New filter installed when turbo was done (~8,000 km ago). Recheck at ~20,000 km from turbo install." }
+        { "id": "strat-airfilter", "checked": true, "priority": "done", "task": "Air Filter Service / Check", "category": "Engine / Maint.", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "30 min", "notes": "New filter installed with the turbo (~160k); replaced again in 2026 along with a Manitou-loader cyclone pre-cleaner. See Maintenance Log." },
+        { "id": "strat-terraclean", "checked": true, "priority": "done", "task": "TerraClean Fuel System Service", "category": "Engine / Fuel", "who": "Shop", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "Full fuel system clean at ~165,000 km. Injectors confirmed serviceable." },
+        { "id": "strat-engine-hoses", "checked": true, "priority": "done", "task": "Engine Hoses Replaced", "category": "Engine / Maint.", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "New rubber engine hoses installed." },
+        { "id": "strat-coolant-flush", "checked": true, "priority": "done", "task": "Full Coolant Flush", "category": "Cooling", "who": "Liam Schram", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "Done at ~160,000 km alongside the turbo install." },
+        { "id": "strat-rear-axle", "checked": true, "priority": "done", "task": "Rear Axle Rebuild + E-Brake Service", "category": "Drivetrain", "who": "Shop", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "Rear axles rebuilt and e-brakes serviced." },
+        { "id": "strat-rear-diff-160k", "checked": true, "priority": "done", "task": "Rear Diff Fluid Service @ 160k", "category": "Drivetrain / Fluids", "who": "Liam Schram", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "Done alongside the E-Locker install at ~160,000 km. Superseded by the Apr 2026 AMSOIL change." },
+        { "id": "strat-roof-prime", "checked": true, "priority": "done", "task": "Roof Stripped + Epoxy Primed", "category": "Body / Paint", "who": "Bill's Paint Shop", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "May 2024, Inv. 1376. Ready for final fill + topcoat (see Roof — Fix 2 Holes + Final Paint)." }
       ]
     },
     {
@@ -132,9 +118,10 @@
         { "id": "strat-window", "checked": false, "priority": "urgent", "task": "Passenger Front Window — Lube Regulator (same session as running strips)", "category": "Electrical / Interior", "who": "DIY — Brennon (roadside OK)", "status": "CAN DO NOW", "cost_cad": 30, "time": "1–1.5 hrs", "notes": "Do together with the door glass running strips above — door card is already off. Mechanical friction, not electrical: lube regulator pivots + felt channels. Motor likely fine. No regulator replacement, no Liam needed.", "on_hand": "14ga wire · Nitrile gloves", "still_needed": "Nothing beyond the running strips already on hand — lube only" },
         { "id": "strat-suspension", "checked": false, "priority": "urgent", "task": "Centre Rear Suspension + Linkage Adjust", "category": "Suspension", "who": "Steve — EBI Cruisers", "status": "NEEDS INVESTIGATION", "cost_cad": 625, "time": "3 hrs", "notes": "Have shop measure lateral control rod centering, then adjust Dobinson linkages for current ride height. (Sway bar link no longer part of this job — bar is coming off.)", "on_hand": "Rear hub wheel bearing seal/service kit x2 (RADD Cruisers)" },
         { "id": "strat-ac", "checked": false, "priority": "urgent", "task": "AC Diagnosis + Refrigerant Correction", "category": "AC", "who": "Liam Schram", "status": "NEEDS INVESTIGATION", "cost_cad": 0, "time": "0.2 hrs", "notes": "System serviced and possibly over-filled. Have shop check pressures + correct charge. Sealer kit on hand if needed.", "on_hand": "A/C sealer cartridge x4 + professional A/C sealer injection kit (Lubeworx)" },
-        { "id": "strat-bigend", "checked": false, "priority": "urgent", "task": "Big End Bearings — Preventive Replacement", "category": "Engine", "who": "Liam Schram", "status": "NEEDS PARTS", "cost_cad": 415, "time": "3 hrs", "notes": "Known 1HD-T failure point — bearing shells delaminate silently. Drop sump, replace ACL shells + new rod bolts one cap at a time, plastigauge journals. In-car job, no engine pull. Cheap insurance before full rebuild — catastrophic if left.", "still_needed": "ACL bearing shells + rod bolts + FIPG sealant" },
+        { "id": "strat-bigend", "checked": false, "priority": "urgent", "task": "Big End Bearings — Preventive Replacement", "category": "Engine", "who": "Liam Schram", "status": "NEEDS PARTS", "cost_cad": 415, "time": "3 hrs", "notes": "Do BEFORE the pump tune — do not run up boost on old bearings. Known 1HD-T failure point — bearing shells delaminate silently. Drop sump, replace ACL shells + new rod bolts one cap at a time, plastigauge journals. In-car job, no engine pull. Cheap insurance before full rebuild — catastrophic if left.", "still_needed": "ACL bearing shells + rod bolts + FIPG sealant" },
         { "id": "strat-knuckle", "checked": false, "priority": "low", "task": "Driver Side Knuckle Gasket + Seal Replacement", "category": "Drivetrain", "who": "Liam Schram", "status": "LEAKING — NEEDS BOOKING", "cost_cad": 40, "time": "2 hrs", "notes": "EBI inspected/tightened the driver-side wheel bearing (Nov 2025) but did not open the knuckle. Now leaking. Full knuckle-off: swap felt seals + rubber gasket, repack. Batch with PG trip to Liam. Passenger side done.", "still_needed": "Knuckle felt seals + rubber outer gasket — Source: Partsouq or RADD Cruisers (~$20–40)" },
         { "id": "strat-fuel-door", "checked": true, "priority": "done", "task": "Fuel Door Cable — Replaced", "category": "Body / Maint.", "who": "DIY", "status": "DONE", "cost_cad": 50, "time": "1 hr", "notes": "Done — installed alongside the hood release cable. Partsouq OEM cable." },
+        { "id": "strat-slave-cyl", "checked": false, "priority": "low", "task": "Clutch Slave Cylinder Replacement", "category": "Drivetrain", "who": "Liam Schram", "status": "NEEDS BOOKING", "cost_cad": 0, "time": "1 hr", "notes": "Part on hand (HD Auto). Batch with the next Liam visit.", "on_hand": "Clutch slave cylinder (HD Auto)" },
         { "id": "strat-hood-cable", "checked": true, "priority": "done", "task": "Hood Release Cable Install", "category": "Body / Maint.", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "20 min", "notes": "Installed. Hood access restored." },
         { "id": "strat-rear-diff", "checked": true, "priority": "done", "task": "Rear Differential Fluid (AMSOIL 75W-140)", "category": "Drivetrain / Fluids", "who": "DIY — Brennon", "status": "DONE", "cost_cad": 0, "time": "30 min", "notes": "Done Apr 2026 @ ~170k (DIY). Dark rear diff oil drained + refilled with AMSOIL Severe Gear 75W-140 GL-5 (preferred). Matches front diff + transfer case. Next due 210k." },
         { "id": "strat-trans-fluid", "checked": true, "priority": "done", "task": "Transmission Fluid Change (Red Line MT-90)", "category": "Drivetrain / Fluids", "who": "DIY — Brennon", "status": "DONE", "cost_cad": 0, "time": "1 hr", "notes": "Done Apr 2026 @ ~170k (DIY). Drained prior 75W-80 FM fill, refilled with Red Line MT-90 (GL-4) — preferred spec. Next drain at synchro rebuild." },
@@ -149,8 +136,8 @@
       "phase": "PHASE 3 — SUMMER/FALL 2026 | Cosmetic + Comfort + Rebuild Prep",
       "tasks": [
         { "id": "strat-synchro-decision", "checked": false, "priority": "low", "task": "Transmission — Synchro Rebuild (2nd gear) — Run Until It Fails", "category": "Drivetrain", "who": "Liam Schram", "status": "DEFERRED TO REBUILD", "cost_cad": 600, "time": "8+ hrs", "notes": "Decision: not rebuilding until it fails. 2nd gear is workable with double-clutching and the trans works well in 4Lo. Fluid change to Red Line MT-90 (Apr 2026) made no difference, so it is the synchro, not the oil. Revisit only if it gets worse.", "on_hand": "Red Line MT-90 (GL-4) already installed Apr 2026 at ~170k. Refill MT-90 again at rebuild." },
-        { "id": "strat-roof", "checked": false, "priority": "low", "task": "Roof — Fix 2 Holes + Final Paint", "category": "Body / Paint", "who": "Bill's Paint / Pro-Tech", "status": "SHOP JOB (Pending)", "cost_cad": 400, "time": "1 day", "notes": "Roof is stripped + epoxy primed. Return to Bill's or Pro-Tech Collision (PG) to fill holes, block sand, and topcoat. Book early — paint shops book out.", "on_hand": "Roof already stripped + epoxy primed (Bill's Paint, May 2024) ✅", "still_needed": "Bondo for 2 holes · Final colour-matched paint + clear coat" },
-        { "id": "strat-exhaust", "checked": false, "priority": "low", "task": "3\" Exhaust System", "category": "Exhaust", "who": "Local Exhaust Shop", "status": "SHOP JOB (Pending)", "cost_cad": 500, "time": "4 hrs", "notes": "Any 3\" system, not side-pipe specific. Stainless preferred for longevity. Get quote from local exhaust shop.", "still_needed": "3\" mandrel-bent exhaust system — Confirm routing + exit point with shop" },
+        { "id": "strat-roof", "checked": true, "priority": "done", "task": "Roof — Holes Filled + Final Paint", "category": "Body / Paint", "who": "Bill's Paint / Pro-Tech", "status": "DONE", "cost_cad": 400, "time": "1 day", "notes": "Done — roof finished after the May 2024 epoxy prime. (Marked done from the Sept 2026 build sheet update; shop and cost to confirm.)", "on_hand": "Roof already stripped + epoxy primed (Bill's Paint, May 2024) ✅" },
+        { "id": "strat-exhaust", "checked": false, "priority": "low", "task": "3\" Exhaust System", "category": "Exhaust", "who": "Local Exhaust Shop", "status": "SHOP JOB (Pending)", "cost_cad": 500, "time": "4 hrs", "notes": "Reduces backpressure — needed for full efficiency at 20 psi+. Any 3\" system, not side-pipe specific. Stainless preferred for longevity. Get quote from local exhaust shop.", "still_needed": "3\" mandrel-bent exhaust system — Confirm routing + exit point with shop" },
         { "id": "strat-flares", "checked": false, "priority": "low", "task": "Fender Flare Weather Stripping", "category": "Body / Paint", "who": "DIY (roadside OK)", "status": "NEEDS PARTS", "cost_cad": 60, "time": "1 hr", "notes": "Small job, big improvement in water management. Clip/adhesive — DIY roadside OK once parts arrive.", "still_needed": "Fender flare weather strip seal — Source: Partsouq" }
       ]
     },
@@ -158,9 +145,9 @@
       "phase": "PHASE 4 — ENGINE REBUILD PLANNING (Late 2026 / 2027)",
       "tasks": [
         { "id": "strat-thermostat", "checked": false, "priority": "low", "task": "Replace Thermostat", "category": "Engine / Maint.", "who": "DIY or quick-lube", "status": "NEEDS PARTS", "cost_cad": 30, "time": "1–2 hrs", "notes": "Parts in hand. Lube-related: buy coolant, Speedy Lube (or similar) can do pit + disposal for not much $. Cheap insurance.", "on_hand": "Thermostat + thermostat gasket (Partsouq)", "still_needed": "Coolant — ~12L premix (or 6L concentrate + distilled)" },
-        { "id": "strat-fuel-rebuild", "checked": false, "priority": "low", "task": "Fuel System Rebuild — Injectors + Pump (Jon Fox)", "category": "Engine / Fuel", "who": "Jon Fox — Black Fox Diesel", "status": "DEFERRED TO REBUILD", "cost_cad": 1600, "time": "TBD", "notes": "Quote received: $1,600 CAD for injector + VE/P7100 pump refurb (well under the ~$3,500 estimate). Do alongside the engine rebuild. Many parts already on hand." },
-        { "id": "strat-engine-book", "checked": false, "priority": "low", "task": "Engine Rebuild — 1HD-T (Book with Eli)", "category": "Engine", "who": "Eli — Edmonton", "status": "SCHEDULED 2026/27", "cost_cad": 11500, "time": "~35 hrs", "notes": "Diagnosis complete: one worn cylinder ring. Oil consumption 2.3L / 9,000 km — manageable, not urgent. TerraClean + conditioner done. Book when budget ready + parts arrive + truck timing right. Est. ~$11,500 all-in (~$9,100 shop + fuel system).", "on_hand": "Water pump (HD Auto) · Gates timing belt kit (HD Auto) · Fan belt kit (HD Auto) · Manifold sealing rings (HD Auto) · Intake manifold gasket & stud set (HD Auto) · Timing cover gasket (HD Auto) · Oil filter housing gasket (HD Auto) · Injector washer/seal kit (RADD Cruisers) · Exhaust manifold gaskets x2 · Turbine housing bolts x4 (Partsouq) · Thermostat gasket (Partsouq) · Clutch slave cylinder (HD Auto)", "still_needed": "Long block refurb — head, block, crank, rods, pistons, bearings, cam (~$5,600) · Fuel system: injectors + injection pump refurb ($1,600 — Jon Fox quote) · All remaining rubber hoses" },
-        { "id": "strat-valve", "checked": false, "priority": "low", "task": "Valve Clearance Check", "category": "Engine", "who": "Eli — Edmonton", "status": "DEFERRED TO REBUILD", "cost_cad": 0, "time": "—", "notes": "Deferred to engine rebuild. 1HD-T spec: inlet 0.20mm, exhaust 0.35mm cold." },
+        { "id": "strat-fuel-rebuild", "checked": false, "priority": "low", "task": "Fuel System Rebuild — Injectors + Pump (Jon Fox)", "category": "Engine / Fuel", "who": "Jon Fox — Black Fox Diesel", "status": "DEFERRED TO REBUILD", "cost_cad": 1600, "time": "TBD", "notes": "Quote received: $1,600 CAD for injector + VE/P7100 pump refurb (well under the ~$3,500 estimate). Do alongside the engine rebuild. Many parts already on hand. Process: remove pump → drain fuel → ship to Celista BC (5124 Meadow Creek Rd) → bench rebuild + tune → reinstall. Target ~500 Nm." },
+        { "id": "strat-engine-book", "checked": false, "priority": "low", "task": "Engine Rebuild — 1HD-T (Book with Eli)", "category": "Engine", "who": "Eli — Edmonton", "status": "SCHEDULED 2026/27", "cost_cad": 11500, "time": "~35 hrs", "notes": "Full long block rebuild: head, block, crank, rods, pistons, bearings, cam. Diagnosis complete: one worn cylinder ring. Oil consumption 2.3L / 9,000 km — manageable, not urgent. TerraClean + conditioner done. Book when budget ready + parts arrive + truck timing right. Est. ~$11,500 all-in (~$9,100 shop + fuel system).", "on_hand": "Water pump (HD Auto) · Gates timing belt kit (HD Auto) · Fan belt kit (HD Auto) · Manifold sealing rings (HD Auto) · Intake manifold gasket & stud set (HD Auto) · Timing cover gasket (HD Auto) · Oil filter housing gasket (HD Auto) · Injector washer/seal kit (RADD Cruisers) · Exhaust manifold gaskets x2 · Turbine housing bolts x4 (Partsouq) · Thermostat gasket (Partsouq) · Clutch slave cylinder (HD Auto)", "still_needed": "Long block refurb — head, block, crank, rods, pistons, bearings, cam (~$5,600) · Fuel system: injectors + injection pump refurb ($1,600 — Jon Fox quote) · All remaining rubber hoses" },
+        { "id": "strat-valve", "checked": false, "priority": "low", "task": "Valve Clearance Check", "category": "Engine", "who": "Eli — Edmonton", "status": "DEFERRED TO REBUILD", "cost_cad": 0, "time": "—", "notes": "Jon Fox recommended checking clearances before sending the pump — good time while engine access is open. Deferred to engine rebuild. 1HD-T spec: inlet 0.20mm, exhaust 0.35mm cold." },
         { "id": "strat-vacuum", "checked": false, "priority": "low", "task": "Vacuum System Rebuild Quote", "category": "Engine / Vacuum", "who": "Eli — Edmonton", "status": "PLANNING QUOTE", "cost_cad": 0, "time": "—", "notes": "Request vacuum system assessment + quote as part of full rebuild planning." },
         { "id": "strat-glow-plugs", "checked": false, "priority": "low", "task": "Glow Plug Circuit / Dash Light — Diagnosis + Plug Replacement", "category": "Electrical / Engine", "who": "Steve — EBI / Eli", "status": "DEFERRED TO REBUILD", "cost_cad": 90, "time": "1 hr", "notes": "Dash light still does not illuminate — not solved. LOW PRIORITY: truck starts in 1 crank without glow plugs. Circuit diagnosis + plug replacement deferred to engine rebuild (Eli) or opportunistic with EBI." }
       ]
@@ -275,7 +262,7 @@
   ],
   "scheduled_maintenance": [
     { "item": "Engine Oil + Filter (10W-30 Diesel)", "interval": "5,000 km", "last_done_km": 170000, "last_done_notes": "Feb 2026 — AMS 10W-30, fresh", "next_due_km": 175000, "km_until_due": 5000, "status": "upcoming", "status_label": "UPCOMING", "notes": "AMS 10W-30 Diesel. ~9L with filter. Next due ~175,000 km or ~3 months." },
-    { "item": "Air Filter", "interval": "20,000 km", "last_done_km": 150000, "last_done_notes": "Est. ~150k (not confirmed)", "next_due_km": 170000, "km_until_due": 0, "status": "overdue", "status_label": "OVERDUE / CHECK", "notes": "Likely overdue — not confirmed in invoices. Check and replace at next oil change." },
+    { "item": "Air Filter", "interval": "20,000 km", "last_done_km": 170000, "last_done_notes": "2026 — new filter + cyclone pre-cleaner (Manitou loader) fitted", "next_due_km": 190000, "km_until_due": 20000, "status": "ok", "status_label": "OK", "notes": "Cyclone pre-cleaner now spins dust out ahead of the filter — expect longer filter life. Next check ~190,000 km." },
     { "item": "Fuel Filter + Suction Tube", "interval": "40,000 km", "last_done_km": 170000, "last_done_notes": "Feb 2026 — Partsouq parts", "next_due_km": 210000, "km_until_due": 40000, "status": "ok", "status_label": "OK", "notes": "Just done ✅. Next due ~210,000 km." },
     { "item": "Valve Clearance Check (1HD-T)", "interval": "40,000 km", "last_done_km": 120000, "last_done_notes": "~120k with timing belt (estimated)", "next_due_km": null, "km_until_due": "Deferred", "status": "deferred", "status_label": "Engine Rebuild", "notes": "Deferred to engine rebuild. 1HD-T spec: inlet 0.20mm, exhaust 0.35mm cold." },
     { "item": "Timing Belt + Tensioner", "interval": "100,000 km", "last_done_km": 120000, "last_done_notes": "~120k (confirmed in notes)", "next_due_km": 220000, "km_until_due": 50000, "status": "ok", "status_label": "OK", "notes": "Done at ~120k. Next due ~220,000 km. Tensioner + pulley also replaced at that time." },
@@ -299,6 +286,35 @@
     { "item": "Clutch Hydraulic Fluid Flush", "interval": "40,000 km / 2 yrs", "last_done_km": 170000, "last_done_notes": "Apr 2026 — DIY flush (DOT3/4)", "next_due_km": 210000, "km_until_due": 40000, "status": "ok", "status_label": "OK", "notes": "Clutch reservoir flushed/bled alongside trans fluid service. FSM: use same DOT3/4 as brakes. Next with brake fluid flush." },
     { "item": "Clutch — Inspect", "interval": "50,000 km", "last_done_km": 120000, "last_done_notes": "~120k (est.)", "next_due_km": 170000, "km_until_due": 0, "status": "due_soon", "status_label": "DUE SOON", "notes": "Clutch slave cylinder on hand (HD Auto). Check clutch feel — any slipping or hard engagement?" },
     { "item": "Big End Bearings — Inspect/Replace", "interval": "One-time preventive", "last_done_km": null, "last_done_notes": "Never done", "next_due_km": "ASAP", "km_until_due": "OVERDUE", "status": "urgent", "status_label": "DO BEFORE REBUILD", "notes": "Known 1HD-T delamination issue. Original bearings at 170k km. Drop sump, replace ACL shells + rod bolts, plastigauge journals. 3 hrs, ~$150 parts. Liam Schram." }
+  ],
+  "maintenance_log": [
+    { "date": "2026", "km": 170000, "item": "Injection pump tuned", "detail": "Fuel pump tuned to suit the 18G turbo. Full bench refurb (Jon Fox, $1,600 quote) still planned with the rebuild.", "who": "DIY / shop — to confirm", "source": "Build sheet update Sept 2026" },
+    { "date": "2026", "km": 170000, "item": "Air filter + cyclone pre-cleaner", "detail": "New air filter fitted, plus a cyclone pre-cleaner from a Manitou loader ahead of the airbox.", "who": "DIY — Brennon", "source": "Build sheet update Sept 2026" },
+    { "date": "2026-04", "km": 170000, "item": "Transmission fluid", "detail": "Drained prior ACDelco 75W-80 Synchromesh FM fill, refilled with Red Line MT-90 (GL-4). No change in 2nd-gear feel — synchro, not oil.", "who": "DIY — Brennon", "source": "Fluid Guide / Strategy" },
+    { "date": "2026-04", "km": 170000, "item": "Rear differential fluid", "detail": "Drained dark oil, refilled with AMSOIL Severe Gear 75W-140 GL-5 (3.25L). Matches front diff + transfer case.", "who": "DIY — Brennon", "source": "Fluid Guide / Strategy" },
+    { "date": "2026-04", "km": 170000, "item": "Clutch hydraulic fluid", "detail": "Clutch reservoir flushed + bled with DOT3/4, alongside the trans fluid job.", "who": "DIY — Brennon", "source": "Fluid Guide" },
+    { "date": "2026", "km": 170000, "item": "Lubegard synchro additive — 2nd dose", "detail": "Drained ~100 mL trans fluid, added one bottle. Done before the MT-90 change.", "who": "DIY — Brennon", "source": "Strategy" },
+    { "date": "2026", "km": 170000, "item": "Shifter bushing + seat inspected", "detail": "Bushing fine — not the cause of the 2nd-gear issue. No replacement.", "who": "DIY — Brennon", "source": "Strategy" },
+    { "date": "2026", "item": "Hood release cable + fuel door cable", "detail": "Both cables replaced with Partsouq OEM parts. Hood access restored.", "who": "DIY — Brennon", "source": "Strategy" },
+    { "date": "2026", "item": "Interior lighting power", "detail": "Repaired ground + replaced burned dome fuse. Door sensors, clock, dome lights working. First set of dash/interior bulbs fitted (poor output — to be redone).", "who": "DIY — Brennon", "source": "Strategy" },
+    { "date": "2026-02", "km": 170000, "item": "Engine oil + filter", "detail": "AMS 10W-30 diesel, ~9L with filter. Oil consumption logged at 2.3L / 9,000 km (one worn ring).", "who": "DIY", "source": "Scheduled Maintenance" },
+    { "date": "2026-02", "km": 170000, "item": "Fuel filter + suction tube", "detail": "Replaced with Partsouq parts.", "who": "DIY", "source": "Scheduled Maintenance" },
+    { "date": "2025-11", "km": 170000, "item": "Passenger front birfield / knuckle rebuild", "detail": "Knuckle rebuilt with Koyo bearing kit, chassis grease, 80/90 gear oil. Driver-side wheel bearing inspected + tightened (knuckle not opened). Both birfields now done.", "who": "Steve — EBI Cruisers", "source": "EBI Estimate #92098 ($1,298)" },
+    { "date": "2024-09", "item": "Emergency steering knuckle repair", "detail": "Knuckle studs fell out on the road — temporary fix to get the truck home. OEM knuckle stud set x8 ordered from CruiserTeq (#99023695) for the proper repair.", "who": "Pete Puller — Puller's Repairs, Campbell River", "source": "Labour $600 / CruiserTeq order" },
+    { "date": "2024", "item": "Engine hoses", "detail": "Silicone radiator hose set (10 pc, HDJ80 1HD-T) installed.", "who": "DIY", "source": "Amazon CA" },
+    { "date": "2024", "km": 165000, "item": "TerraClean fuel system service", "detail": "Full fuel system clean. Injectors confirmed serviceable.", "who": "Shop", "source": "Lubeworx order 57935 (products)" },
+    { "date": "2024-02", "km": 165000, "item": "Coolant flush", "detail": "50/50 premix. Note: Strategy also records a flush at ~160k during the turbo install at Liam's — treat ~160–165k as one service.", "who": "BJ Landers", "source": "Scheduled Maintenance" },
+    { "date": "2024-02", "km": 165000, "item": "Transfer case fluid", "detail": "AMSOIL Severe Gear 75W-140 GL-5 (~2L).", "who": "BJ Landers", "source": "Scheduled Maintenance" },
+    { "date": "2024-02", "km": 165000, "item": "Front differential rebuild + fluid", "detail": "Front diff fully rebuilt (Partsouq bearings, seals, pinion parts — order 630261) and filled with AMSOIL Severe Gear 75W-140 GL-5.", "who": "BJ Landers", "source": "Scheduled Maintenance / Partsouq" },
+    { "date": "2024-02", "km": 165000, "item": "Driver front birfield rebuild + knuckle grease", "detail": "Left birfield rebuilt.", "who": "BJ Landers", "source": "Scheduled Maintenance" },
+    { "date": "2024-02", "km": 165000, "item": "Brake fluid flush", "detail": "DOT4.", "who": "BJ Landers", "source": "Scheduled Maintenance" },
+    { "date": "2024-02", "km": 165000, "item": "Power steering fluid, steering gear box oil, steering pump service", "detail": "All three done in the same visit.", "who": "BJ Landers", "source": "Scheduled Maintenance" },
+    { "date": "2024-02", "km": 165000, "item": "Propeller shaft grease", "detail": "All joints (estimated at this visit).", "who": "BJ Landers", "source": "Scheduled Maintenance" },
+    { "date": "2024-02", "km": 160000, "item": "Turbo + intercooler install", "detail": "UFI 18G turbo (20 psi) replacing the factory CT26, PDI front-mount intercooler. New air filter fitted at the same time.", "who": "Liam Schram", "source": "Strategy / Liam labour Dec 2023 – Mar 2024" },
+    { "date": "2024-02", "km": 160000, "item": "Eaton E-Locker install + rear diff fluid", "detail": "Terrain Tamer 14212-1 E-Locker fitted in the rear diff; diff refilled. (Fluid superseded by the Apr 2026 AMSOIL change.)", "who": "Liam Schram", "source": "Strategy" },
+    { "date": "2023", "km": 155000, "item": "Brake inspection", "detail": "Inspected — no immediate brake service needed at the time.", "who": "Liam Schram", "source": "Strategy" },
+    { "item": "Rear axle rebuild + e-brake service", "detail": "Rear axles rebuilt and e-brakes serviced. Date and odometer not recorded.", "who": "Shop", "source": "Build sheet (old)" },
+    { "km": 120000, "item": "Timing belt + tensioner + idler, water pump", "detail": "Timing belt confirmed in notes at ~120k; tensioner + pulley replaced. Water pump, valve clearance, and glow plugs estimated at the same service (prior owner).", "who": "Unknown (prior owner)", "source": "Scheduled Maintenance" }
   ],
   "shop_contacts": [
     { "name": "Steve Tetu — EBI Cruisers (Extreme Bends Inc.)", "role": "Secondary Mechanic / Parts", "location": "105 – 1650 Broadway St, Port Coquitlam, BC V3C 2M8 (~30 min from Vancouver)", "phone": "(604) 944-0382 / Toll-free: (877) 299-3540", "contact": "steven@extremebends.com / www.extremebends.com / $175/hr labour rate", "specialty": "Land Cruiser specialist. Source for rear tailgate (already purchased from EBI)." },

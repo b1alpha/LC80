@@ -3,7 +3,7 @@ import path from 'path';
 import {
   renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
-  renderShopContacts
+  renderMaintenanceLog, renderShopContacts
 } from '../tracker-site/render.js';
 
 const dataPath = path.resolve(process.cwd(), 'tracker-site/data.json');
@@ -16,6 +16,7 @@ const FULL_DOM = `
   <div id="tab-Parts-Inventory" class="tab-content" style="display:none"></div>
   <div id="tab-Spend-Summary" class="tab-content" style="display:none"></div>
   <div id="tab-Scheduled-Maintenance" class="tab-content" style="display:none"></div>
+  <div id="tab-Maintenance-Log" class="tab-content" style="display:none"></div>
   <div id="tab-Shop-Contacts" class="tab-content" style="display:none"></div>
 `;
 
@@ -27,10 +28,10 @@ describe('data.json structure', () => {
   const EXPECTED_KEYS = [
     'meta', 'build', 'fluid_guide', 'strategy_2026',
     'parts_inventory', 'spend_summary',
-    'scheduled_maintenance', 'shop_contacts'
+    'scheduled_maintenance', 'maintenance_log', 'shop_contacts'
   ];
 
-  test('has all 8 expected top-level keys', () => {
+  test('has all 9 expected top-level keys', () => {
     EXPECTED_KEYS.forEach(key => {
       expect(realData).toHaveProperty(key);
     });
@@ -53,11 +54,15 @@ describe('full render pipeline with real data', () => {
     renderPartsInventory(realData.parts_inventory);
     renderSpendSummary(realData.spend_summary);
     renderScheduledMaintenance(realData.scheduled_maintenance);
+    renderMaintenanceLog(realData.maintenance_log);
     renderShopContacts(realData.shop_contacts);
   });
 
-  test('#tab-Build contains "UFI 18G Turbo"', () => {
+  test('#tab-Build contains "UFI 18G Turbo" and only installed mods (no tags, no job rows)', () => {
     expect(document.getElementById('tab-Build').innerHTML).toContain('UFI 18G Turbo');
+    expect(document.querySelector('#tab-Build .bi-tag')).toBeNull();
+    expect(document.getElementById('tab-Build').innerHTML).not.toContain('Knuckle');
+    realData.build.forEach(c => c.items.forEach(i => { expect(i.status).toBeUndefined(); expect(i.tags).toBeUndefined(); }));
   });
 
   test('#tab-Fluid-Guide contains "Engine Oil (1HD-T)"', () => {
@@ -65,7 +70,7 @@ describe('full render pipeline with real data', () => {
   });
 
   test('#tab-2026-Strategy contains the strat-rear-diff card', () => {
-    expect(document.querySelector('.task-card[data-task="strat-rear-diff"]')).not.toBeNull();
+    expect(document.querySelector('.task-row[data-task="strat-rear-diff"]')).not.toBeNull();
   });
 
   test('#tab-2026-Strategy contains #strategyBody and "Brake Inspection + Service"', () => {
@@ -76,15 +81,15 @@ describe('full render pipeline with real data', () => {
 
   test('#tab-2026-Strategy renders one card per task across the board and done list', () => {
     const taskCount = realData.strategy_2026.reduce((n, p) => n + p.tasks.length, 0);
-    expect(document.querySelectorAll('#strategyBody .task-card').length).toBe(taskCount);
+    expect(document.querySelectorAll('#strategyBody .task-row').length).toBe(taskCount);
     expect(document.querySelectorAll('#strategyBody .board .col').length).toBe(4);
-    expect(document.querySelectorAll('#strategyBody .task-need').length).toBeGreaterThan(5);
+    expect(document.querySelectorAll('#strategyBody .bi-need').length).toBeGreaterThan(5);
     expect(document.getElementById('tab-2026-Strategy').innerHTML).toContain('On hand:');
   });
 
   test('every open task appears in exactly one board column', () => {
     const openIds = realData.strategy_2026.flatMap(p => p.tasks).filter(t => t.priority !== 'done').map(t => t.id);
-    const boardIds = [...document.querySelectorAll('#strategyBody .board .task-card')].map(c => c.dataset.task);
+    const boardIds = [...document.querySelectorAll('#strategyBody .board .task-row')].map(c => c.dataset.task);
     expect(boardIds.sort()).toEqual(openIds.sort());
   });
 
@@ -102,6 +107,17 @@ describe('full render pipeline with real data', () => {
 
   test('#tab-Scheduled-Maintenance contains "Engine Oil + Filter"', () => {
     expect(document.getElementById('tab-Scheduled-Maintenance').innerHTML).toContain('Engine Oil + Filter');
+  });
+
+  test('#tab-Maintenance-Log lists the Apr 2026 fluid work newest-first', () => {
+    const html = document.getElementById('tab-Maintenance-Log').innerHTML;
+    expect(html).toContain('Red Line MT-90');
+    expect(document.querySelectorAll('#tab-Maintenance-Log tbody tr').length).toBe(realData.maintenance_log.length);
+    expect(document.querySelector('#tab-Maintenance-Log tbody tr td.log-date').textContent).toBe('2026-04');
+  });
+
+  test('#tab-Fluid-Guide has no Buy This Amount column', () => {
+    expect(document.getElementById('tab-Fluid-Guide').innerHTML).not.toContain('Buy This Amount');
   });
 
   test('#tab-Shop-Contacts contains "EBI Cruisers"', () => {

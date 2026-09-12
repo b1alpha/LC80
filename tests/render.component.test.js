@@ -51,8 +51,7 @@ describe('done list', () => {
     }]);
     const done = document.querySelector('#strategyBody .strat-done');
     expect(done).not.toBeNull();
-    expect(done.style.display).toBe('');
-    expect(done.querySelector('.task-card.status-done .task-title').textContent).toBe('Oil Change');
+    expect(done.querySelector('.task-row.status-done .bi-name').textContent).toBe('Oil Change');
     expect(document.getElementById('toggleDoneBtn')).toBeNull();
     expect(document.querySelector('#strategyBody input[type="checkbox"]')).toBeNull();
   });

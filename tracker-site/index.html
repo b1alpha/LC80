@@ -14,38 +14,22 @@
   table { border-collapse: collapse; width: 100%; font-size: 0.88em; }
   th { background: #2a2a2a; color: #f0a500; padding: 8px 10px; text-align: left; border: 1px solid #333; white-space: nowrap; }
   td { padding: 7px 10px; border: 1px solid #2e2e2e; vertical-align: top; }
-  #tab-2026-Strategy { max-width: 1400px; }
-  .strat-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
-  .strat-summary { color: #8f8f8f; font-size: 0.9em; }
-  .strat-summary strong { color: #fff; font-size: 1.25em; }
-  .board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: start; }
-  .col h3, .strat-done h3 { margin: 0 0 10px; font-size: 0.78em; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #f0a500; display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 6px; border-bottom: 1px solid #333; }
-  .col-count { color: #777; font-weight: 500; letter-spacing: 0; }
-  .col-empty { color: #555; font-size: 0.85em; padding: 8px 2px; }
-  .task-card { display: flex; gap: 10px; background: #222; border: 1px solid #2e2e2e; border-radius: 4px; padding: 10px 12px 10px 10px; margin-bottom: 8px; position: relative; }
-  .task-card.status-urgent { border-left: 3px solid #e03a3a; }
-  .task-card.status-done { background: #1c231c; border-color: #2a3a2a; }
-  .task-card.status-done .task-title { color: #9c9; text-decoration: line-through; }
-  .task-body { flex: 1; min-width: 0; }
-  .task-title { margin: 0; font-size: 0.95em; font-weight: 600; color: #f2f2f2; line-height: 1.35; }
-  .task-meta { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 4px; font-size: 0.78em; color: #8f8f8f; line-height: 1.4; }
-  .task-meta .task-who { color: #bdbdbd; }
-  .phase-tag { color: #f0a500; border: 1px solid #5a4510; border-radius: 3px; padding: 0 5px; font-weight: 600; cursor: default; }
-  .task-status { margin-top: 4px; font-size: 0.7em; letter-spacing: 0.5px; text-transform: uppercase; color: #777; }
-  .task-need { margin-top: 6px; font-size: 0.85em; color: #f0a500; line-height: 1.4; }
-  .task-more { margin-top: 6px; font-size: 0.82em; color: #bbb; }
-  .task-more summary { cursor: pointer; color: #777; font-size: 0.95em; user-select: none; }
-  .task-more summary:hover { color: #ccc; }
-  .task-more p { margin: 6px 0 0; line-height: 1.5; }
-  .task-more strong { color: #f0a500; }
-  .strat-done { margin-top: 26px; }
-  .done-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 18px; }
-  @media (max-width: 1100px) { .board, .done-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 620px) { .board, .done-list { grid-template-columns: repeat(1, minmax(0, 1fr)); } }
-  #tab-Parts-Inventory details.parts-installed { margin-top: 18px; border: 1px solid #333; border-radius: 6px; background: #111; }
-  #tab-Parts-Inventory details.parts-installed summary { cursor: pointer; padding: 10px 14px; font-weight: bold; color: #aaa; user-select: none; }
-  #tab-Parts-Inventory details.parts-installed[open] summary { border-bottom: 1px solid #333; color: #f0a500; }
-  #tab-Parts-Inventory details.parts-installed table { margin: 0; }
+  #tab-2026-Strategy .build-page { max-width: 1400px; }
+  .board { align-items: start; }
+  .build-card-header .card-count { margin-left: auto; color: #777; font-weight: 500; letter-spacing: 0; }
+  .col-empty { color: #555; }
+  .task-row .bi-meta { color: #8f8f8f; font-size: 0.85em; margin-top: 2px; }
+  .task-row .bi-need { color: #f0a500; font-size: 0.88em; margin-top: 3px; line-height: 1.4; }
+  .task-row .bi-more { margin-top: 3px; font-size: 0.85em; color: #bbb; }
+  .task-row .bi-more summary { cursor: pointer; color: #666; user-select: none; }
+  .task-row .bi-more summary:hover { color: #ccc; }
+  .task-row .bi-more p { margin: 4px 0 0; line-height: 1.5; color: #aaa; }
+  .task-row .bi-more strong { color: #f0a500; }
+  .tag-phase { background: #2a2a2a; color: #aaa; border: 1px solid #3a3a3a; cursor: default; }
+  .strat-done { margin-top: 14px; }
+  .strat-done .done-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  #tab-Maintenance-Log td.log-date, #tab-Maintenance-Log td.log-km { white-space: nowrap; color: #bbb; }
+  #tab-Maintenance-Log td.log-item { font-weight: 600; color: #f2f2f2; white-space: nowrap; }
   #tab-Fluid-Guide th:first-child,
   #tab-Fluid-Guide td:first-child { white-space: nowrap; min-width: 220px; font-weight: 600; color: #f2f2f2; }
   #tab-Spend-Summary th,
@@ -122,6 +106,7 @@
 <button class="tab-btn " onclick="showTab('Parts Inventory')">Parts Inventory</button>
 <button class="tab-btn " onclick="showTab('Spend Summary')">Spend Summary</button>
 <button class="tab-btn " onclick="showTab('Scheduled Maintenance')">Scheduled Maintenance</button>
+<button class="tab-btn " onclick="showTab('Maintenance Log')">Maintenance Log</button>
 <button class="tab-btn " onclick="showTab('Shop Contacts')">Shop Contacts</button>
 </div>
 <div id="tab-Build" class="tab-content" style="display:block"></div>
@@ -130,12 +115,13 @@
 <div id="tab-Parts-Inventory" class="tab-content" style="display:none"></div>
 <div id="tab-Spend-Summary" class="tab-content" style="display:none"></div>
 <div id="tab-Scheduled-Maintenance" class="tab-content" style="display:none"></div>
+<div id="tab-Maintenance-Log" class="tab-content" style="display:none"></div>
 <div id="tab-Shop-Contacts" class="tab-content" style="display:none"></div>
 <script type="module">
 import {
   renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
-  renderShopContacts, showTab
+  renderMaintenanceLog, renderShopContacts, showTab
 } from './render.js';
 
 function tabNameFromHash(hash) {
@@ -154,6 +140,7 @@ fetch('/data.json')
     renderPartsInventory(data.parts_inventory);
     renderSpendSummary(data.spend_summary);
     renderScheduledMaintenance(data.scheduled_maintenance);
+    renderMaintenanceLog(data.maintenance_log);
     renderShopContacts(data.shop_contacts);
 
     var hash = window.location.hash.replace('#', '');

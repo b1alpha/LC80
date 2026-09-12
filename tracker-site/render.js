@@ -12,11 +12,9 @@ export function showTab(name) {
 }
 
 export function renderBuild(cards, meta) {
-  var statusEmoji = { installed: '\u2705', urgent: '\ud83d\udd34', planned: '\ud83d\udd35', on_hand: '\u26a0\ufe0f', ordered: '\ud83d\udce6' };
-  var tagClass = { 'INSTALLED': 'tag-installed', 'DO FIRST': 'tag-urgent', 'PLANNED': 'tag-planned', 'PARTS ON HAND': 'tag-onhand', 'ORDERED': 'tag-ordered' };
   var html = '<div class="build-page">' +
     '<div class="build-vitals">' +
-    '<div class="build-vitals-title">\ud83d\ude99 Sneaky Pete \u2014 Build Sheet</div>' +
+    '<div class="build-vitals-title">\ud83d\ude99 Sneaky Pete \u2014 Build Sheet \u00b7 what changed from stock</div>' +
     '<div class="vital-item"><strong>1993</strong> Toyota Land Cruiser HDJ81</div>' +
     '<div class="vital-divider">|</div>' +
     '<div class="vital-item"><strong>' + meta.engine.split(' ')[0] + '</strong> ' + meta.engine.split(' ').slice(1).join(' ') + '</div>' +
@@ -32,19 +30,12 @@ export function renderBuild(cards, meta) {
     '</div></div><div class="build-grid">';
   for (var i = 0; i < cards.length; i++) {
     var card = cards[i];
-    html += '<div class="build-card"><div class="build-card-header"><span class="card-icon">' + card.icon + '</span> ' + card.category + '</div>';
+    html += '<div class="build-card"><div class="build-card-header"><span class="card-icon">' + card.icon + '</span> ' + card.category + '<span class="card-count">' + card.items.length + '</span></div>';
     for (var j = 0; j < card.items.length; j++) {
       var item = card.items[j];
-      var nameClass = item.status === 'installed' ? ' installed' : '';
-      var tagsHtml = (item.tags || []).map(function(t) {
-        return '<span class="bi-tag ' + (tagClass[t] || 'tag-planned') + '">' + t + '</span>';
-      }).join('');
-      html += '<div class="build-item">' +
-        '<div class="bi-status">' + (statusEmoji[item.status] || '\ud83d\udd35') + '</div>' +
-        '<div class="bi-body">' +
-        '<div class="bi-name' + nameClass + '">' + item.name + '</div>' +
-        '<div class="bi-note">' + (item.note || '') + '</div>' +
-        tagsHtml +
+      html += '<div class="build-item"><div class="bi-body">' +
+        '<div class="bi-name">' + item.name + '</div>' +
+        (item.note ? '<div class="bi-note">' + item.note + '</div>' : '') +
         '</div></div>';
     }
     html += '</div>';
@@ -55,12 +46,12 @@ export function renderBuild(cards, meta) {
 
 export function renderFluidGuide(rows) {
   var html = '<table><thead>' +
-    '<tr><th colspan="7">\ud83d\udee2\ufe0f SNEAKY PETE \u2014 Fluid Buying Guide | What to Buy + How Much</th></tr>' +
-    '<tr><th>System</th><th>Spec / Weight</th><th>Capacity</th><th>Buy This Amount</th><th>Brand Ideas</th><th>Status</th><th>Notes</th></tr>' +
+    '<tr><th colspan="6">\ud83d\udee2\ufe0f SNEAKY PETE \u2014 Fluid Guide</th></tr>' +
+    '<tr><th>System</th><th>Spec / Weight</th><th>Capacity</th><th>Brand Ideas</th><th>Status</th><th>Notes</th></tr>' +
     '</thead><tbody>';
   for (var i = 0; i < rows.length; i++) {
     var r = rows[i];
-    html += '<tr><td>' + r.system + '</td><td>' + r.spec + '</td><td>' + r.capacity + '</td><td>' + r.buy_amount + '</td><td>' + r.brand + '</td><td>' + r.status + '</td><td>' + (r.notes || '') + '</td></tr>';
+    html += '<tr><td>' + r.system + '</td><td>' + r.spec + '</td><td>' + r.capacity + '</td><td>' + r.brand + '</td><td>' + r.status + '</td><td>' + (r.notes || '') + '</td></tr>';
   }
   html += '</tbody></table>';
   document.getElementById('tab-Fluid-Guide').innerHTML = html;
@@ -68,13 +59,19 @@ export function renderFluidGuide(rows) {
 
 export function renderStrategy(phases) {
   var BUCKETS = [
-    { key: 'now', title: 'Can do now', statuses: ['CAN DO NOW', 'ONGOING TRACKING'] },
-    { key: 'parts', title: 'Needs parts', statuses: ['NEEDS PARTS'] },
-    { key: 'shop', title: 'Needs shop / booking', statuses: ['URGENT SERVICE', 'NEEDS INVESTIGATION', 'LEAKING \u2014 NEEDS BOOKING', 'NEEDS BOOKING', 'SHOP JOB (Pending)', 'BROKEN \u2014 REPLACE'] },
-    { key: 'later', title: 'Later / rebuild', statuses: ['PLANNING QUOTE', 'DEFERRED TO REBUILD', 'SCHEDULED 2026/27'] }
+    { key: 'now', icon: '🔧', title: 'Can do now', statuses: ['CAN DO NOW', 'ONGOING TRACKING'] },
+    { key: 'parts', icon: '📦', title: 'Needs parts', statuses: ['NEEDS PARTS'] },
+    { key: 'shop', icon: '🏪', title: 'Needs shop / booking', statuses: ['URGENT SERVICE', 'NEEDS INVESTIGATION', 'LEAKING — NEEDS BOOKING', 'NEEDS BOOKING', 'SHOP JOB (Pending)', 'BROKEN — REPLACE'] },
+    { key: 'later', icon: '📅', title: 'Later / rebuild', statuses: ['PLANNING QUOTE', 'DEFERRED TO REBUILD', 'SCHEDULED 2026/27'] }
   ];
   var bucketOf = {};
   BUCKETS.forEach(function(b) { b.statuses.forEach(function(st) { bucketOf[st] = b.key; }); });
+  var statusTag = {
+    'CAN DO NOW': 'tag-installed', 'ONGOING TRACKING': 'tag-installed',
+    'NEEDS PARTS': 'tag-onhand', 'URGENT SERVICE': 'tag-urgent', 'BROKEN — REPLACE': 'tag-urgent',
+    'NEEDS INVESTIGATION': 'tag-planned', 'LEAKING — NEEDS BOOKING': 'tag-onhand', 'NEEDS BOOKING': 'tag-planned',
+    'SHOP JOB (Pending)': 'tag-planned', 'PLANNING QUOTE': 'tag-planned', 'DEFERRED TO REBUILD': 'tag-planned', 'SCHEDULED 2026/27': 'tag-planned'
+  };
 
   var all = [];
   phases.forEach(function(p, pi) {
@@ -87,35 +84,35 @@ export function renderStrategy(phases) {
   var urgentCount = open.filter(function(x) { return x.t.priority === 'urgent'; }).length;
 
   var cost = function(t) { return t.cost_cad ? '~$' + t.cost_cad.toLocaleString() : '$0'; };
-  var meta = function(x) {
+  var row = function(x) {
     var t = x.t;
-    return '<div class="task-meta">' +
-      '<span class="phase-tag" title="' + x.phase + '">' + x.tag + '</span>' +
-      '<span class="task-who">' + t.who + '</span>' +
-      '<span>' + cost(t) + '</span>' +
-      (t.time ? '<span>' + t.time + '</span>' : '') +
-      '</div>';
-  };
-  var card = function(x) {
-    var t = x.t;
-    var rc = t.priority === 'urgent' ? 'status-urgent' : 'status-low';
-    return '<article class="task-card ' + rc + '" data-task="' + t.id + '">' +
-      '<div class="task-body">' +
-      '<h4 class="task-title">' + t.task + '</h4>' +
-      meta(x) +
-      (t.status ? '<div class="task-status">' + t.status + '</div>' : '') +
-      (t.still_needed ? '<div class="task-need">' + t.still_needed + '</div>' : '') +
-      ((t.notes || t.on_hand) ? '<details class="task-more"><summary>Notes</summary>' +
+    var isDone = t.priority === 'done';
+    var icon = isDone ? '✅' : t.priority === 'urgent' ? '🔴' : '🟡';
+    var metaBits = [t.who, cost(t)];
+    if (t.time && t.time !== '—') metaBits.push(t.time);
+    return '<div class="build-item task-row ' + (isDone ? 'status-done' : t.priority === 'urgent' ? 'status-urgent' : 'status-low') + '" data-task="' + t.id + '">' +
+      '<div class="bi-status">' + icon + '</div>' +
+      '<div class="bi-body">' +
+      '<div class="bi-name' + (isDone ? ' installed' : '') + '">' + t.task + '</div>' +
+      '<div class="bi-meta">' + metaBits.join(' · ') + '</div>' +
+      (t.still_needed ? '<div class="bi-need">Needs: ' + t.still_needed + '</div>' : '') +
+      ((t.notes || t.on_hand) ? '<details class="bi-more"><summary>Notes</summary>' +
         (t.notes ? '<p>' + t.notes + '</p>' : '') +
         (t.on_hand ? '<p><strong>On hand:</strong> ' + t.on_hand + '</p>' : '') +
         '</details>' : '') +
-      '</div></article>';
+      '<span class="bi-tag tag-phase" title="' + x.phase + '">' + x.tag + '</span>' +
+      (t.status && !isDone ? '<span class="bi-tag ' + (statusTag[t.status] || 'tag-planned') + '">' + t.status + '</span>' : '') +
+      '</div></div>';
   };
 
-  var html = '<div class="strat-toolbar">' +
-    '<span class="strat-summary"><strong>' + open.length + '</strong> open \u00b7 <strong>' + urgentCount + '</strong> urgent \u00b7 <strong>' + done.length + '</strong> done</span>' +
+  var html = '<div class="build-page">' +
+    '<div class="build-vitals strat-vitals">' +
+    '<div class="build-vitals-title">📋 Sneaky Pete — 2026 Strategy · 170,000 km</div>' +
+    '<div class="vital-item"><strong>' + open.length + '</strong> open</div><div class="vital-divider">|</div>' +
+    '<div class="vital-item"><strong>' + urgentCount + '</strong> urgent</div><div class="vital-divider">|</div>' +
+    '<div class="vital-item"><strong>' + done.length + '</strong> done</div>' +
     '</div>' +
-    '<div id="strategyBody"><div class="board">';
+    '<div id="strategyBody"><div class="build-grid board">';
 
   BUCKETS.forEach(function(b) {
     var items = open.filter(function(x) { return (bucketOf[x.t.status] || 'later') === b.key; });
@@ -123,24 +120,16 @@ export function renderStrategy(phases) {
       var pu = p.t.priority === 'urgent' ? 0 : 1, qu = q.t.priority === 'urgent' ? 0 : 1;
       return pu - qu || p.order - q.order;
     });
-    html += '<section class="col col-' + b.key + '"><h3>' + b.title + '<span class="col-count">' + items.length + '</span></h3>';
-    html += items.length ? items.map(card).join('') : '<div class="col-empty">Nothing here</div>';
-    html += '</section>';
+    html += '<div class="build-card col col-' + b.key + '"><div class="build-card-header"><span class="card-icon">' + b.icon + '</span> ' + b.title + '<span class="card-count col-count">' + items.length + '</span></div>';
+    html += items.length ? items.map(row).join('') : '<div class="build-item col-empty">Nothing here</div>';
+    html += '</div>';
   });
   html += '</div>';
 
   if (done.length) {
-    html += '<section class="strat-done"><h3>Done<span class="col-count">' + done.length + '</span></h3><div class="done-list">';
-    done.forEach(function(x) {
-      var t = x.t;
-      html += '<div class="task-card status-done" data-task="' + t.id + '">' +
-        '<div class="task-body"><h4 class="task-title">' + t.task + '</h4>' + meta(x) +
-        (t.notes ? '<details class="task-more"><summary>Notes</summary><p>' + t.notes + '</p></details>' : '') +
-        '</div></div>';
-    });
-    html += '</div></section>';
+    html += '<div class="build-card strat-done"><div class="build-card-header"><span class="card-icon">✅</span> Done<span class="card-count col-count">' + done.length + '</span></div><div class="done-list">' + done.map(row).join('') + '</div></div>';
   }
-  html += '</div>';
+  html += '</div></div>';
   document.getElementById('tab-2026-Strategy').innerHTML = html;
 }
 
@@ -210,6 +199,31 @@ export function renderScheduledMaintenance(items) {
   }
   html += '</tbody></table>';
   document.getElementById('tab-Scheduled-Maintenance').innerHTML = html;
+}
+
+export function renderMaintenanceLog(entries) {
+  var key = function(e) { return e.date || ''; };
+  var rows = entries.slice().sort(function(a, b) {
+    if (!key(a) && !key(b)) return 0;
+    if (!key(a)) return 1;
+    if (!key(b)) return -1;
+    return key(b).localeCompare(key(a));
+  });
+  var html = '<table><thead>' +
+    '<tr><th colspan="5">📒 SNEAKY PETE — Maintenance Log | newest first</th></tr>' +
+    '<tr><th>Date</th><th>Odometer</th><th>Item</th><th>What was done</th><th>Who</th></tr>' +
+    '</thead><tbody>';
+  for (var i = 0; i < rows.length; i++) {
+    var e = rows[i];
+    html += '<tr' + (e.date ? '' : ' class="status-low"') + '>' +
+      '<td class="log-date">' + (e.date || 'Date unknown') + '</td>' +
+      '<td class="log-km">' + (e.km ? '~' + e.km.toLocaleString() + ' km' : '—') + '</td>' +
+      '<td class="log-item">' + e.item + '</td>' +
+      '<td>' + (e.detail || '') + '</td>' +
+      '<td>' + (e.who || '') + '</td></tr>';
+  }
+  html += '</tbody></table>';
+  document.getElementById('tab-Maintenance-Log').innerHTML = html;
 }
 
 export function renderShopContacts(contacts) {

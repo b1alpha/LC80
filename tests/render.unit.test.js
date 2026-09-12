@@ -1,7 +1,7 @@
 import {
   renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
-  renderShopContacts
+  renderMaintenanceLog, renderShopContacts
 } from '../tracker-site/render.js';
 
 const FULL_DOM = `
@@ -11,6 +11,7 @@ const FULL_DOM = `
   <div id="tab-Parts-Inventory" class="tab-content" style="display:none"></div>
   <div id="tab-Spend-Summary" class="tab-content" style="display:none"></div>
   <div id="tab-Scheduled-Maintenance" class="tab-content" style="display:none"></div>
+  <div id="tab-Maintenance-Log" class="tab-content" style="display:none"></div>
   <div id="tab-Shop-Contacts" class="tab-content" style="display:none"></div>
 `;
 
@@ -30,26 +31,27 @@ describe('renderBuild', () => {
     icon: '🔧',
     category: 'Engine / Power',
     items: [
-      { status: 'installed', name: 'UFI 18G Turbo', note: 'Stock replacement', tags: ['INSTALLED'] },
-      { status: 'urgent', name: 'Turbo cooldown timer', note: 'Run-on timer needed', tags: ['DO FIRST'] }
+      { name: 'UFI 18G Turbo', note: 'Upgraded from factory CT26' },
+      { name: 'PDI Intercooler' }
     ]
   }];
 
-  test('renders .build-card in #tab-Build', () => {
+  test('renders .build-card in #tab-Build with item count', () => {
     renderBuild(cards, meta);
-    expect(document.getElementById('tab-Build').querySelector('.build-card')).not.toBeNull();
+    const card = document.getElementById('tab-Build').querySelector('.build-card');
+    expect(card).not.toBeNull();
+    expect(card.querySelector('.card-count').textContent).toBe('2');
   });
 
-  test('installed item name gets .installed class', () => {
+  test('items render name and note, with no status icon or tags', () => {
     renderBuild(cards, meta);
-    const el = document.querySelector('.bi-name.installed');
-    expect(el).not.toBeNull();
-    expect(el.textContent).toBe('UFI 18G Turbo');
-  });
-
-  test('urgent item renders 🔴 emoji', () => {
-    renderBuild(cards, meta);
-    expect(document.getElementById('tab-Build').innerHTML).toContain('🔴');
+    const items = document.querySelectorAll('#tab-Build .build-item');
+    expect(items.length).toBe(2);
+    expect(items[0].querySelector('.bi-name').textContent).toBe('UFI 18G Turbo');
+    expect(items[0].querySelector('.bi-note').textContent).toBe('Upgraded from factory CT26');
+    expect(items[1].querySelector('.bi-note')).toBeNull();
+    expect(document.querySelector('#tab-Build .bi-status')).toBeNull();
+    expect(document.querySelector('#tab-Build .bi-tag')).toBeNull();
   });
 
   test('card icon is rendered', () => {
@@ -97,17 +99,17 @@ describe('renderStrategy', () => {
 
   test('urgent row gets status-urgent class', () => {
     renderStrategy(phases);
-    expect(document.querySelector('#tab-2026-Strategy .task-card.status-urgent')).not.toBeNull();
+    expect(document.querySelector('#tab-2026-Strategy .task-row.status-urgent')).not.toBeNull();
   });
 
   test('done row gets status-done class', () => {
     renderStrategy(phases);
-    expect(document.querySelector('#tab-2026-Strategy .task-card.status-done')).not.toBeNull();
+    expect(document.querySelector('#tab-2026-Strategy .task-row.status-done')).not.toBeNull();
   });
 
   test('cards carry the task id as data-task', () => {
     renderStrategy(phases);
-    expect(document.querySelector('.task-card[data-task="strat-rear-diff"]')).not.toBeNull();
+    expect(document.querySelector('.task-row[data-task="strat-rear-diff"]')).not.toBeNull();
   });
 });
 
@@ -137,18 +139,19 @@ describe('renderStrategy board', () => {
 
   beforeEach(() => renderStrategy(phases));
 
-  const colTitles = () => [...document.querySelectorAll('.board .col')].map(c => [...c.querySelectorAll('.task-title')].map(t => t.textContent));
+  const colTitles = () => [...document.querySelectorAll('.board .col')].map(c => [...c.querySelectorAll('.bi-name')].map(t => t.textContent));
 
-  test('#strategyBody exists after render with no toggle or checkboxes', () => {
+  test('#strategyBody exists with no toggle or checkboxes', () => {
     expect(document.getElementById('strategyBody')).not.toBeNull();
     expect(document.getElementById('toggleDoneBtn')).toBeNull();
     expect(document.querySelector('#strategyBody input[type="checkbox"]')).toBeNull();
   });
 
-  test('renders four status columns with counts', () => {
+  test('renders four build-style cards as status columns with counts', () => {
     const cols = document.querySelectorAll('.board .col');
     expect(cols.length).toBe(4);
-    expect(cols[0].querySelector('h3').textContent).toContain('Can do now');
+    cols.forEach(c => expect(c.classList.contains('build-card')).toBe(true));
+    expect(cols[0].querySelector('.build-card-header').textContent).toContain('Can do now');
     expect(cols[0].querySelector('.col-count').textContent).toBe('1');
     expect(cols[2].querySelector('.col-count').textContent).toBe('2');
   });
@@ -161,27 +164,25 @@ describe('renderStrategy board', () => {
     expect(later).toEqual(['Valve Check', 'No Status Task']);
   });
 
-  test('urgent tasks sort first within a column and carry status-urgent', () => {
+  test('urgent tasks sort first within a column with the red icon', () => {
     const shop = document.querySelectorAll('.board .col')[2];
-    const first = shop.querySelector('.task-card');
+    const first = shop.querySelector('.task-row');
     expect(first.dataset.task).toBe('strat-brakes');
     expect(first.classList.contains('status-urgent')).toBe(true);
+    expect(first.querySelector('.bi-status').textContent).toBe('🔴');
   });
 
-  test('card shows phase tag, who, cost, time, status, and still-needed', () => {
-    const card = document.querySelector('.task-card[data-task="strat-brakes"]');
-    expect(card.querySelector('.phase-tag').textContent).toBe('P2');
-    expect(card.querySelector('.phase-tag').getAttribute('title')).toBe('PHASE 2 — SPRING 2026');
-    const meta = card.querySelector('.task-meta').textContent;
-    expect(meta).toContain('Me');
-    expect(meta).toContain('~$200');
-    expect(meta).toContain('2 hrs');
-    expect(card.querySelector('.task-status').textContent).toBe('URGENT SERVICE');
-    expect(card.querySelector('.task-need').textContent).toBe('Pads if worn');
+  test('row shows who/cost/time meta, still-needed line, phase and status tags', () => {
+    const r = document.querySelector('.task-row[data-task="strat-brakes"]');
+    expect(r.querySelector('.bi-meta').textContent).toBe('Me · ~$200 · 2 hrs');
+    expect(r.querySelector('.bi-need').textContent).toBe('Needs: Pads if worn');
+    const tags = [...r.querySelectorAll('.bi-tag')].map(t => t.textContent);
+    expect(tags).toEqual(['P2', 'URGENT SERVICE']);
+    expect(r.querySelector('.tag-phase').getAttribute('title')).toBe('PHASE 2 — SPRING 2026');
   });
 
   test('notes and on-hand sit inside a collapsed details element', () => {
-    const more = document.querySelector('.task-card[data-task="strat-brakes"] details.task-more');
+    const more = document.querySelector('.task-row[data-task="strat-brakes"] details.bi-more');
     expect(more).not.toBeNull();
     expect(more.open).toBe(false);
     expect(more.textContent).toContain('Warning light on');
@@ -189,30 +190,31 @@ describe('renderStrategy board', () => {
     expect(more.textContent).toContain('DOT3 fluid');
   });
 
-  test('card without still-needed or notes renders neither element', () => {
-    const card = document.querySelector('.task-card[data-task="strat-tyres"]');
-    expect(card.querySelector('.task-need')).toBeNull();
-    expect(card.querySelector('.task-more')).toBeNull();
+  test('row without still-needed or notes renders neither element', () => {
+    const r = document.querySelector('.task-row[data-task="strat-tyres"]');
+    expect(r.querySelector('.bi-need')).toBeNull();
+    expect(r.querySelector('.bi-more')).toBeNull();
   });
 
-  test('done tasks go to the visible done section below the board, with a count', () => {
+  test('done tasks go to the visible done card below the board, green, no status tag', () => {
     const done = document.querySelector('.strat-done');
     expect(done.querySelector('.col-count').textContent).toBe('1');
-    expect(done.style.display).toBe('');
     expect(done.compareDocumentPosition(document.querySelector('.board')) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy();
-    const card = done.querySelector('.task-card[data-task="strat-oil"]');
-    expect(card.classList.contains('status-done')).toBe(true);
-    expect(document.querySelectorAll('.board .task-card[data-task="strat-oil"]').length).toBe(0);
+    const r = done.querySelector('.task-row[data-task="strat-oil"]');
+    expect(r.classList.contains('status-done')).toBe(true);
+    expect(r.querySelector('.bi-name').classList.contains('installed')).toBe(true);
+    expect([...r.querySelectorAll('.bi-tag')].map(t => t.textContent)).toEqual(['P2']);
+    expect(document.querySelectorAll('.board .task-row[data-task="strat-oil"]').length).toBe(0);
   });
 
-  test('summary counts open, urgent, and done tasks', () => {
-    const txt = document.querySelector('.strat-summary').textContent;
+  test('vitals strip counts open, urgent, and done tasks', () => {
+    const txt = document.querySelector('.strat-vitals').textContent;
     expect(txt).toContain('6 open');
     expect(txt).toContain('1 urgent');
     expect(txt).toContain('1 done');
   });
 
-  test('empty column shows a placeholder and no done section when nothing is done', () => {
+  test('empty column shows a placeholder and no done card when nothing is done', () => {
     renderStrategy([{ phase: 'P', tasks: [{ id: 'a', priority: 'low', task: 'A', who: 'Me', status: 'NEEDS PARTS', checked: false }] }]);
     expect(document.querySelectorAll('.col-empty').length).toBe(3);
     expect(document.querySelector('.strat-done')).toBeNull();
@@ -353,5 +355,33 @@ describe('renderShopContacts', () => {
   test('contact without phone shows — (em dash)', () => {
     renderShopContacts(contacts);
     expect(document.getElementById('tab-Shop-Contacts').innerHTML).toContain('—');
+  });
+});
+
+// ─── renderMaintenanceLog ────────────────────────────────────────────────────
+
+describe('renderMaintenanceLog', () => {
+  const entries = [
+    { date: '2024-02', km: 165000, item: 'Coolant flush', detail: '50/50 premix', who: 'Shop' },
+    { item: 'Rear axle rebuild', detail: 'Date not recorded', who: 'Shop' },
+    { date: '2026-04', km: 170000, item: 'Trans fluid', detail: 'Red Line MT-90', who: 'DIY' }
+  ];
+
+  beforeEach(() => renderMaintenanceLog(entries));
+
+  test('renders newest first with undated entries last', () => {
+    const items = [...document.querySelectorAll('#tab-Maintenance-Log td.log-item')].map(td => td.textContent);
+    expect(items).toEqual(['Trans fluid', 'Coolant flush', 'Rear axle rebuild']);
+  });
+
+  test('formats odometer and marks unknown date', () => {
+    const rows = document.querySelectorAll('#tab-Maintenance-Log tbody tr');
+    expect(rows[0].querySelector('.log-km').textContent).toBe('~170,000 km');
+    expect(rows[2].querySelector('.log-date').textContent).toBe('Date unknown');
+    expect(rows[2].querySelector('.log-km').textContent).toBe('—');
+  });
+
+  test('does not mutate the input order', () => {
+    expect(entries[0].item).toBe('Coolant flush');
   });
 });

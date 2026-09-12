@@ -6,20 +6,19 @@
 
 ## Build
 
-**Required:** `category` (existing card name or new), `status`, `name`
-**Optional:** `note`, `tags[]`
+The build sheet lists **what changed from stock** — upgrades and modifications that are on the truck now. It is not a job list: anything planned, ordered, on hand, or in progress belongs in 2026 Strategy, and maintenance history belongs in the Maintenance Log (and Strategy Phase 1 if it was a tracked job).
 
-**Allowed `status`:** `installed` | `planned` | `urgent` | `on_hand` | `ordered`
+**Required:** `category` (existing card name or new), `name`
+**Optional:** `note` (what/where/when, part numbers, vendor)
 
-**Allowed `tags`:** `INSTALLED` | `PLANNED` | `DO FIRST` | `PARTS ON HAND` | `ORDERED`
-
-**Existing categories:** Engine / Power · Drivetrain / Axles · Offroad Capability · Suspension · Cooling / Fluids · Body / Paint · Interior / Electrical
+**Existing categories:** Engine / Power · Drivetrain / Axles · Offroad Capability · Suspension · Exterior · Interior / Electrical
 
 ---
 
 ## Fluid Guide
 
-**Required:** `system`, `spec`, `capacity`, `buy_amount`, `brand`, `status`
+**Required:** `system`, `spec`, `capacity`, `brand`, `status`
+**Optional:** `buy_amount` (kept in data, not shown)
 **Optional:** `notes`
 
 **Allowed `status`:** `locked` | `tracker-based` | `pending`
@@ -73,6 +72,17 @@
 **Optional:** `last_done_notes`, `next_due_km`, `km_until_due`, `notes`, `status_label`
 
 **Allowed `status`:** `ok` | `upcoming` | `overdue` | `urgent` | `deferred` | `due_soon`
+
+---
+
+## Maintenance Log
+
+Chronological record of service actually performed. One entry per job; newest renders first, entries with no date sink to the bottom.
+
+**Required:** `item`, `detail`
+**Optional:** `date` (`YYYY-MM-DD`, `YYYY-MM`, or `YYYY`; omit if unknown), `km` (odometer as a number; omit if unknown), `who`, `source` (invoice, estimate, or note the entry came from)
+
+When a Strategy task is marked done, add a log entry too, and update the matching Scheduled Maintenance row's `last_done_km`.
 
 ---
 
