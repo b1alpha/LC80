@@ -113,15 +113,17 @@ describe('renderStrategy', () => {
   });
 });
 
-// ─── renderStrategy (card layout + merged tracker fields) ───────────────────
+// ─── renderStrategy (status board) ──────────────────────────────────────────
 
-describe('renderStrategy cards', () => {
+describe('renderStrategy board', () => {
   const phases = [
     {
       phase: 'PHASE 2 — SPRING 2026',
       tasks: [
         { id: 'strat-oil', priority: 'done', task: 'Oil Change', who: 'Me', status: 'DONE', checked: true, still_needed: 'Nothing' },
         { id: 'strat-tyres', priority: 'low', task: 'Tyre Rotation', who: 'Shop', status: 'SHOP JOB (Pending)', checked: false },
+        { id: 'strat-sway', priority: 'low', task: 'Sway Bar Off', who: 'Me', status: 'CAN DO NOW', checked: false, on_hand: 'Jack' },
+        { id: 'strat-bulbs', priority: 'low', task: 'Bulbs', who: 'Me', status: 'NEEDS PARTS', checked: false, still_needed: 'New bulbs' },
         {
           id: 'strat-brakes', priority: 'urgent', task: 'Brake Inspection', category: 'Brakes / Safety',
           who: 'Me', status: 'URGENT SERVICE', cost_cad: 200, time: '2 hrs', checked: false,
@@ -129,79 +131,92 @@ describe('renderStrategy cards', () => {
         }
       ]
     },
-    { phase: 'PHASE 1 — DONE ONLY', tasks: [{ id: 'strat-old', priority: 'done', task: 'Old Job', who: 'Me', checked: true }] }
+    { phase: 'PHASE 4 — REBUILD', tasks: [
+      { id: 'strat-valve', priority: 'low', task: 'Valve Check', who: 'Eli', status: 'DEFERRED TO REBUILD', checked: false },
+      { id: 'strat-mystery', priority: 'low', task: 'No Status Task', who: 'Me', checked: false }
+    ] }
   ];
 
   beforeEach(() => renderStrategy(phases));
+
+  const colTitles = () => [...document.querySelectorAll('.board .col')].map(c => [...c.querySelectorAll('.task-title')].map(t => t.textContent));
 
   test('#strategyBody and #toggleDoneBtn exist after render', () => {
     expect(document.getElementById('strategyBody')).not.toBeNull();
     expect(document.getElementById('toggleDoneBtn')).not.toBeNull();
   });
 
-  test('summary counts open, urgent, and done tasks', () => {
-    const txt = document.querySelector('.strat-summary').textContent;
-    expect(txt).toContain('2 open');
-    expect(txt).toContain('1 urgent');
-    expect(txt).toContain('2 done');
+  test('renders four status columns with counts', () => {
+    const cols = document.querySelectorAll('.board .col');
+    expect(cols.length).toBe(4);
+    expect(cols[0].querySelector('h3').textContent).toContain('Can do now');
+    expect(cols[0].querySelector('.col-count').textContent).toBe('1');
+    expect(cols[2].querySelector('.col-count').textContent).toBe('2');
   });
 
-  test('tasks within a phase are ordered urgent → later → done', () => {
-    const titles = [...document.querySelectorAll('#strategyBody .phase:first-child .task-title')].map(el => el.textContent);
-    expect(titles).toEqual(['Brake Inspection', 'Tyre Rotation', 'Oil Change']);
+  test('open tasks land in the column for their status; unknown status goes to later', () => {
+    const [now, parts, shop, later] = colTitles();
+    expect(now).toEqual(['Sway Bar Off']);
+    expect(parts).toEqual(['Bulbs']);
+    expect(shop).toEqual(['Brake Inspection', 'Tyre Rotation']);
+    expect(later).toEqual(['Valve Check', 'No Status Task']);
   });
 
-  test('status renders as a chip, who/category/cost/time in the meta line', () => {
+  test('urgent tasks sort first within a column and carry status-urgent', () => {
+    const shop = document.querySelectorAll('.board .col')[2];
+    const first = shop.querySelector('.task-card');
+    expect(first.dataset.task).toBe('strat-brakes');
+    expect(first.classList.contains('status-urgent')).toBe(true);
+  });
+
+  test('card shows phase tag, who, cost, time, status, and still-needed', () => {
     const card = document.querySelector('.task-card[data-task="strat-brakes"]');
-    expect(card.querySelector('.chip-status').textContent).toBe('URGENT SERVICE');
+    expect(card.querySelector('.phase-tag').textContent).toBe('P2');
+    expect(card.querySelector('.phase-tag').getAttribute('title')).toBe('PHASE 2 — SPRING 2026');
     const meta = card.querySelector('.task-meta').textContent;
     expect(meta).toContain('Me');
-    expect(meta).toContain('Brakes / Safety');
     expect(meta).toContain('~$200');
     expect(meta).toContain('2 hrs');
+    expect(card.querySelector('.task-status').textContent).toBe('URGENT SERVICE');
+    expect(card.querySelector('.task-need').textContent).toBe('Pads if worn');
   });
 
-  test('notes, on-hand, and still-needed render inside the card', () => {
-    const card = document.querySelector('.task-card[data-task="strat-brakes"]');
-    expect(card.querySelector('.task-notes').textContent).toContain('Warning light on');
-    expect(card.querySelector('.fact-onhand').textContent).toContain('On Hand:');
-    expect(card.querySelector('.fact-onhand').textContent).toContain('DOT3 fluid');
-    expect(card.querySelector('.fact-need').textContent).toContain('Still Needed:');
-    expect(card.querySelector('.fact-need').textContent).toContain('Pads if worn');
+  test('notes and on-hand sit inside a collapsed details element', () => {
+    const more = document.querySelector('.task-card[data-task="strat-brakes"] details.task-more');
+    expect(more).not.toBeNull();
+    expect(more.open).toBe(false);
+    expect(more.textContent).toContain('Warning light on');
+    expect(more.textContent).toContain('On hand:');
+    expect(more.textContent).toContain('DOT3 fluid');
   });
 
-  test('card without notes/facts/status renders none of those elements', () => {
-    const card = document.querySelector('.task-card[data-task="strat-old"]');
-    expect(card.querySelector('.task-notes')).toBeNull();
-    expect(card.querySelector('.task-facts')).toBeNull();
-    expect(card.querySelector('.chip-status')).toBeNull();
+  test('card without still-needed or notes renders neither element', () => {
+    const card = document.querySelector('.task-card[data-task="strat-tyres"]');
+    expect(card.querySelector('.task-need')).toBeNull();
+    expect(card.querySelector('.task-more')).toBeNull();
   });
 
-  test('still-needed list at the top covers open tasks only', () => {
-    const items = [...document.querySelectorAll('.strat-needs li')].map(li => li.textContent);
-    expect(items.length).toBe(1);
-    expect(items[0]).toContain('Brake Inspection');
-    expect(items[0]).toContain('Pads if worn');
-    expect(document.querySelector('.strat-needs').textContent).not.toContain('Nothing');
+  test('done tasks go to the done section, hidden by default, with a count', () => {
+    const done = document.querySelector('.strat-done');
+    expect(done.querySelector('.col-count').textContent).toBe('1');
+    expect(done.style.display).toBe('none');
+    const card = done.querySelector('.task-card[data-task="strat-oil"]');
+    expect(card.classList.contains('status-done')).toBe(true);
+    expect(card.querySelector('input').checked).toBe(true);
+    expect(document.querySelectorAll('.board .task-card[data-task="strat-oil"]').length).toBe(0);
   });
 
-  test('no still-needed list when nothing is needed', () => {
-    renderStrategy([{ phase: 'P', tasks: [{ id: 'a', priority: 'low', task: 'A', who: 'Me', checked: false }] }]);
-    expect(document.querySelector('.strat-needs')).toBeNull();
+  test('summary counts open, urgent, and done tasks', () => {
+    const txt = document.querySelector('.strat-summary').textContent;
+    expect(txt).toContain('6 open');
+    expect(txt).toContain('1 urgent');
+    expect(txt).toContain('1 done');
   });
 
-  test('shop jobs get the planned colour, done cards the done colour', () => {
-    expect(document.querySelector('.task-card[data-task="strat-tyres"]').classList.contains('status-planned')).toBe(true);
-    expect(document.querySelector('.task-card[data-task="strat-oil"]').classList.contains('status-done')).toBe(true);
-  });
-
-  test('done cards are hidden by default and a phase with only done tasks is hidden too', () => {
-    expect(document.querySelector('.task-card[data-task="strat-oil"]').style.display).toBe('none');
-    expect(document.querySelector('.task-card[data-task="strat-brakes"]').style.display).toBe('');
-    const phases = document.querySelectorAll('#strategyBody .phase');
-    expect(phases[0].style.display).toBe('');
-    expect(phases[1].style.display).toBe('none');
-    expect(phases[1].querySelector('.phase-count').textContent).toBe('all done');
+  test('empty column shows a placeholder and no done section when nothing is done', () => {
+    renderStrategy([{ phase: 'P', tasks: [{ id: 'a', priority: 'low', task: 'A', who: 'Me', status: 'NEEDS PARTS', checked: false }] }]);
+    expect(document.querySelectorAll('.col-empty').length).toBe(3);
+    expect(document.querySelector('.strat-done')).toBeNull();
   });
 });
 

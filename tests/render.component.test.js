@@ -61,13 +61,13 @@ describe('toggleDoneRows', () => {
     const btn = document.getElementById('toggleDoneBtn');
     expect(btn.textContent).toBe('Show ✅ Done');
     expect(document.querySelector('#strategyBody .task-card').style.display).toBe('none');
-    expect(document.querySelector('#strategyBody .phase').style.display).toBe('none');
+    expect(document.querySelector('#strategyBody .strat-done').style.display).toBe('none');
 
     toggleDoneRows();
 
     expect(btn.textContent).toBe('Hide ✅ Done');
     expect(document.querySelector('#strategyBody .task-card').style.display).toBe('');
-    expect(document.querySelector('#strategyBody .phase').style.display).toBe('');
+    expect(document.querySelector('#strategyBody .strat-done').style.display).toBe('');
   });
 
   test('second call flips doneHidden back to true', () => {

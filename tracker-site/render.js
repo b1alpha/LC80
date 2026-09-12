@@ -29,13 +29,11 @@ export function applyDoneVisibility() {
   var body = document.getElementById('strategyBody');
   if (!body) return;
   body.classList.toggle('hide-done', doneHidden);
-  Array.from(body.querySelectorAll('.task-card')).forEach(function(card) {
-    card.style.display = (doneHidden && card.classList.contains('status-done')) ? 'none' : '';
+  Array.from(body.querySelectorAll('.task-card.status-done')).forEach(function(card) {
+    card.style.display = doneHidden ? 'none' : '';
   });
-  Array.from(body.querySelectorAll('.phase')).forEach(function(ph) {
-    var anyVisible = Array.from(ph.querySelectorAll('.task-card')).some(function(c) { return c.style.display !== 'none'; });
-    ph.style.display = anyVisible ? '' : 'none';
-  });
+  var done = body.querySelector('.strat-done');
+  if (done) done.style.display = doneHidden ? 'none' : '';
 }
 
 export function toggleDoneRows() {
@@ -99,59 +97,81 @@ export function renderFluidGuide(rows) {
 }
 
 export function renderStrategy(phases) {
-  var rank = { urgent: 0, low: 1, done: 2 };
-  var statusClass = {
-    'SHOP JOB (Pending)': 'status-planned', 'SCHEDULED 2026/27': 'status-planned',
-    'LEAKING \u2014 NEEDS BOOKING': 'status-warn', 'NEEDS BOOKING': 'status-warn'
-  };
+  var BUCKETS = [
+    { key: 'now', title: 'Can do now', statuses: ['CAN DO NOW', 'ONGOING TRACKING'] },
+    { key: 'parts', title: 'Needs parts', statuses: ['NEEDS PARTS'] },
+    { key: 'shop', title: 'Needs shop / booking', statuses: ['URGENT SERVICE', 'NEEDS INVESTIGATION', 'LEAKING \u2014 NEEDS BOOKING', 'NEEDS BOOKING', 'SHOP JOB (Pending)', 'BROKEN \u2014 REPLACE'] },
+    { key: 'later', title: 'Later / rebuild', statuses: ['PLANNING QUOTE', 'DEFERRED TO REBUILD', 'SCHEDULED 2026/27'] }
+  ];
+  var bucketOf = {};
+  BUCKETS.forEach(function(b) { b.statuses.forEach(function(st) { bucketOf[st] = b.key; }); });
+
   var all = [];
-  phases.forEach(function(p) { p.tasks.forEach(function(t) { all.push(t); }); });
-  var open = all.filter(function(t) { return t.priority !== 'done'; });
-  var urgent = open.filter(function(t) { return t.priority === 'urgent'; });
-  var needs = open.filter(function(t) { return t.still_needed; });
+  phases.forEach(function(p, pi) {
+    var m = /PHASE\s+(\d+)/i.exec(p.phase || '');
+    var tag = m ? 'P' + m[1] : 'P' + (pi + 1);
+    p.tasks.forEach(function(t) { all.push({ t: t, tag: tag, phase: p.phase, order: pi }); });
+  });
+  var open = all.filter(function(x) { return x.t.priority !== 'done'; });
+  var done = all.filter(function(x) { return x.t.priority === 'done'; });
+  var urgentCount = open.filter(function(x) { return x.t.priority === 'urgent'; }).length;
 
-  var html = '<div class="strat-header">\ud83d\udccb SNEAKY PETE \u2014 2026 Strategy &amp; Project Tracker | 170,000 km | 1HD-T</div>' +
-    '<div class="strat-toolbar">' +
+  var cost = function(t) { return t.cost_cad ? '~$' + t.cost_cad.toLocaleString() : '$0'; };
+  var meta = function(x) {
+    var t = x.t;
+    return '<div class="task-meta">' +
+      '<span class="phase-tag" title="' + x.phase + '">' + x.tag + '</span>' +
+      '<span class="task-who">' + t.who + '</span>' +
+      '<span>' + cost(t) + '</span>' +
+      (t.time ? '<span>' + t.time + '</span>' : '') +
+      '</div>';
+  };
+  var card = function(x) {
+    var t = x.t;
+    var rc = t.priority === 'urgent' ? 'status-urgent' : 'status-low';
+    return '<article class="task-card ' + rc + '" data-task="' + t.id + '">' +
+      '<label class="task-check"><input type="checkbox" data-strat="' + t.id + '"' + (t.checked ? ' checked' : '') + '></label>' +
+      '<div class="task-body">' +
+      '<h4 class="task-title">' + t.task + '</h4>' +
+      meta(x) +
+      (t.status ? '<div class="task-status">' + t.status + '</div>' : '') +
+      (t.still_needed ? '<div class="task-need">' + t.still_needed + '</div>' : '') +
+      ((t.notes || t.on_hand) ? '<details class="task-more"><summary>Notes</summary>' +
+        (t.notes ? '<p>' + t.notes + '</p>' : '') +
+        (t.on_hand ? '<p><strong>On hand:</strong> ' + t.on_hand + '</p>' : '') +
+        '</details>' : '') +
+      '</div></article>';
+  };
+
+  var html = '<div class="strat-toolbar">' +
+    '<span class="strat-summary"><strong>' + open.length + '</strong> open \u00b7 <strong>' + urgentCount + '</strong> urgent \u00b7 <strong>' + done.length + '</strong> done</span>' +
     '<button id="toggleDoneBtn" onclick="toggleDoneRows()">Hide \u2705 Done</button>' +
-    '<span class="strat-summary"><strong>' + open.length + '</strong> open \u00b7 <strong>' + urgent.length + '</strong> urgent \u00b7 <strong>' + (all.length - open.length) + '</strong> done</span>' +
-    '</div>';
+    '</div>' +
+    '<div id="strategyBody"><div class="board">';
 
-  if (needs.length) {
-    html += '<section class="strat-needs"><h3>\ud83d\uded2 Still Needed \u2014 parts &amp; bookings across ' + needs.length + ' open tasks</h3><ul>';
-    needs.forEach(function(t) {
-      html += '<li><span class="need-task">' + t.task + '</span><span class="need-what">' + t.still_needed + '</span></li>';
+  BUCKETS.forEach(function(b) {
+    var items = open.filter(function(x) { return (bucketOf[x.t.status] || 'later') === b.key; });
+    items.sort(function(p, q) {
+      var pu = p.t.priority === 'urgent' ? 0 : 1, qu = q.t.priority === 'urgent' ? 0 : 1;
+      return pu - qu || p.order - q.order;
     });
-    html += '</ul></section>';
-  }
-
-  html += '<div id="strategyBody">';
-  for (var i = 0; i < phases.length; i++) {
-    var phase = phases[i];
-    var tasks = phase.tasks.slice().sort(function(a, b) { return rank[a.priority] - rank[b.priority]; });
-    var openCount = tasks.filter(function(t) { return t.priority !== 'done'; }).length;
-    html += '<section class="phase"><h2 class="phase-title"><span>' + phase.phase + '</span><span class="phase-count">' + (openCount ? openCount + ' open' : 'all done') + '</span></h2>';
-    for (var j = 0; j < tasks.length; j++) {
-      var t = tasks[j];
-      var isDone = t.priority === 'done';
-      var rc = isDone ? 'status-done' : t.priority === 'urgent' ? 'status-urgent' : (statusClass[t.status] || 'status-low');
-      var prio = isDone ? '\u2705 Done' : t.priority === 'urgent' ? '\ud83d\udd34 Urgent' : '\ud83d\udfe1 Later';
-      html += '<article class="task-card project-main ' + rc + '" data-task="' + t.id + '">' +
-        '<label class="task-check"><input type="checkbox" data-strat="' + t.id + '"' + (t.checked ? ' checked' : '') + '></label>' +
-        '<div class="task-body">' +
-        '<div class="task-head"><span class="task-prio">' + prio + '</span><h4 class="task-title">' + t.task + '</h4>' +
-        (t.status ? '<span class="chip chip-status">' + t.status + '</span>' : '') + '</div>' +
-        '<div class="task-meta"><span>\ud83d\udc64 ' + t.who + '</span>' +
-        (t.category ? '<span>\ud83c\udff7\ufe0f ' + t.category + '</span>' : '') +
-        '<span>\ud83d\udcb0 ' + (t.cost_cad ? '~$' + t.cost_cad : '$0') + '</span>' +
-        '<span>\u23f1 ' + (t.time || '\u2014') + '</span></div>' +
-        (t.notes ? '<p class="task-notes">' + t.notes + '</p>' : '') +
-        ((t.on_hand || t.still_needed) ? '<div class="task-facts">' +
-          (t.on_hand ? '<div class="fact fact-onhand"><strong>\ud83d\udce6 On Hand:</strong> ' + t.on_hand + '</div>' : '') +
-          (t.still_needed ? '<div class="fact fact-need"><strong>\ud83d\udd0d Still Needed:</strong> ' + t.still_needed + '</div>' : '') +
-          '</div>' : '') +
-        '</div></article>';
-    }
+    html += '<section class="col col-' + b.key + '"><h3>' + b.title + '<span class="col-count">' + items.length + '</span></h3>';
+    html += items.length ? items.map(card).join('') : '<div class="col-empty">Nothing here</div>';
     html += '</section>';
+  });
+  html += '</div>';
+
+  if (done.length) {
+    html += '<section class="strat-done"><h3>Done<span class="col-count">' + done.length + '</span></h3><div class="done-list">';
+    done.forEach(function(x) {
+      var t = x.t;
+      html += '<div class="task-card status-done" data-task="' + t.id + '">' +
+        '<label class="task-check"><input type="checkbox" data-strat="' + t.id + '" checked></label>' +
+        '<div class="task-body"><h4 class="task-title">' + t.task + '</h4>' + meta(x) +
+        (t.notes ? '<details class="task-more"><summary>Notes</summary><p>' + t.notes + '</p></details>' : '') +
+        '</div></div>';
+    });
+    html += '</div></section>';
   }
   html += '</div>';
   document.getElementById('tab-2026-Strategy').innerHTML = html;

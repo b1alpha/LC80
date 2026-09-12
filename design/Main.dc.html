@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin: 0; background: #1a1a1a; color: #e0e0e0; font-family: 'Segoe UI', Arial, sans-serif; }
+    a { color: #f0a500; } a:hover { color: #ffd050; }
+    .col h3 { margin: 0 0 10px; font-size: 11.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #f0a500; display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 6px; border-bottom: 1px solid #333; }
+    .col h3 span { color: #777; font-weight: 500; letter-spacing: 0; }
+    .card { display: flex; gap: 10px; background: #222; border: 1px solid #2e2e2e; border-radius: 4px; padding: 10px 12px 10px 10px; margin-bottom: 8px; }
+    .card.urgent { border-left: 3px solid #e03a3a; }
+    .box { width: 17px; height: 17px; border: 1.5px solid #5a5a5a; border-radius: 3px; flex: 0 0 auto; margin-top: 1px; }
+    .t { margin: 0; font-size: 14px; font-weight: 600; color: #f2f2f2; line-height: 1.35; }
+    .m { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 4px; font-size: 11.5px; color: #8f8f8f; line-height: 1.4; }
+    .m b { color: #bdbdbd; font-weight: 500; }
+    .p { color: #f0a500; border: 1px solid #5a4510; border-radius: 3px; padding: 0 5px; font-weight: 600; }
+    .s { margin-top: 4px; font-size: 10.5px; letter-spacing: 0.5px; text-transform: uppercase; color: #777; }
+    .n { margin-top: 6px; font-size: 12.5px; color: #f0a500; line-height: 1.4; }
+    .more { margin-top: 6px; font-size: 12px; color: #777; }
+    .more.open { color: #bbb; }
+    .more p { margin: 6px 0 0; line-height: 1.5; color: #bbb; }
+    .more strong { color: #f0a500; }
+    .done .t { color: #9c9; text-decoration: line-through; }
+    .done { background: #1c231c; border-color: #2a3a2a; }
+    .done .box { background: #f0a500; border-color: #f0a500; }
+  </style>
+</helmet>
+<div style="width: 1440px; min-height: 1180px; background: #1a1a1a;">
+  <div style="background: #111; color: #f0a500; padding: 18px 24px; font-size: 22px; font-weight: 700; letter-spacing: 1px;">Sneaky Pete — 1993 LC80 HDJ81 Build Tracker</div>
+  <div style="background: #222; padding: 8px 16px; display: flex; gap: 6px; border-bottom: 2px solid #f0a500;">
+    <div style="background: #333; color: #ccc; padding: 7px 16px; border-radius: 4px 4px 0 0; font-size: 14px;">Build</div>
+    <div style="background: #333; color: #ccc; padding: 7px 16px; border-radius: 4px 4px 0 0; font-size: 14px;">Fluid Guide</div>
+    <div style="background: #f0a500; color: #111; padding: 7px 16px; border-radius: 4px 4px 0 0; font-size: 14px; font-weight: 700;">2026 Strategy</div>
+    <div style="background: #333; color: #ccc; padding: 7px 16px; border-radius: 4px 4px 0 0; font-size: 14px;">Parts Inventory</div>
+    <div style="background: #333; color: #ccc; padding: 7px 16px; border-radius: 4px 4px 0 0; font-size: 14px;">Spend Summary</div>
+    <div style="background: #333; color: #ccc; padding: 7px 16px; border-radius: 4px 4px 0 0; font-size: 14px;">Scheduled Maintenance</div>
+    <div style="background: #333; color: #ccc; padding: 7px 16px; border-radius: 4px 4px 0 0; font-size: 14px;">Shop Contacts</div>
+  </div>
+
+  <div style="padding: 20px 20px 40px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+      <div style="font-size: 13px; color: #8f8f8f;"><span style="font-size: 17px; color: #fff; font-weight: 700;">20</span> open · <span style="font-size: 17px; color: #fff; font-weight: 700;">8</span> urgent · <span style="font-size: 17px; color: #fff; font-weight: 700;">20</span> done</div>
+      <div style="background: #f0a500; color: #111; border: 1px solid #f0a500; padding: 6px 14px; border-radius: 4px; font-size: 12.5px;">Show ✓ Done</div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: start;">
+
+      <div class="col">
+        <h3>Can do now <span>4</span></h3>
+        <div class="card urgent"><div class="box"></div><div><p class="t">Replace door glass running strips — all 4 doors</p><div class="m"><span class="p">P2</span><b>DIY — Brennon (roadside OK)</b><span>$0</span><span>3 hrs</span></div><div class="s">Can do now</div><div class="more open">Notes<p>Do this first, then lube the passenger window regulator in the same session — door card is already off. Wind + water fix. Before Moab May long.</p><p><strong>On hand:</strong> Door glass run sealing strip set — 68141-60010 / 68151-60010 / 68142-60011 / 68152-60011 (Amazon CA)</p></div></div>
+        <div class="card urgent"><div class="box"></div><div><p class="t">Passenger front window — lube regulator</p><div class="m"><span class="p">P2</span><b>DIY — Brennon (roadside OK)</b><span>~$30</span><span>1–1.5 hrs</span></div><div class="s">Can do now</div><div class="n">Nothing beyond the running strips already on hand — lube only</div><div class="more">Notes</div></div></div>
+        <div class="card urgent"><div class="box"></div><div><p class="t">Rear sway bar — remove (fix for broken passenger link)</p><div class="m"><span class="p">P2</span><b>DIY — Brennon (roadside OK)</b><span>$0</span><span>0.5 hrs</span></div><div class="s">Can do now</div><div class="n">Nothing — just do it</div><div class="more">Notes</div></div></div>
+        <div class="card urgent"><div class="box"></div><div><p class="t">Monitor oil consumption</p><div class="m"><span class="p">P2</span><b>DIY</b><span>$0</span><span>Ongoing</span></div><div class="s">Ongoing tracking</div><div class="n">Maintain tracking log; if rate worsens, move engine rebuild forward</div><div class="more">Notes</div></div></div>
+      </div>
+
+      <div class="col">
+        <h3>Needs parts <span>5</span></h3>
+        <div class="card urgent"><div class="box"></div><div><p class="t">Big end bearings — preventive replacement</p><div class="m"><span class="p">P2</span><b>Liam Schram</b><span>~$415</span><span>3 hrs</span></div><div class="s">Needs parts</div><div class="n">ACL bearing shells + rod bolts + FIPG sealant</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Dash + interior bulbs — reorder different type + reinstall</p><div class="m"><span class="p">P2</span><b>DIY</b><span>~$40</span><span>30 min</span></div><div class="s">Needs parts</div><div class="n">New dash + interior bulbs — different type/brand (~$40)</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Fender flare weather stripping</p><div class="m"><span class="p">P3</span><b>DIY (roadside OK)</b><span>~$60</span><span>1 hr</span></div><div class="s">Needs parts</div><div class="n">Fender flare weather strip seal — Source: Partsouq</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Replace thermostat</p><div class="m"><span class="p">P4</span><b>DIY or quick-lube</b><span>~$30</span><span>1–2 hrs</span></div><div class="s">Needs parts</div><div class="n">Coolant — ~12L premix (or 6L concentrate + distilled)</div><div class="more">Notes</div></div></div>
+      </div>
+
+      <div class="col">
+        <h3>Needs shop / booking <span>7</span></h3>
+        <div class="card urgent"><div class="box"></div><div><p class="t">Brake inspection + service — warning light on</p><div class="m"><span class="p">P2</span><b>Liam Schram (or DIY check first)</b><span>~$200</span><span>2 hrs</span></div><div class="s">Urgent service</div><div class="n">Diagnosis (DIY fluid + pad visual, or book Liam). Pads/rotors if worn. DOT3/4 brake fluid if top-up needed.</div><div class="more">Notes</div></div></div>
+        <div class="card urgent"><div class="box"></div><div><p class="t">Centre rear suspension + linkage adjust</p><div class="m"><span class="p">P2</span><b>Steve — EBI Cruisers</b><span>~$625</span><span>3 hrs</span></div><div class="s">Needs investigation</div><div class="more">Notes</div></div></div>
+        <div class="card urgent"><div class="box"></div><div><p class="t">AC diagnosis + refrigerant correction</p><div class="m"><span class="p">P2</span><b>Liam Schram</b><span>$0</span><span>0.2 hrs</span></div><div class="s">Needs investigation</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Driver side knuckle gasket + seal replacement</p><div class="m"><span class="p">P2</span><b>Liam Schram</b><span>~$40</span><span>2 hrs</span></div><div class="s">Leaking — needs booking</div><div class="n">Knuckle felt seals + rubber outer gasket — Source: Partsouq or RADD Cruisers (~$20–40)</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Transmission — synchro rebuild (2nd gear)</p><div class="m"><span class="p">P3</span><b>Liam Schram</b><span>~$600</span><span>8+ hrs</span></div><div class="s">Shop job (pending)</div><div class="n">Book synchro rebuild (winter); buy fresh Red Line MT-90 for refill at rebuild</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Roof — fix 2 holes + final paint</p><div class="m"><span class="p">P3</span><b>Bill's Paint / Pro-Tech</b><span>~$400</span><span>1 day</span></div><div class="s">Shop job (pending)</div><div class="n">Bondo for 2 holes · Final colour-matched paint + clear coat</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">3" exhaust system</p><div class="m"><span class="p">P3</span><b>Local exhaust shop</b><span>~$500</span><span>4 hrs</span></div><div class="s">Shop job (pending)</div><div class="n">3" mandrel-bent exhaust system — confirm routing + exit point with shop</div><div class="more">Notes</div></div></div>
+      </div>
+
+      <div class="col">
+        <h3>Later / rebuild <span>5</span></h3>
+        <div class="card"><div class="box"></div><div><p class="t">Engine rebuild — 1HD-T (book with Eli)</p><div class="m"><span class="p">P4</span><b>Eli — Edmonton</b><span>~$11,500</span><span>~35 hrs</span></div><div class="s">Scheduled 2026/27</div><div class="n">Long block refurb — head, block, crank, rods, pistons, bearings, cam (~$5,600) · Fuel system: injectors + injection pump refurb (~$3,500) · All remaining rubber hoses</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Fuel system rebuild quote</p><div class="m"><span class="p">P4</span><b>Jon Fox — Black Fox Diesel</b><span>~$3,500</span><span>TBD</span></div><div class="s">Planning quote</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Valve clearance check</p><div class="m"><span class="p">P4</span><b>Eli — Edmonton</b><span>$0</span></div><div class="s">Deferred to rebuild</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Vacuum system rebuild quote</p><div class="m"><span class="p">P4</span><b>Eli — Edmonton</b><span>$0</span></div><div class="s">Planning quote</div><div class="more">Notes</div></div></div>
+        <div class="card"><div class="box"></div><div><p class="t">Glow plug circuit / dash light — diagnosis + plug replacement</p><div class="m"><span class="p">P4</span><b>Steve — EBI / Eli</b><span>~$90</span><span>1 hr</span></div><div class="s">Deferred to rebuild</div><div class="more">Notes</div></div></div>
+      </div>
+
+    </div>
+
+    <div class="col" style="margin-top: 26px;">
+      <h3>Done <span>20</span></h3>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 18px;">
+        <div class="card done"><div class="box"></div><div><p class="t">Rear differential fluid (AMSOIL 75W-140)</p><div class="m"><span class="p">P2</span><b>DIY — Brennon</b><span>$0</span><span>30 min</span></div></div></div>
+        <div class="card done"><div class="box"></div><div><p class="t">Transmission fluid change (Red Line MT-90)</p><div class="m"><span class="p">P2</span><b>DIY — Brennon</b><span>$0</span><span>1 hr</span></div></div></div>
+        <div class="card done"><div class="box"></div><div><p class="t">Fuel door cable — replaced</p><div class="m"><span class="p">P2</span><b>DIY</b><span>~$50</span><span>1 hr</span></div></div></div>
+        <div class="card done"><div class="box"></div><div><p class="t">Passenger birfield joint replacement</p><div class="m"><span class="p">P1</span><b>EBI Cruisers</b><span>~$1,298</span><span>5.5 hrs</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
