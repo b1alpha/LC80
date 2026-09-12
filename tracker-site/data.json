@@ -88,7 +88,7 @@
         { "status": "installed", "name": "SEALIGHT LED Headlights", "note": "H4/9003 LED headlight bulbs.", "tags": ["INSTALLED"] },
         { "status": "installed", "name": "Wiring Cleanup (6-Relay Fuse Box + Winch Cut-Off)", "note": "Fuse box installed, winch cut-off wired, control box relocated.", "tags": ["INSTALLED"] },
         { "status": "installed", "name": "ARB Outback Cargo Drawers x2", "note": "RD1045 x2 + floor adaptor kit from West Coast Offroaders.", "tags": ["INSTALLED"] },
-        { "status": "planned", "name": "Dash Bulb Replacement", "note": "~$40 parts + 30min.", "tags": ["PLANNED"] },
+        { "status": "planned", "name": "Dash Bulb Replacement", "note": "First set fitted but poor output — reorder a different type and reinstall. ~$40 + 30 min.", "tags": ["PLANNED"] },
         { "status": "installed", "name": "Fuel Door Cable", "note": "Installed alongside hood release cable. Partsouq OEM.", "tags": ["INSTALLED"] }
       ]
     }
@@ -141,7 +141,8 @@
         { "id": "strat-clutch-flush", "checked": true, "priority": "done", "task": "Clutch Hydraulic Fluid Flush", "category": "Drivetrain / Fluids", "who": "DIY — Brennon", "status": "DONE", "cost_cad": 0, "time": "30 min", "notes": "Done Apr 2026 @ ~170k (DIY). Clutch reservoir flushed + bled with DOT3/4 alongside trans fluid service." },
         { "id": "strat-shifter", "checked": true, "priority": "done", "task": "Shifter Bushing + Seat — Inspected", "category": "Drivetrain", "who": "DIY — Brennon", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "Inspected — bushing is fine, not the cause of 2nd gear issue. No replacement needed." },
         { "id": "strat-lubegard", "checked": true, "priority": "done", "task": "Add 2nd Lubegard Dose", "category": "Drivetrain", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "15 min", "notes": "Done. Drained ~100ml trans fluid, added 1 bottle." },
-        { "id": "strat-bulbs", "checked": true, "priority": "done", "task": "New Dash + Interior Bulbs / Interior Light Power", "category": "Electrical", "who": "DIY", "status": "DONE", "cost_cad": 60, "time": "20 min", "notes": "Electrical fault resolved: repaired ground + replaced burned dome fuse. Door sensors, clock, dome lights all working. New dash + interior bulbs." }
+        { "id": "strat-interior-power", "checked": true, "priority": "done", "task": "Interior Light Power — Ground + Dome Fuse Repair", "category": "Electrical", "who": "DIY", "status": "DONE", "cost_cad": 20, "time": "20 min", "notes": "Electrical fault resolved: repaired ground + replaced burned dome fuse. Door sensors, clock, dome lights all working." },
+        { "id": "strat-bulbs", "checked": false, "priority": "low", "task": "Dash + Interior Bulbs — Reorder Different Type + Reinstall", "category": "Electrical", "who": "DIY", "status": "NEEDS PARTS", "cost_cad": 40, "time": "30 min", "notes": "First set installed but performs poorly. Order a different bulb type and redo the install.", "on_hand": "Current bulbs (installed, poor performance)", "still_needed": "New dash + interior bulbs — different type/brand (~$40)" }
       ]
     },
     {
