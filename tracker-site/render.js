@@ -92,7 +92,8 @@ export function renderStrategy(phases) {
     var icon = isDone ? '✅' : t.priority === 'urgent' ? '🔴' : '🟡';
     var metaBits = [t.who, cost(t)];
     if (t.time && t.time !== '—') metaBits.push(t.time);
-    return '<div class="build-item task-row ' + (isDone ? 'status-done' : t.priority === 'urgent' ? 'status-urgent' : 'status-low') + '" data-task="' + t.id + '">' +
+    return '<div class="build-item task-row ' + (isDone ? 'status-done' : t.priority === 'urgent' ? 'status-urgent' : 'status-low') + '" data-task="' + t.id + '" data-prio="' + t.priority + '">' +
+      '<label class="task-check"><input type="checkbox" data-strat="' + t.id + '"' + (isDone ? ' checked' : '') + '></label>' +
       '<div class="bi-status">' + icon + '</div>' +
       '<div class="bi-body">' +
       '<div class="bi-name' + (isDone ? ' installed' : '') + '">' + t.task + '</div>' +
@@ -133,6 +134,39 @@ export function renderStrategy(phases) {
   }
   html += '</div></div>';
   document.getElementById('tab-2026-Strategy').innerHTML = html;
+  bindTaskCheckboxes();
+}
+
+var DONE_KEY = 'lc80:done:';
+function paintTaskRow(row, done) {
+  var prio = row.getAttribute('data-prio');
+  row.classList.remove('status-done', 'status-urgent', 'status-low');
+  row.classList.add(done ? 'status-done' : prio === 'urgent' ? 'status-urgent' : 'status-low');
+  var icon = row.querySelector('.bi-status');
+  if (icon) icon.textContent = done ? '✅' : prio === 'urgent' ? '🔴' : '🟡';
+  var name = row.querySelector('.bi-name');
+  if (name) name.classList.toggle('installed', done);
+}
+export function bindTaskCheckboxes() {
+  var store = null;
+  try { store = window.localStorage; } catch (e) { store = null; }
+  Array.from(document.querySelectorAll('#strategyBody input[data-strat]')).forEach(function(cb) {
+    var row = cb.closest('.task-row');
+    var id = cb.getAttribute('data-strat');
+    var fromData = row.getAttribute('data-prio') === 'done';
+    var saved = store ? store.getItem(DONE_KEY + id) : null;
+    if (saved === 'true' || saved === 'false') {
+      cb.checked = saved === 'true';
+      if (cb.checked !== fromData) { paintTaskRow(row, cb.checked); row.classList.add('local-override'); }
+    }
+    cb.addEventListener('change', function() {
+      paintTaskRow(row, cb.checked);
+      row.classList.toggle('local-override', cb.checked !== fromData);
+      if (!store) return;
+      if (cb.checked === fromData) store.removeItem(DONE_KEY + id);
+      else store.setItem(DONE_KEY + id, String(cb.checked));
+    });
+  });
 }
 
 

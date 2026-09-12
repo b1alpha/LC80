@@ -18,6 +18,10 @@
   .board { align-items: start; }
   .build-card-header .card-count { margin-left: auto; color: #777; font-weight: 500; letter-spacing: 0; }
   .col-empty { color: #555; }
+  .task-row .task-check { flex-shrink: 0; margin-top: 1px; }
+  .task-row .task-check input { width: 16px; height: 16px; accent-color: #f0a500; cursor: pointer; margin: 0; display: block; }
+  .task-row.local-override .bi-name::after { content: " · this device"; color: #666; font-weight: normal; font-size: 0.8em; }
+  .task-row.status-done .bi-meta, .task-row.status-done .bi-need { opacity: 0.6; }
   .task-row .bi-meta { color: #8f8f8f; font-size: 0.85em; margin-top: 2px; }
   .task-row .bi-need { color: #f0a500; font-size: 0.88em; margin-top: 3px; line-height: 1.4; }
   .task-row .bi-more { margin-top: 3px; font-size: 0.85em; color: #bbb; }

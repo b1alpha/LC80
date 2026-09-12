@@ -1,7 +1,7 @@
 import {
   renderBuild, renderFluidGuide, renderStrategy,
   renderPartsInventory, renderSpendSummary, renderScheduledMaintenance,
-  renderMaintenanceLog, renderShopContacts
+  renderMaintenanceLog, renderShopContacts, bindTaskCheckboxes
 } from '../tracker-site/render.js';
 
 const FULL_DOM = `
@@ -153,10 +153,10 @@ describe('renderStrategy board', () => {
 
   const colTitles = () => [...document.querySelectorAll('.board .col')].map(c => [...c.querySelectorAll('.bi-name')].map(t => t.textContent));
 
-  test('#strategyBody exists with no toggle or checkboxes', () => {
+  test('#strategyBody exists with no toggle button, one checkbox per row', () => {
     expect(document.getElementById('strategyBody')).not.toBeNull();
     expect(document.getElementById('toggleDoneBtn')).toBeNull();
-    expect(document.querySelector('#strategyBody input[type="checkbox"]')).toBeNull();
+    expect(document.querySelectorAll('#strategyBody input[type="checkbox"]').length).toBe(document.querySelectorAll('#strategyBody .task-row').length);
   });
 
   test('renders four build-style cards as status columns with counts', () => {
@@ -395,5 +395,58 @@ describe('renderMaintenanceLog', () => {
 
   test('does not mutate the input order', () => {
     expect(entries[0].item).toBe('Coolant flush');
+  });
+});
+
+// ─── strategy checkboxes (per-browser memory) ────────────────────────────────
+
+describe('strategy checkboxes', () => {
+  const phases = [{ phase: 'PHASE 2', tasks: [
+    { id: 'strat-a', priority: 'urgent', task: 'A', who: 'Me', status: 'NEEDS PARTS', checked: false },
+    { id: 'strat-b', priority: 'done', task: 'B', who: 'Me', status: 'DONE', checked: true }
+  ] }];
+  const fire = (cb) => cb.dispatchEvent(new Event('change', { bubbles: true }));
+
+  beforeEach(() => { localStorage.clear(); renderStrategy(phases); });
+
+  test('every row has a checkbox reflecting data.json done state', () => {
+    expect(document.querySelector('.task-row[data-task="strat-a"] input[data-strat]').checked).toBe(false);
+    expect(document.querySelector('.task-row[data-task="strat-b"] input[data-strat]').checked).toBe(true);
+  });
+
+  test('checking an open task paints it done and remembers it in localStorage', () => {
+    const cb = document.querySelector('.task-row[data-task="strat-a"] input');
+    cb.checked = true; fire(cb);
+    const row = cb.closest('.task-row');
+    expect(row.classList.contains('status-done')).toBe(true);
+    expect(row.classList.contains('local-override')).toBe(true);
+    expect(row.querySelector('.bi-status').textContent).toBe('✅');
+    expect(row.querySelector('.bi-name').classList.contains('installed')).toBe(true);
+    expect(localStorage.getItem('lc80:done:strat-a')).toBe('true');
+  });
+
+  test('a remembered state is restored on the next render', () => {
+    localStorage.setItem('lc80:done:strat-a', 'true');
+    renderStrategy(phases);
+    const row = document.querySelector('.task-row[data-task="strat-a"]');
+    expect(row.querySelector('input').checked).toBe(true);
+    expect(row.classList.contains('status-done')).toBe(true);
+    expect(row.classList.contains('local-override')).toBe(true);
+  });
+
+  test('unchecking back to the data.json state clears the memory and repaints urgent', () => {
+    const cb = document.querySelector('.task-row[data-task="strat-a"] input');
+    cb.checked = true; fire(cb);
+    cb.checked = false; fire(cb);
+    const row = cb.closest('.task-row');
+    expect(localStorage.getItem('lc80:done:strat-a')).toBeNull();
+    expect(row.classList.contains('status-urgent')).toBe(true);
+    expect(row.classList.contains('local-override')).toBe(false);
+    expect(row.querySelector('.bi-status').textContent).toBe('🔴');
+  });
+
+  test('a done task never has its checkbox pre-checked state contradicted by the data', () => {
+    expect(document.querySelector('.task-row[data-task="strat-b"]').classList.contains('local-override')).toBe(false);
+    expect(typeof bindTaskCheckboxes).toBe('function');
   });
 });

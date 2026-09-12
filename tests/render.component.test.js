@@ -53,6 +53,6 @@ describe('done list', () => {
     expect(done).not.toBeNull();
     expect(done.querySelector('.task-row.status-done .bi-name').textContent).toBe('Oil Change');
     expect(document.getElementById('toggleDoneBtn')).toBeNull();
-    expect(document.querySelector('#strategyBody input[type="checkbox"]')).toBeNull();
+    expect(document.querySelector('#strategyBody input[type="checkbox"]').checked).toBe(true);
   });
 });
