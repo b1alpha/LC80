@@ -28,9 +28,11 @@ export function renderBuild(cards, meta) {
     '<div class="power-label">Torque progress: <span class="bar-marker-installed">~' + meta.torque_now_nm + 'NM now (est.)</span> \u2192 <span class="bar-marker-target">' + meta.torque_target_nm + 'NM target (pump tune)</span> \u2192 ' + meta.torque_max_nm + 'NM max recommended</div>' +
     '<div class="bar-track"><div class="bar-fill-installed"></div><div class="bar-fill-target"></div></div>' +
     '</div></div><div class="build-grid">';
-  for (var i = 0; i < cards.length; i++) {
-    var card = cards[i];
-    html += '<div class="build-card"><div class="build-card-header"><span class="card-icon">' + card.icon + '</span> ' + card.category + '<span class="card-count">' + card.items.length + '</span></div>';
+  var biggest = cards.reduce(function(best, c) { return (!best || c.items.length > best.items.length) ? c : best; }, null);
+  var ordered = cards.filter(function(c) { return c !== biggest; }).concat(biggest ? [biggest] : []);
+  for (var i = 0; i < ordered.length; i++) {
+    var card = ordered[i];
+    html += '<div class="build-card' + (card === biggest && cards.length > 1 ? ' build-card-main' : '') + '"><div class="build-card-header"><span class="card-icon">' + card.icon + '</span> ' + card.category + '<span class="card-count">' + card.items.length + '</span></div>';
     for (var j = 0; j < card.items.length; j++) {
       var item = card.items[j];
       html += '<div class="build-item"><div class="bi-body">' +

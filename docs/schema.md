@@ -11,7 +11,7 @@ The build sheet lists **what changed from stock** — upgrades and modifications
 **Required:** `category` (existing card name or new), `name`
 **Optional:** `note` (what/where/when, part numbers, vendor)
 
-**Existing categories:** Engine / Power · Drivetrain / Axles · Offroad Capability · Suspension · Exterior · Interior / Electrical
+**Existing categories:** Engine / Power · Drivetrain / Axles · Suspension · Exterior · Interior / Electrical
 
 ---
 

@@ -26,21 +26,18 @@
       "category": "Drivetrain / Axles",
       "icon": "🔩",
       "items": [
+        { "name": "Rear Differential + Axles Refreshed", "note": "Rear axles rebuilt, e-brakes serviced, Eaton E-Locker fitted (~160k). Fresh AMSOIL Severe Gear 75W-140 GL-5 (Apr 2026)." },
+        { "name": "Front Differential Refreshed", "note": "Front diff fully rebuilt at ~165k (Partsouq bearings, seals, pinion parts) and filled with AMSOIL Severe Gear 75W-140 GL-5." },
+        { "name": "Steering Knuckles + Birfields Rebuilt", "note": "Driver side at ~165k (BJ Landers), passenger side Nov 2025 (EBI Cruisers, Koyo bearing kit). Both sides done." },
+        { "name": "New Fluids Throughout", "note": "Transfer case, front and rear diffs on AMSOIL Severe Gear 75W-140 GL-5; H151F on Red Line MT-90 (GL-4); clutch hydraulics flushed (Apr 2026)." },
         { "name": "Eaton E-Locker (Rear Diff)", "note": "Terrain Tamer 14212-1. Installed at ~160,000 km at Liam's alongside turbo install." }
-      ]
-    },
-    {
-      "category": "Offroad Capability",
-      "icon": "🏔️",
-      "items": [
-        { "name": "37\" Tires", "note": "Full set of 37\" tires fitted." },
-        { "name": "Aluminum Front Bumper", "note": "Aftermarket aluminum front bumper installed." }
       ]
     },
     {
       "category": "Suspension",
       "icon": "🔧",
       "items": [
+        { "name": "37\" Tires", "note": "Full set of 37\" tires fitted." },
         { "name": "Dobinson Super Slinky Springs (Front + Rear)", "note": "C97-144VT front + C97-145VT rear. Installed." },
         { "name": "Adjustable Control Arms + Panhard Rods", "note": "Adjustable bars fitted with the lift to set caster and centre the axles. Brand / part numbers to confirm." },
         { "name": "Drop Brackets", "note": "Drop brackets fitted with the lift to correct link geometry at the new ride height. Brand to confirm." },
@@ -51,6 +48,7 @@
       "category": "Exterior",
       "icon": "🎨",
       "items": [
+        { "name": "Aluminum Front Bumper", "note": "Aftermarket aluminum front bumper installed." },
         { "name": "Roof Repainted", "note": "Roof stripped and epoxy primed at Bill's Paint Shop (May 2024, Inv. 1376), then finished in new paint." },
         { "name": "Custom Winch Plate — Tiffany Blue", "note": "Custom fabricated by Steel Inc, powder coated Tiffany blue." },
         { "name": "VEVOR 13,000 lb Electric Winch — Tiffany Blue", "note": "Finished in Tiffany blue to match the plate. Control box relocated, cut-off switch wired." },

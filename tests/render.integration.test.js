@@ -61,7 +61,7 @@ describe('full render pipeline with real data', () => {
   test('#tab-Build contains "UFI 18G Turbo" and only installed mods (no tags, no job rows)', () => {
     expect(document.getElementById('tab-Build').innerHTML).toContain('UFI 18G Turbo');
     expect(document.querySelector('#tab-Build .bi-tag')).toBeNull();
-    expect(document.getElementById('tab-Build').innerHTML).not.toContain('Knuckle');
+    expect(document.getElementById('tab-Build').innerHTML).not.toContain('Knuckle Gaskets');
     realData.build.forEach(c => c.items.forEach(i => { expect(i.status).toBeUndefined(); expect(i.tags).toBeUndefined(); }));
   });
 

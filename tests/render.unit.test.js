@@ -58,6 +58,18 @@ describe('renderBuild', () => {
     renderBuild(cards, meta);
     expect(document.getElementById('tab-Build').innerHTML).toContain('🔧');
   });
+
+  test('the section with the most items renders last with .build-card-main', () => {
+    renderBuild([
+      { icon: '🔧', category: 'Small', items: [{ name: 'A' }] },
+      { icon: '💡', category: 'Big', items: [{ name: 'B' }, { name: 'C' }, { name: 'D' }] },
+      { icon: '🔩', category: 'Mid', items: [{ name: 'E' }, { name: 'F' }] }
+    ], meta);
+    const cards = [...document.querySelectorAll('#tab-Build .build-card')];
+    expect(cards.map(c => c.querySelector('.build-card-header').textContent.trim().replace(/\d+$/, '').trim())).toEqual(['🔧 Small', '🔩 Mid', '💡 Big']);
+    expect(cards[2].classList.contains('build-card-main')).toBe(true);
+    expect(cards[0].classList.contains('build-card-main')).toBe(false);
+  });
 });
 
 // ─── renderFluidGuide ────────────────────────────────────────────────────────
