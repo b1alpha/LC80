@@ -113,7 +113,8 @@ describe('full render pipeline with real data', () => {
     const html = document.getElementById('tab-Maintenance-Log').innerHTML;
     expect(html).toContain('Red Line MT-90');
     expect(document.querySelectorAll('#tab-Maintenance-Log tbody tr').length).toBe(realData.maintenance_log.length);
-    expect(document.querySelector('#tab-Maintenance-Log tbody tr td.log-date').textContent).toBe('2026-04');
+    const newest = realData.maintenance_log.map(e => e.date || '').sort().reverse()[0];
+    expect(document.querySelector('#tab-Maintenance-Log tbody tr td.log-date').textContent).toBe(newest);
   });
 
   test('#tab-Fluid-Guide has no Buy This Amount column', () => {
