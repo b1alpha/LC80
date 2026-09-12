@@ -75,11 +75,19 @@ describe('full render pipeline with real data', () => {
       .toContain('Brake Inspection + Service');
   });
 
-  test('#tab-2026-Strategy carries the merged tracker sub-rows (On Hand / Still Needed)', () => {
+  test('#tab-2026-Strategy renders one card per task with On Hand / Still Needed facts', () => {
     const html = document.getElementById('tab-2026-Strategy').innerHTML;
     expect(html).toContain('On Hand:');
     expect(html).toContain('Still Needed:');
-    expect(document.querySelectorAll('#strategyBody tr.parts-sub').length).toBeGreaterThan(20);
+    const taskCount = realData.strategy_2026.reduce((n, p) => n + p.tasks.length, 0);
+    expect(document.querySelectorAll('#strategyBody .task-card').length).toBe(taskCount);
+    expect(document.querySelectorAll('#strategyBody .fact').length).toBeGreaterThan(10);
+  });
+
+  test('#tab-2026-Strategy still-needed list has one entry per open task with still_needed', () => {
+    const expected = realData.strategy_2026.flatMap(p => p.tasks).filter(t => t.priority !== 'done' && t.still_needed).length;
+    expect(document.querySelectorAll('.strat-needs li').length).toBe(expected);
+    expect(expected).toBeGreaterThan(3);
   });
 
   test('data.json no longer has a project_tracker key', () => {
@@ -98,7 +106,7 @@ describe('full render pipeline with real data', () => {
     expect(document.getElementById('tab-Scheduled-Maintenance').innerHTML).toContain('Engine Oil + Filter');
   });
 
-  test('#tab-Shop-Contacts contains "Liam Schram"', () => {
-    expect(document.getElementById('tab-Shop-Contacts').innerHTML).toContain('Liam Schram');
+  test('#tab-Shop-Contacts contains "EBI Cruisers"', () => {
+    expect(document.getElementById('tab-Shop-Contacts').innerHTML).toContain('EBI Cruisers');
   });
 });

@@ -98,12 +98,12 @@ describe('renderStrategy', () => {
 
   test('urgent row gets status-urgent class', () => {
     renderStrategy(phases);
-    expect(document.querySelector('#tab-2026-Strategy tr.status-urgent')).not.toBeNull();
+    expect(document.querySelector('#tab-2026-Strategy .task-card.status-urgent')).not.toBeNull();
   });
 
   test('done row gets status-done class', () => {
     renderStrategy(phases);
-    expect(document.querySelector('#tab-2026-Strategy tr.status-done')).not.toBeNull();
+    expect(document.querySelector('#tab-2026-Strategy .task-card.status-done')).not.toBeNull();
   });
 
   test('checkboxes have data-strat attribute', () => {
@@ -113,21 +113,24 @@ describe('renderStrategy', () => {
   });
 });
 
-// ─── renderStrategy (merged project tracker fields) ─────────────────────────
+// ─── renderStrategy (card layout + merged tracker fields) ───────────────────
 
-describe('renderStrategy merged tracker fields', () => {
-  const phases = [{
-    phase: 'PHASE 2 — SPRING 2026',
-    tasks: [
-      {
-        id: 'strat-brakes', priority: 'urgent', task: 'Brake Inspection', category: 'Brakes / Safety',
-        who: 'Me', status: 'URGENT SERVICE', cost_cad: 200, time: '2 hrs', checked: false,
-        notes: 'Warning light on', on_hand: 'DOT3 fluid', still_needed: 'Pads if worn'
-      },
-      { id: 'strat-tyres', priority: 'low', task: 'Tyre Rotation', who: 'Shop', status: 'SHOP JOB (Pending)', checked: false },
-      { id: 'strat-oil', priority: 'done', task: 'Oil Change', who: 'Me', status: 'DONE', checked: true }
-    ]
-  }];
+describe('renderStrategy cards', () => {
+  const phases = [
+    {
+      phase: 'PHASE 2 — SPRING 2026',
+      tasks: [
+        { id: 'strat-oil', priority: 'done', task: 'Oil Change', who: 'Me', status: 'DONE', checked: true, still_needed: 'Nothing' },
+        { id: 'strat-tyres', priority: 'low', task: 'Tyre Rotation', who: 'Shop', status: 'SHOP JOB (Pending)', checked: false },
+        {
+          id: 'strat-brakes', priority: 'urgent', task: 'Brake Inspection', category: 'Brakes / Safety',
+          who: 'Me', status: 'URGENT SERVICE', cost_cad: 200, time: '2 hrs', checked: false,
+          notes: 'Warning light on', on_hand: 'DOT3 fluid', still_needed: 'Pads if worn'
+        }
+      ]
+    },
+    { phase: 'PHASE 1 — DONE ONLY', tasks: [{ id: 'strat-old', priority: 'done', task: 'Old Job', who: 'Me', checked: true }] }
+  ];
 
   beforeEach(() => renderStrategy(phases));
 
@@ -136,45 +139,69 @@ describe('renderStrategy merged tracker fields', () => {
     expect(document.getElementById('toggleDoneBtn')).not.toBeNull();
   });
 
-  test('category and status columns are rendered on the main row', () => {
-    const row = document.querySelector('#strategyBody tr.project-main');
-    expect(row.cells.length).toBe(8);
-    expect(row.cells[3].textContent).toBe('Brakes / Safety');
-    expect(row.cells[5].textContent).toBe('URGENT SERVICE');
+  test('summary counts open, urgent, and done tasks', () => {
+    const txt = document.querySelector('.strat-summary').textContent;
+    expect(txt).toContain('2 open');
+    expect(txt).toContain('1 urgent');
+    expect(txt).toContain('2 done');
   });
 
-  test('notes, on-hand, and still-needed render as parts-sub rows under the task', () => {
-    const subs = document.querySelectorAll('#strategyBody tr.parts-sub');
-    expect(subs.length).toBe(3);
-    expect(subs[0].textContent).toContain('Notes:');
-    expect(subs[0].textContent).toContain('Warning light on');
-    expect(subs[1].textContent).toContain('On Hand:');
-    expect(subs[1].textContent).toContain('DOT3 fluid');
-    expect(subs[2].textContent).toContain('Still Needed:');
-    expect(subs[2].textContent).toContain('Pads if worn');
+  test('tasks within a phase are ordered urgent → later → done', () => {
+    const titles = [...document.querySelectorAll('#strategyBody .phase:first-child .task-title')].map(el => el.textContent);
+    expect(titles).toEqual(['Brake Inspection', 'Tyre Rotation', 'Oil Change']);
   });
 
-  test('sub-rows inherit the status class of their main row', () => {
-    const subs = document.querySelectorAll('#strategyBody tr.parts-sub');
-    subs.forEach(function(tr) { expect(tr.classList.contains('status-urgent')).toBe(true); });
+  test('status renders as a chip, who/category/cost/time in the meta line', () => {
+    const card = document.querySelector('.task-card[data-task="strat-brakes"]');
+    expect(card.querySelector('.chip-status').textContent).toBe('URGENT SERVICE');
+    const meta = card.querySelector('.task-meta').textContent;
+    expect(meta).toContain('Me');
+    expect(meta).toContain('Brakes / Safety');
+    expect(meta).toContain('~$200');
+    expect(meta).toContain('2 hrs');
   });
 
-  test('missing category or status renders as an em dash', () => {
-    const rows = document.querySelectorAll('#strategyBody tr.project-main');
-    expect(rows[1].cells[3].textContent).toBe('—');
-    expect(rows[2].cells[5].textContent).toBe('DONE');
+  test('notes, on-hand, and still-needed render inside the card', () => {
+    const card = document.querySelector('.task-card[data-task="strat-brakes"]');
+    expect(card.querySelector('.task-notes').textContent).toContain('Warning light on');
+    expect(card.querySelector('.fact-onhand').textContent).toContain('On Hand:');
+    expect(card.querySelector('.fact-onhand').textContent).toContain('DOT3 fluid');
+    expect(card.querySelector('.fact-need').textContent).toContain('Still Needed:');
+    expect(card.querySelector('.fact-need').textContent).toContain('Pads if worn');
   });
 
-  test('shop jobs get the planned colour, done rows the done colour', () => {
-    const rows = document.querySelectorAll('#strategyBody tr.project-main');
-    expect(rows[1].classList.contains('status-planned')).toBe(true);
-    expect(rows[2].classList.contains('status-done')).toBe(true);
+  test('card without notes/facts/status renders none of those elements', () => {
+    const card = document.querySelector('.task-card[data-task="strat-old"]');
+    expect(card.querySelector('.task-notes')).toBeNull();
+    expect(card.querySelector('.task-facts')).toBeNull();
+    expect(card.querySelector('.chip-status')).toBeNull();
   });
 
-  test('done rows are hidden by default (doneHidden starts true)', () => {
-    const rows = document.querySelectorAll('#strategyBody tr.project-main');
-    expect(rows[2].style.display).toBe('none');
-    expect(rows[0].style.display).toBe('');
+  test('still-needed list at the top covers open tasks only', () => {
+    const items = [...document.querySelectorAll('.strat-needs li')].map(li => li.textContent);
+    expect(items.length).toBe(1);
+    expect(items[0]).toContain('Brake Inspection');
+    expect(items[0]).toContain('Pads if worn');
+    expect(document.querySelector('.strat-needs').textContent).not.toContain('Nothing');
+  });
+
+  test('no still-needed list when nothing is needed', () => {
+    renderStrategy([{ phase: 'P', tasks: [{ id: 'a', priority: 'low', task: 'A', who: 'Me', checked: false }] }]);
+    expect(document.querySelector('.strat-needs')).toBeNull();
+  });
+
+  test('shop jobs get the planned colour, done cards the done colour', () => {
+    expect(document.querySelector('.task-card[data-task="strat-tyres"]').classList.contains('status-planned')).toBe(true);
+    expect(document.querySelector('.task-card[data-task="strat-oil"]').classList.contains('status-done')).toBe(true);
+  });
+
+  test('done cards are hidden by default and a phase with only done tasks is hidden too', () => {
+    expect(document.querySelector('.task-card[data-task="strat-oil"]').style.display).toBe('none');
+    expect(document.querySelector('.task-card[data-task="strat-brakes"]').style.display).toBe('');
+    const phases = document.querySelectorAll('#strategyBody .phase');
+    expect(phases[0].style.display).toBe('');
+    expect(phases[1].style.display).toBe('none');
+    expect(phases[1].querySelector('.phase-count').textContent).toBe('all done');
   });
 });
 
