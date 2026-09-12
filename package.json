@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "test": "jest",
+    "serve": "npx serve tracker-site"
+  },
+  "devDependencies": {
+    "jest": "^29",
+    "jest-environment-jsdom": "^29",
+    "@jest/globals": "^29",
+    "babel-jest": "^29",
+    "@babel/preset-env": "^7"
+  }
+}

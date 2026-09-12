@@ -1,0 +1,318 @@
+{
+  "meta": {
+    "vehicle": "1993 Toyota Land Cruiser HDJ81",
+    "engine": "1HD-T 4.2L Inline-6 Turbo Diesel",
+    "transmission": "H151F 5-Speed Manual",
+    "odometer_km": 170000,
+    "color": "Purple / White",
+    "tires": "37\"",
+    "updated": "2026-04",
+    "torque_now_nm": 380,
+    "torque_target_nm": 500,
+    "torque_max_nm": 600
+  },
+  "build": [
+    {
+      "category": "Engine / Power",
+      "icon": "⚙️",
+      "items": [
+        { "status": "installed", "name": "UFI 18G Turbo (20psi)", "note": "Upgraded from factory CT26. Direct bolt-on. Running at 20psi.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "PDI Front Mount Intercooler", "note": "50–100°C charge temp reduction. Confirmed installed with turbo. Critical safety margin for pump tune.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "TerraClean Fuel System Service", "note": "Full fuel system clean done at ~165,000 km. Injectors confirmed serviceable.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Engine Hoses (Replaced)", "note": "New rubber engine hoses installed.", "tags": ["INSTALLED"] },
+        { "status": "urgent", "name": "BEB Fix — ACL Race Bearings + Rod Bolts", "note": "Do before pump tune. Parts on hand. ~3–4hrs Liam. Common 1HD-T failure — do not run up boost on unresolved bearings.", "tags": ["PARTS ON HAND", "DO FIRST"] },
+        { "status": "planned", "name": "Valve Adjustment", "note": "Jon Fox recommended. Check before sending pump. Good time to do it while engine access is open for pump removal.", "tags": ["PLANNED"] },
+        { "status": "planned", "name": "3\" Exhaust", "note": "Reduces backpressure. Needed for full efficiency at 20psi+.", "tags": ["PLANNED"] },
+        { "status": "planned", "name": "Pump Tune — Jon Fox @ Black Fox Diesel", "note": "Remove pump → drain fuel → ship to Celista BC (5124 Meadow Creek Rd) → bench rebuild + tune → reinstall. $1,300 CAD basic (gaskets, seals, calibration). Jon already has full build context from Oct 2024 emails. Fine-tune after install recommended. No injector work needed.", "tags": ["PLANNED"] },
+        { "status": "planned", "name": "1HD-T Engine Rebuild — Eli (Edmonton)", "note": "Full long block rebuild scheduled with Eli in Edmonton. Head, block, crank, rods, pistons, bearings, cam. One worn cylinder ring confirmed — oil consumption 2.3L / 9,000 km. Target late 2026 / 2027. Most gasket + seal parts on hand.", "tags": ["PLANNED — 2026/27"] }
+      ]
+    },
+    {
+      "category": "Drivetrain / Axles",
+      "icon": "🔩",
+      "items": [
+        { "status": "installed", "name": "Rear Axle Rebuild + E-Brakes", "note": "Rear axles rebuilt and e-brakes serviced.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Passenger Birfield Rebuild", "note": "Done. EBI Cruisers Estimate #92098 (Nov 2025) — Koyo bearing kit, chassis grease, 80/90 gear oil.", "tags": ["INSTALLED"] },
+        { "status": "planned", "name": "Driver Knuckle Gaskets", "note": "EBI did hub-level only — knuckle not torn down. Now leaking. Liam job, ~2hrs, ~$200.", "tags": ["PLANNED — LEAKING"] },
+        { "status": "on_hand", "name": "Slave Cylinder Replacement", "note": "Part on hand. ~1hr Liam.", "tags": ["PARTS ON HAND"] },
+        { "status": "installed", "name": "Eaton E-Locker (Rear Diff)", "note": "Terrain Tamer 14212-1. Installed at ~160,000 km at Liam's alongside turbo install.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Rear Diff Fluid Service", "note": "Done alongside E-Locker install at ~160,000 km at Liam's.", "tags": ["INSTALLED"] }
+      ]
+    },
+    {
+      "category": "Offroad Capability",
+      "icon": "🏔️",
+      "items": [
+        { "status": "installed", "name": "37\" Tires", "note": "Full set of 37\" tires fitted.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Aluminum Front Bumper", "note": "Aftermarket aluminum front bumper installed.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Custom Winch Plate (Fabricated + Powder Coated)", "note": "Custom fabricated by Steel Inc. Powder coated.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "VEVOR 13,000lb Electric Winch", "note": "Winch installed with control box relocated.", "tags": ["INSTALLED"] }
+      ]
+    },
+    {
+      "category": "Suspension",
+      "icon": "🔧",
+      "items": [
+        { "status": "installed", "name": "Dobinson Super Slinky Springs (Front + Rear)", "note": "C97-144VT front + C97-145VT rear. Installed.", "tags": ["INSTALLED"] },
+        { "status": "planned", "name": "Rear Sway Bar — Remove", "note": "Passenger side end link broke. Pulling the rear sway bar entirely instead of replacing the link (common 80-series mod, better articulation).", "tags": ["PLANNED"] }
+      ]
+    },
+    {
+      "category": "Cooling / Fluids",
+      "icon": "🌡️",
+      "items": [
+        { "status": "installed", "name": "Full Coolant Flush", "note": "Done at ~160,000 km at Liam's alongside turbo install.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Trans Fluid Service (Red Line MT-90)", "note": "H151F. Refilled with Red Line MT-90 (GL-4) at ~170,000 km (Apr 2026, DIY).", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Rear Diff Fluid Change (AMSOIL 75W-140)", "note": "Drained dark oil + refilled with AMSOIL Severe Gear 75W-140 GL-5 at ~170,000 km (Apr 2026, DIY).", "tags": ["INSTALLED"] }
+      ]
+    },
+    {
+      "category": "Body / Paint",
+      "icon": "🎨",
+      "items": [
+        { "status": "installed", "name": "Rear Tailgate Replacement", "note": "Replacement tailgate from EBI Cruisers.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "ARB Base Rack 84\"×51\" (BASE81)", "note": "Full-size roof rack from West Coast Offroaders.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Roof Epoxy Prime", "note": "Bill's Paint Shop, May 2024 (Inv. 1376). Ready for final coat.", "tags": ["DONE"] },
+        { "status": "planned", "name": "Roof Final Paint + Bondo", "note": "Return to Bill's or Pro-Tech Collision (Prince George).", "tags": ["PLANNED"] }
+      ]
+    },
+    {
+      "category": "Interior / Electrical",
+      "icon": "💡",
+      "items": [
+        { "status": "installed", "name": "Sony DSX-GS80 Head Unit + Sub", "note": "45Wx4 head unit installed with subwoofer.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Rockford Fosgate R165-S Rear Door Speakers", "note": "6.5\" speakers + amp wiring.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Air Horn", "note": "Installed and wired.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Yaesu FTM-6000R Dual Band Radio", "note": "50W 144/430MHz FM mobile transceiver. DX Engineering Order #0004937.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Auber Digital Gauges (EGT + Boost)", "note": "SYL-2813 EGT + SYL-1813 Boost. Replaced GlowShift set.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "SEALIGHT LED Headlights", "note": "H4/9003 LED headlight bulbs.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "Wiring Cleanup (6-Relay Fuse Box + Winch Cut-Off)", "note": "Fuse box installed, winch cut-off wired, control box relocated.", "tags": ["INSTALLED"] },
+        { "status": "installed", "name": "ARB Outback Cargo Drawers x2", "note": "RD1045 x2 + floor adaptor kit from West Coast Offroaders.", "tags": ["INSTALLED"] },
+        { "status": "planned", "name": "Dash Bulb Replacement", "note": "~$40 parts + 30min.", "tags": ["PLANNED"] },
+        { "status": "installed", "name": "Fuel Door Cable", "note": "Installed alongside hood release cable. Partsouq OEM.", "tags": ["INSTALLED"] }
+      ]
+    }
+  ],
+  "fluid_guide": [
+    { "system": "Engine Oil (1HD-T)", "spec": "15W-40 diesel engine oil", "capacity": "~9L (with filter)", "buy_amount": "10L", "brand": "Mobil Delvac 15W-40", "status": "tracker-based", "notes": "Scheduled Maintenance tab currently tracks ~9L @ 170k." },
+    { "system": "Manual Transmission (H151F)", "spec": "Red Line MT-90 (GL-4)", "capacity": "2.6L (H151F)", "buy_amount": "4L", "brand": "Red Line MT-90 (GL-4)", "status": "locked", "notes": "Now: Red Line MT-90 (GL-4), filled at ~170k (Apr 2026 DIY)." },
+    { "system": "Transfer Case (HF2A)", "spec": "USE ONLY AMSOIL Severe Gear 75W-140 GL-5", "capacity": "~2L", "buy_amount": "2L", "brand": "AMSOIL Severe Gear 75W-140 GL-5 ONLY", "status": "locked", "notes": "IMPORTANT: Always use AMSOIL Severe Gear 75W-140 GL-5 for transfer case." },
+    { "system": "Front Differential", "spec": "USE ONLY AMSOIL Severe Gear 75W-140 GL-5", "capacity": "2.8L (2-pinion) / 2.65L (w/ diff lock)", "buy_amount": "4L", "brand": "AMSOIL Severe Gear 75W-140 GL-5 ONLY", "status": "locked", "notes": "IMPORTANT: Always use AMSOIL Severe Gear 75W-140 GL-5 for front differential." },
+    { "system": "Rear Differential", "spec": "AMSOIL Severe Gear 75W-140 GL-5", "capacity": "3.25L", "buy_amount": "4L", "brand": "AMSOIL 75W-140 GL-5", "status": "locked", "notes": "Drained + refilled at ~170k (Apr 2026 DIY). Matches front diff + transfer case." },
+    { "system": "Brake Fluid", "spec": "SAE J1703 / FMVSS 116 DOT 3", "capacity": "Varies (system bleed)", "buy_amount": "1L (top-up) / 2L (full flush)", "brand": "Toyota DOT3 or quality DOT3/4 equivalent", "status": "locked", "notes": "FSM verified. Use same bottle for clutch reservoir." },
+    { "system": "Clutch Fluid", "spec": "Brake fluid (DOT3/4 — same spec as brake system)", "capacity": "Varies (system bleed)", "buy_amount": "1L (combined with brake job)", "brand": "Same bottle as brake fluid", "status": "locked", "notes": "Clutch reservoir flushed/bled Apr 2026 at ~170k alongside trans fluid DIY. FSM: fill clutch reservoir with brake fluid." },
+    { "system": "Power Steering", "spec": "ATF DEXRON II", "capacity": "~2L (flush procedure)", "buy_amount": "2L", "brand": "DEXRON II/III compatible ATF", "status": "locked", "notes": "FSM verified. SR section." },
+    { "system": "Coolant", "spec": "50/50 coolant mix", "capacity": "~12L", "buy_amount": "12L premix (or 6L concentrate + distilled water)", "brand": "Toyota red/pink compatible coolant", "status": "pending", "notes": "Keep current maintenance value until FSM capacity confirmed." }
+  ],
+  "strategy_2026": [
+    {
+      "phase": "PHASE 1 — 2024/2025 | Completed Groundwork",
+      "tasks": [
+        { "id": "strat-turbo-alarm", "checked": true, "priority": "done", "task": "Fix Turbo Alarm", "category": "Electrical", "who": "DIY", "status": "DONE", "cost_cad": 30, "time": "1.5 hrs" },
+        { "id": "strat-window-motors", "checked": true, "priority": "done", "task": "Clean + Re-Grease Window Motors", "category": "Interior", "who": "Steve — EBI Cruisers", "status": "DONE", "cost_cad": 0, "time": "1.5 hrs" },
+        { "id": "strat-rust-touchup", "checked": true, "priority": "done", "task": "Rust Spot Touch-Up on Body", "category": "Body / Paint", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "2 hrs" },
+        { "id": "strat-fusebox", "checked": true, "priority": "done", "task": "Install 6-Relay Fuse Box + Winch Cut-Off", "category": "Electrical", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "2 hrs" },
+        { "id": "strat-winch", "checked": true, "priority": "done", "task": "Winch Install + Control Box Relocate", "category": "Electrical / Body", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "—" },
+        { "id": "strat-fuel-filter", "checked": true, "priority": "done", "task": "Fuel Filter Change", "category": "Engine / Maint.", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "—" },
+        { "id": "strat-speakers", "checked": true, "priority": "done", "task": "Install Rear Door Speakers", "category": "Interior / Audio", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "—" },
+        { "id": "strat-air-horn", "checked": true, "priority": "done", "task": "Install Air Horn", "category": "Electrical", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "—" },
+        { "id": "strat-led-signals", "checked": true, "priority": "done", "task": "LED Turn Signals — Install", "category": "Electrical", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "1.5 hrs" },
+        { "id": "strat-birfield", "checked": true, "priority": "done", "task": "Passenger Birfield Joint Replacement", "category": "Drivetrain", "who": "EBI Cruisers", "status": "DONE", "cost_cad": 1298, "time": "5.5 hrs", "notes": "Passenger birfield rebuilt by EBI Cruisers (Nov 2025). Both sides now done." },
+        { "id": "strat-brakes", "checked": true, "priority": "done", "task": "Brake Inspection + Service (~155k)", "category": "Brakes / Safety", "who": "Liam Schram", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "Inspected at ~155,000 km. No immediate brake service needed now." },
+        { "id": "strat-airfilter", "checked": true, "priority": "done", "task": "Air Filter Service / Check", "category": "Engine / Maint.", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "30 min", "notes": "New filter installed when turbo was done (~8,000 km ago). Recheck at ~20,000 km from turbo install." }
+      ]
+    },
+    {
+      "phase": "PHASE 2 — SPRING 2026 | Safety + Driveability + Pre-Summer",
+      "tasks": [
+        { "id": "strat-brake-light", "checked": false, "priority": "urgent", "task": "Brake Inspection + Service — WARNING LIGHT ON", "category": "Brakes / Safety", "who": "Liam Schram (or DIY check first)", "status": "URGENT SERVICE", "cost_cad": 200, "time": "2 hrs", "notes": "Brake warning light illuminated on dash. First checks: (1) parking brake fully released, (2) brake fluid level in master reservoir, (3) pad thickness all 4 corners. If fluid is low → find leak. Last full inspection was at ~155k — now at 170k (+15k since).", "on_hand": "Nothing specific yet — check fluid level first before ordering parts.", "still_needed": "Diagnosis (DIY fluid + pad visual, or book Liam). Pads/rotors if worn. DOT3/4 brake fluid if top-up needed." },
+        { "id": "strat-oil-monitor", "checked": false, "priority": "urgent", "task": "Monitor Oil Consumption", "category": "Engine Monitoring", "who": "DIY", "status": "ONGOING TRACKING", "cost_cad": 0, "time": "Ongoing", "notes": "Currently 2.3L / 9,000 km (one worn ring). Track at every oil change. If accelerates → move rebuild forward.", "still_needed": "Maintain tracking log; if rate worsens, move engine rebuild schedule forward" },
+        { "id": "strat-swaybar", "checked": false, "priority": "urgent", "task": "Rear Sway Bar — Remove (fix for broken passenger link)", "category": "Suspension", "who": "DIY — Brennon (roadside OK)", "status": "CAN DO NOW", "cost_cad": 0, "time": "0.5 hrs", "notes": "Passenger side end link broke. Fix = remove the rear sway bar entirely rather than replace the link (common 80-series mod, better articulation). Unbolt both end links + frame brackets; keep hardware in case it goes back on.", "on_hand": "Jack, wrenches — nothing to buy", "still_needed": "Nothing — just do it" },
+        { "id": "strat-doorstrips", "checked": false, "priority": "urgent", "task": "Replace Door Glass Running Strips — All 4 Doors", "category": "Interior", "who": "DIY — Brennon (roadside OK)", "status": "CAN DO NOW", "cost_cad": 0, "time": "3 hrs", "notes": "Do this FIRST, then lube the passenger window regulator in the same session (see next row). Wind + water fix. Parts on hand. Before Moab May long.", "on_hand": "Door glass run sealing strip set — 68141-60010 / 68151-60010 / 68142-60011 / 68152-60011 (Amazon CA)" },
+        { "id": "strat-window", "checked": false, "priority": "urgent", "task": "Passenger Front Window — Lube Regulator (same session as running strips)", "category": "Electrical / Interior", "who": "DIY — Brennon (roadside OK)", "status": "CAN DO NOW", "cost_cad": 30, "time": "1–1.5 hrs", "notes": "Do together with the door glass running strips above — door card is already off. Mechanical friction, not electrical: lube regulator pivots + felt channels. Motor likely fine. No regulator replacement, no Liam needed.", "on_hand": "14ga wire · Nitrile gloves", "still_needed": "Nothing beyond the running strips already on hand — lube only" },
+        { "id": "strat-suspension", "checked": false, "priority": "urgent", "task": "Centre Rear Suspension + Linkage Adjust", "category": "Suspension", "who": "Steve — EBI Cruisers", "status": "NEEDS INVESTIGATION", "cost_cad": 625, "time": "3 hrs", "notes": "Have shop measure lateral control rod centering, then adjust Dobinson linkages for current ride height. (Sway bar link no longer part of this job — bar is coming off.)", "on_hand": "Rear hub wheel bearing seal/service kit x2 (RADD Cruisers)" },
+        { "id": "strat-ac", "checked": false, "priority": "urgent", "task": "AC Diagnosis + Refrigerant Correction", "category": "AC", "who": "Liam Schram", "status": "NEEDS INVESTIGATION", "cost_cad": 0, "time": "0.2 hrs", "notes": "System serviced and possibly over-filled. Have shop check pressures + correct charge. Sealer kit on hand if needed.", "on_hand": "A/C sealer cartridge x4 + professional A/C sealer injection kit (Lubeworx)" },
+        { "id": "strat-bigend", "checked": false, "priority": "urgent", "task": "Big End Bearings — Preventive Replacement", "category": "Engine", "who": "Liam Schram", "status": "NEEDS PARTS", "cost_cad": 415, "time": "3 hrs", "notes": "Known 1HD-T failure point — bearing shells delaminate silently. Drop sump, replace ACL shells + new rod bolts one cap at a time, plastigauge journals. In-car job, no engine pull. Cheap insurance before full rebuild — catastrophic if left.", "still_needed": "ACL bearing shells + rod bolts + FIPG sealant" },
+        { "id": "strat-knuckle", "checked": false, "priority": "low", "task": "Driver Side Knuckle Gasket + Seal Replacement", "category": "Drivetrain", "who": "Liam Schram", "status": "LEAKING — NEEDS BOOKING", "cost_cad": 40, "time": "2 hrs", "notes": "EBI inspected/tightened the driver-side wheel bearing (Nov 2025) but did not open the knuckle. Now leaking. Full knuckle-off: swap felt seals + rubber gasket, repack. Batch with PG trip to Liam. Passenger side done.", "still_needed": "Knuckle felt seals + rubber outer gasket — Source: Partsouq or RADD Cruisers (~$20–40)" },
+        { "id": "strat-fuel-door", "checked": true, "priority": "done", "task": "Fuel Door Cable — Replaced", "category": "Body / Maint.", "who": "DIY", "status": "DONE", "cost_cad": 50, "time": "1 hr", "notes": "Done — installed alongside the hood release cable. Partsouq OEM cable." },
+        { "id": "strat-hood-cable", "checked": true, "priority": "done", "task": "Hood Release Cable Install", "category": "Body / Maint.", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "20 min", "notes": "Installed. Hood access restored." },
+        { "id": "strat-rear-diff", "checked": true, "priority": "done", "task": "Rear Differential Fluid (AMSOIL 75W-140)", "category": "Drivetrain / Fluids", "who": "DIY — Brennon", "status": "DONE", "cost_cad": 0, "time": "30 min", "notes": "Done Apr 2026 @ ~170k (DIY). Dark rear diff oil drained + refilled with AMSOIL Severe Gear 75W-140 GL-5 (preferred). Matches front diff + transfer case. Next due 210k." },
+        { "id": "strat-trans-fluid", "checked": true, "priority": "done", "task": "Transmission Fluid Change (Red Line MT-90)", "category": "Drivetrain / Fluids", "who": "DIY — Brennon", "status": "DONE", "cost_cad": 0, "time": "1 hr", "notes": "Done Apr 2026 @ ~170k (DIY). Drained prior 75W-80 FM fill, refilled with Red Line MT-90 (GL-4) — preferred spec. Next drain at synchro rebuild." },
+        { "id": "strat-clutch-flush", "checked": true, "priority": "done", "task": "Clutch Hydraulic Fluid Flush", "category": "Drivetrain / Fluids", "who": "DIY — Brennon", "status": "DONE", "cost_cad": 0, "time": "30 min", "notes": "Done Apr 2026 @ ~170k (DIY). Clutch reservoir flushed + bled with DOT3/4 alongside trans fluid service." },
+        { "id": "strat-shifter", "checked": true, "priority": "done", "task": "Shifter Bushing + Seat — Inspected", "category": "Drivetrain", "who": "DIY — Brennon", "status": "DONE", "cost_cad": 0, "time": "—", "notes": "Inspected — bushing is fine, not the cause of 2nd gear issue. No replacement needed." },
+        { "id": "strat-lubegard", "checked": true, "priority": "done", "task": "Add 2nd Lubegard Dose", "category": "Drivetrain", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "15 min", "notes": "Done. Drained ~100ml trans fluid, added 1 bottle." },
+        { "id": "strat-bulbs", "checked": true, "priority": "done", "task": "New Dash + Interior Bulbs / Interior Light Power", "category": "Electrical", "who": "DIY", "status": "DONE", "cost_cad": 60, "time": "20 min", "notes": "Electrical fault resolved: repaired ground + replaced burned dome fuse. Door sensors, clock, dome lights all working. New dash + interior bulbs." }
+      ]
+    },
+    {
+      "phase": "PHASE 3 — SUMMER/FALL 2026 | Cosmetic + Comfort + Rebuild Prep",
+      "tasks": [
+        { "id": "strat-synchro-decision", "checked": false, "priority": "low", "task": "Transmission — Synchro Rebuild (2nd gear)", "category": "Drivetrain", "who": "Liam Schram", "status": "SHOP JOB (Pending)", "cost_cad": 600, "time": "8+ hrs", "notes": "Worn synchro teeth (2nd gear). Rebuild when ready (winter). Current fill is Red Line MT-90 (GL-4) — no flush before rebuild, refill with MT-90 at rebuild.", "on_hand": "Red Line MT-90 (GL-4) already installed Apr 2026 at ~170k. Refill MT-90 again at rebuild.", "still_needed": "Book synchro rebuild (winter); buy fresh Red Line MT-90 for refill at rebuild" },
+        { "id": "strat-roof", "checked": false, "priority": "low", "task": "Roof — Fix 2 Holes + Final Paint", "category": "Body / Paint", "who": "Bill's Paint / Pro-Tech", "status": "SHOP JOB (Pending)", "cost_cad": 400, "time": "1 day", "notes": "Roof is stripped + epoxy primed. Return to Bill's or Pro-Tech Collision (PG) to fill holes, block sand, and topcoat. Book early — paint shops book out.", "on_hand": "Roof already stripped + epoxy primed (Bill's Paint, May 2024) ✅", "still_needed": "Bondo for 2 holes · Final colour-matched paint + clear coat" },
+        { "id": "strat-exhaust", "checked": false, "priority": "low", "task": "3\" Exhaust System", "category": "Exhaust", "who": "Local Exhaust Shop", "status": "SHOP JOB (Pending)", "cost_cad": 500, "time": "4 hrs", "notes": "Any 3\" system, not side-pipe specific. Stainless preferred for longevity. Get quote from local exhaust shop.", "still_needed": "3\" mandrel-bent exhaust system — Confirm routing + exit point with shop" },
+        { "id": "strat-flares", "checked": false, "priority": "low", "task": "Fender Flare Weather Stripping", "category": "Body / Paint", "who": "DIY (roadside OK)", "status": "NEEDS PARTS", "cost_cad": 60, "time": "1 hr", "notes": "Small job, big improvement in water management. Clip/adhesive — DIY roadside OK once parts arrive.", "still_needed": "Fender flare weather strip seal — Source: Partsouq" }
+      ]
+    },
+    {
+      "phase": "PHASE 4 — ENGINE REBUILD PLANNING (Late 2026 / 2027)",
+      "tasks": [
+        { "id": "strat-thermostat", "checked": false, "priority": "low", "task": "Replace Thermostat", "category": "Engine / Maint.", "who": "DIY or quick-lube", "status": "NEEDS PARTS", "cost_cad": 30, "time": "1–2 hrs", "notes": "Parts in hand. Lube-related: buy coolant, Speedy Lube (or similar) can do pit + disposal for not much $. Cheap insurance.", "on_hand": "Thermostat + thermostat gasket (Partsouq)", "still_needed": "Coolant — ~12L premix (or 6L concentrate + distilled)" },
+        { "id": "strat-fuel-rebuild", "checked": false, "priority": "low", "task": "Fuel System Rebuild Quote", "category": "Engine / Fuel", "who": "Jon Fox — Black Fox Diesel", "status": "PLANNING QUOTE", "cost_cad": 3500, "time": "TBD", "notes": "Injector + VE/P7100 pump refurb. Get quote and confirm scope for the rebuild phase. Many parts already on hand." },
+        { "id": "strat-engine-book", "checked": false, "priority": "low", "task": "Engine Rebuild — 1HD-T (Book with Eli)", "category": "Engine", "who": "Eli — Edmonton", "status": "SCHEDULED 2026/27", "cost_cad": 11500, "time": "~35 hrs", "notes": "Diagnosis complete: one worn cylinder ring. Oil consumption 2.3L / 9,000 km — manageable, not urgent. TerraClean + conditioner done. Book when budget ready + parts arrive + truck timing right. Est. ~$11,500 all-in (~$9,100 shop + fuel system).", "on_hand": "Water pump (HD Auto) · Gates timing belt kit (HD Auto) · Fan belt kit (HD Auto) · Manifold sealing rings (HD Auto) · Intake manifold gasket & stud set (HD Auto) · Timing cover gasket (HD Auto) · Oil filter housing gasket (HD Auto) · Injector washer/seal kit (RADD Cruisers) · Exhaust manifold gaskets x2 · Turbine housing bolts x4 (Partsouq) · Thermostat gasket (Partsouq) · Clutch slave cylinder (HD Auto)", "still_needed": "Long block refurb — head, block, crank, rods, pistons, bearings, cam (~$5,600) · Fuel system: injectors + injection pump refurb (~$3,500) · All remaining rubber hoses" },
+        { "id": "strat-valve", "checked": false, "priority": "low", "task": "Valve Clearance Check", "category": "Engine", "who": "Eli — Edmonton", "status": "DEFERRED TO REBUILD", "cost_cad": 0, "time": "—", "notes": "Deferred to engine rebuild. 1HD-T spec: inlet 0.20mm, exhaust 0.35mm cold." },
+        { "id": "strat-vacuum", "checked": false, "priority": "low", "task": "Vacuum System Rebuild Quote", "category": "Engine / Vacuum", "who": "Eli — Edmonton", "status": "PLANNING QUOTE", "cost_cad": 0, "time": "—", "notes": "Request vacuum system assessment + quote as part of full rebuild planning." },
+        { "id": "strat-glow-plugs", "checked": false, "priority": "low", "task": "Glow Plug Circuit / Dash Light — Diagnosis + Plug Replacement", "category": "Electrical / Engine", "who": "Steve — EBI / Eli", "status": "DEFERRED TO REBUILD", "cost_cad": 90, "time": "1 hr", "notes": "Dash light still does not illuminate — not solved. LOW PRIORITY: truck starts in 1 crank without glow plugs. Circuit diagnosis + plug replacement deferred to engine rebuild (Eli) or opportunistic with EBI." }
+      ]
+    }
+  ],
+  "parts_inventory": [
+    { "name": "80 Series PDI Intercooler Kit (1HD-FT Manual)", "vendor": "HD Automotive", "part_number": null, "price_paid": 1431.82, "currency": "AUD", "approx_cad": 1289, "project": "Intercooler Install", "status": "installed" },
+    { "name": "UFI Turbo 1HD-T — 18G 250hp", "vendor": "HD Automotive", "part_number": null, "price_paid": 2045.45, "currency": "AUD", "approx_cad": 1841, "project": "New Turbo Install", "status": "installed" },
+    { "name": "Eaton E-Locker 14212-1", "vendor": "Terrain Tamer", "part_number": "14212-1", "price_paid": 1543.63, "currency": "AUD", "approx_cad": 1374, "project": "Rear E-Locker Install", "status": "installed" },
+    { "name": "Dobinsons Coil Springs Front C97-144VT", "vendor": "Dobinsons", "part_number": "C97-144VT", "price_paid": 485, "currency": "USD", "approx_cad": 664, "project": "Suspension (Slinky)", "status": "installed" },
+    { "name": "Dobinsons Coil Springs Rear C97-145VT", "vendor": "Dobinsons", "part_number": "C97-145VT", "price_paid": 485, "currency": "USD", "approx_cad": 664, "project": "Suspension (Slinky)", "status": "installed" },
+    { "name": "VEVOR 13,000lb Electric Winch", "vendor": "VEVOR Canada", "part_number": null, "price_paid": 464.99, "currency": "CAD", "approx_cad": 465, "project": "Winch Install", "status": "installed" },
+    { "name": "Rear Tailgate", "vendor": "EBI Cruisers", "part_number": null, "price_paid": 740, "currency": "CAD", "approx_cad": 844, "project": "Tailgate Replacement", "status": "installed" },
+    { "name": "ARB Outback Cargo Drawer RD1045 x2", "vendor": "West Coast Offroaders", "part_number": "RD1045", "price_paid": 2954, "currency": "CAD", "approx_cad": 5908, "project": "Sliding Drawers", "status": "installed" },
+    { "name": "ARB Drawer Side Floor Adaptor Kit", "vendor": "West Coast Offroaders", "part_number": "RFFKADP1045", "price_paid": 570, "currency": "CAD", "approx_cad": 570, "project": "Sliding Drawers", "status": "installed" },
+    { "name": "ARB Base Rack 84\"×51\" (BASE81)", "vendor": "West Coast Offroaders", "part_number": "BASE81", "price_paid": 1800, "currency": "CAD", "approx_cad": 1800, "project": "Roof Rack", "status": "installed" },
+    { "name": "Sony DSX-GS80 Head Unit 45Wx4", "vendor": "Amazon CA", "part_number": null, "price_paid": 390, "currency": "CAD", "approx_cad": 390, "project": "Stereo / Head Unit", "status": "installed" },
+    { "name": "Rockford Fosgate R165-S 6.5\" Speakers", "vendor": "Amazon CA", "part_number": null, "price_paid": 145.59, "currency": "CAD", "approx_cad": 146, "project": "Rear Door Speakers", "status": "installed" },
+    { "name": "SEALIGHT H4/9003 LED Headlight Bulbs", "vendor": "Amazon CA", "part_number": null, "price_paid": 112, "currency": "CAD", "approx_cad": 112, "project": "LED Light Upgrade", "status": "installed" },
+    { "name": "GlowShift 1500°F EGT Gauge Kit (SOLD)", "vendor": "Amazon CA", "part_number": null, "price_paid": 0, "currency": "CAD", "approx_cad": 0, "project": "EGT Gauge — Sold, replaced by Auber SYL-2813", "status": "sold" },
+    { "name": "GlowShift 30 PSI Boost Gauge Kit (SOLD)", "vendor": "Amazon CA", "part_number": null, "price_paid": 274.69, "currency": "CAD", "approx_cad": 274, "project": "Boost Gauge — Sold, replaced by Auber SYL-1813", "status": "sold" },
+    { "name": "LUBEGARD Gear Oil Additive — 1st dose", "vendor": "Amazon CA", "part_number": null, "price_paid": 0, "currency": "CAD", "approx_cad": 0, "project": "Trans Additive (1st done)", "status": "used" },
+    { "name": "AMS 75W-140 Gear Lube (diffs)", "vendor": "Chieftan Auto", "part_number": null, "price_paid": 151, "currency": "CAD", "approx_cad": 151, "project": "Diff/Transfer Service", "status": "installed" },
+    { "name": "AMS 10W-30 Diesel Motor Oil", "vendor": "Chieftan Auto", "part_number": null, "price_paid": 120, "currency": "CAD", "approx_cad": 120, "project": "Engine Oil Change", "status": "installed" },
+    { "name": "Front Diff Rebuild Parts (bearings, seals, pinion)", "vendor": "Partsouq", "part_number": "Various", "price_paid": 141.23, "currency": "USD", "approx_cad": 191, "project": "Front Diff Rebuild", "status": "installed" },
+    { "name": "KnuKonceptz 8-Gauge Amp Wiring Kit", "vendor": "Amazon CA", "part_number": null, "price_paid": 28, "currency": "CAD", "approx_cad": 28, "project": "Audio / Amp Wiring", "status": "installed" },
+    { "name": "Gates Timing Belt Kit 1HZ 1HDT", "vendor": "HD Automotive", "part_number": null, "price_paid": 115.73, "currency": "AUD", "approx_cad": 104, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "1HZ 1HDFTE Manifold Sealing Ring Set", "vendor": "HD Automotive", "part_number": null, "price_paid": 44.99, "currency": "AUD", "approx_cad": 40, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "1HZ/HDT Intake Manifold Gasket & Stud Set", "vendor": "HD Automotive", "part_number": null, "price_paid": 181.28, "currency": "AUD", "approx_cad": 163, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "Genuine Water Pump 1HZ 1HD Engine", "vendor": "HD Automotive", "part_number": null, "price_paid": 207.27, "currency": "AUD", "approx_cad": 187, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "Gates Fan Belt Kit HDJ80/HZJ80", "vendor": "HD Automotive", "part_number": null, "price_paid": 38.86, "currency": "AUD", "approx_cad": 35, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "Timing Cover Gasket 1HZ 1HD-T HDJ80", "vendor": "HD Automotive", "part_number": null, "price_paid": 25.05, "currency": "AUD", "approx_cad": 23, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "Genuine Oil Filter Housing Gasket", "vendor": "HD Automotive", "part_number": null, "price_paid": 16.41, "currency": "AUD", "approx_cad": 15, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "Clutch Slave Cylinder HDJ80 (JB4234)", "vendor": "HD Automotive", "part_number": "JB4234", "price_paid": 50.45, "currency": "AUD", "approx_cad": 45, "project": "Engine Rebuild / Clutch", "status": "on_hand" },
+    { "name": "1HDT Injector Washer/Seal Kit (6 injectors)", "vendor": "RADD Cruisers", "part_number": null, "price_paid": 43.66, "currency": "CAD", "approx_cad": 44, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "Rear Hub Wheel Bearing Seal/Service Kit x2", "vendor": "RADD Cruisers", "part_number": null, "price_paid": 76.12, "currency": "CAD", "approx_cad": 76, "project": "Birfield / Rear Hub", "status": "on_hand" },
+    { "name": "Exhaust Manifold Gaskets to Head x2", "vendor": "RADD Cruisers", "part_number": null, "price_paid": 69.96, "currency": "CAD", "approx_cad": 70, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "Gasket, Timing Gear/Chain Cover", "vendor": "Partsouq", "part_number": "1132817010", "price_paid": 18.7, "currency": "USD", "approx_cad": 25, "project": "Engine Rebuild 2026/27", "status": "on_hand" },
+    { "name": "Gasket Kit, Rear Differential Carrier", "vendor": "Partsouq", "part_number": "0441260080", "price_paid": 8.3, "currency": "USD", "approx_cad": 11, "project": "Rear Diff Service", "status": "on_hand" },
+    { "name": "Gasket, Front Axle Differential Carrier", "vendor": "Partsouq", "part_number": "4218160060", "price_paid": 4.65, "currency": "USD", "approx_cad": 6, "project": "Front Diff Gasket", "status": "on_hand" },
+    { "name": "Turbine Housing Studs x4 + Exhaust Nuts x4", "vendor": "Partsouq", "part_number": "Various", "price_paid": 11.08, "currency": "USD", "approx_cad": 15, "project": "Engine Rebuild / Turbo", "status": "installed" },
+    { "name": "Gasket, Intake Manifold Hole Cover", "vendor": "Partsouq", "part_number": "1711517010", "price_paid": 1.31, "currency": "USD", "approx_cad": 2, "project": "Engine", "status": "installed" },
+    { "name": "Thermostat Unit", "vendor": "Partsouq", "part_number": "9091603089", "price_paid": 15.36, "currency": "USD", "approx_cad": 21, "project": "Thermostat Replacement", "status": "on_hand" },
+    { "name": "Gasket, Thermostat", "vendor": "Partsouq", "part_number": "1634666020", "price_paid": 2.5, "currency": "USD", "approx_cad": 3, "project": "Thermostat Replacement", "status": "on_hand" },
+    { "name": "Element Assy, Fuel Filter", "vendor": "Partsouq", "part_number": "2330364010", "price_paid": 40.63, "currency": "USD", "approx_cad": 55, "project": "Fuel Filter (spare)", "status": "on_hand" },
+    { "name": "Filter Sub-Assy, Fuel Suction Tube", "vendor": "Partsouq", "part_number": "7702360010", "price_paid": 6.05, "currency": "USD", "approx_cad": 8, "project": "Fuel Filter (spare)", "status": "on_hand" },
+    { "name": "Interior Trim Parts (assist grips, switch covers, door bezel)", "vendor": "Partsouq", "part_number": "Various", "price_paid": 55.51, "currency": "USD", "approx_cad": 75, "project": "Interior Trim", "status": "installed" },
+    { "name": "LUBEGARD Gear Oil Additive — 2 bottles remaining", "vendor": "Amazon CA", "part_number": null, "price_paid": 0, "currency": "CAD", "approx_cad": 0, "project": "Trans Additive 2nd + 3rd dose", "status": "used" },
+    { "name": "ACDelco Synchromesh Transmission Fluid 32oz", "vendor": "Amazon CA", "part_number": "10-4014", "price_paid": 174, "currency": "CAD", "approx_cad": 174, "project": "Transmission Fluid", "status": "used" },
+    { "name": "12V 22A Relay", "vendor": "Amazon CA", "part_number": "9098702004", "price_paid": 12.15, "currency": "CAD", "approx_cad": 12, "project": "Relay / Electrical", "status": "on_hand" },
+    { "name": "A/C Sealer Cartridge x4 + Injection Kit", "vendor": "Lubeworx", "part_number": null, "price_paid": 241.11, "currency": "CAD", "approx_cad": 241, "project": "AC Service", "status": "on_hand" },
+    { "name": "Buffing Compound 3-Pack + 6\" Wheels 3-Pack", "vendor": "Amazon CA", "part_number": null, "price_paid": 47, "currency": "CAD", "approx_cad": 47, "project": "Paint / Body", "status": "used" },
+    { "name": "Auber SYL-2813 EGT + SYL-1813 Boost — Digital Gauge Set", "vendor": "Auber Instruments", "part_number": "SYL-1813", "price_paid": 0, "currency": "USD", "approx_cad": 0, "project": "EGT + Boost monitoring — installed (replaced GlowShift)", "status": "installed" },
+    { "name": "1PZ 1HZ 1HD-T Engine Repair Manual (RM172E)", "vendor": "CruiserParts LLC", "part_number": "RM172E", "price_paid": 108.9, "currency": "USD", "approx_cad": 147, "project": "FSM Reference", "status": "reference" },
+    { "name": "VEVOR Carrier & Pinion Bearing Puller (tool)", "vendor": "VEVOR Canada", "part_number": null, "price_paid": 181.09, "currency": "CAD", "approx_cad": 181, "project": "Diff Tool", "status": "used" },
+    { "name": "Custom Winch Plate (Fabricated + Powder Coated)", "vendor": "Steel Inc", "part_number": null, "price_paid": 200, "currency": "CAD", "approx_cad": 200, "project": "Winch / Bumper", "status": "installed" },
+    { "name": "HK 150DB Air Train Horn Kit (Twin Tone Chrome)", "vendor": "Amazon CA", "part_number": null, "price_paid": 29.99, "currency": "CAD", "approx_cad": 30, "project": "Air Horn", "status": "installed" },
+    { "name": "Silicone Radiator Hose Set 10PCS (HDJ80 1HD-T 4.2L)", "vendor": "Amazon CA", "part_number": null, "price_paid": 100.99, "currency": "CAD", "approx_cad": 101, "project": "Engine Hoses", "status": "installed" },
+    { "name": "Yaesu FTM-6000R 50W 144/430MHz Dual Band FM Mobile Transceiver", "vendor": "DX Engineering", "part_number": "YSU-FTM-6000R", "price_paid": 270.86, "currency": "USD", "approx_cad": 366, "project": "Comms / Radio", "status": "installed" },
+    { "name": "Front Bumper Parking / Signal Lights + LED (FJ80 / LX450)", "vendor": "Amazon CA", "part_number": null, "price_paid": 82.51, "currency": "CAD", "approx_cad": 83, "project": "Lighting", "status": "installed" },
+    { "name": "Door Glass Run Sealing Strip Set (68141/68151/68142/68152)", "vendor": "Amazon CA", "part_number": "Various", "price_paid": 79.84, "currency": "CAD", "approx_cad": 80, "project": "Weatherstripping", "status": "on_hand" },
+    { "name": "Hood Heat Shield Insulation Pad (LC80 80 Series)", "vendor": "Amazon CA", "part_number": null, "price_paid": 36.99, "currency": "CAD", "approx_cad": 37, "project": "Engine Bay", "status": "installed" },
+    { "name": "Knuckle Stud Set — OEM Toyota x8 (KS7997KSET)", "vendor": "CruiserTeq", "part_number": "KS7997KSET", "price_paid": 118.97, "currency": "USD", "approx_cad": 161, "project": "Knuckle Repair (Campbell River)", "status": "installed" }
+  ],
+  "spend_summary": [
+    { "date": "2023-07-21", "vendor": "INITIAL PURCHASE — LC80", "description": "Purchase price of LC80", "amount_cad": 23990, "is_total": false },
+    { "date": "2023-11", "vendor": "HD Automotive (AUS) — Inv. 3894", "description": "Intercooler kit, water pump, timing belt, gaskets, fan belt + shipping", "amount_cad": 2520, "is_total": false },
+    { "date": "2023-11", "vendor": "HD Automotive (AUS) — Inv. 3976", "description": "Timing cover gasket, oil filter housing gasket, clutch slave cylinder", "amount_cad": 83, "is_total": false },
+    { "date": "2024-01", "vendor": "HD Automotive (AUS) — Inv. 4697", "description": "UFI Turbo 1HD-T 18G 250hp + shipping", "amount_cad": 2021, "is_total": false },
+    { "date": "2024-01", "vendor": "Dilas International — Customs #99854", "description": "Customs/duties — HD Auto turbo shipment", "amount_cad": 143, "is_total": false },
+    { "date": "2024-01", "vendor": "Dilas International — Customs #99855", "description": "Customs/duties — HD Auto intercooler shipment", "amount_cad": 158, "is_total": false },
+    { "date": "2024-01", "vendor": "RADD Cruisers — ORD220722", "description": "Injector seal kit, hub socket tool, rear hub bearing seal kit x2", "amount_cad": 296, "is_total": false },
+    { "date": "2024-02", "vendor": "RADD Cruisers — ORD220786", "description": "Exhaust manifold gaskets x2", "amount_cad": 96, "is_total": false },
+    { "date": "2023-12", "vendor": "Partsouq — Order 627551", "description": "Thermostat, fuel filter, assist grips, oil filter, switch covers", "amount_cad": 262, "is_total": false },
+    { "date": "2023-12", "vendor": "Partsouq — Order 630261", "description": "Front diff rebuild parts (bearings, seals, pinion parts) + duties", "amount_cad": 335, "is_total": false },
+    { "date": "2024-02", "vendor": "Partsouq — Invoice 650630", "description": "Diff gaskets, timing cover gasket, exhaust gaskets, turbo bolts", "amount_cad": 160, "is_total": false },
+    { "date": "2024-03", "vendor": "Terrain Tamer — Order 8870", "description": "Eaton E-Locker 14212-1 + shipping + duties", "amount_cad": 1807, "is_total": false },
+    { "date": "2024-02", "vendor": "Chieftan Auto — Invoice 3578009 + Receipts", "description": "AMS oil, gear lube, PS fluid, brake fluid, coolant, cleaner, wire", "amount_cad": 568, "is_total": false },
+    { "date": "2024-05", "vendor": "Bill's Paint Shop — Inv. 1376", "description": "Roof strip, sand, and epoxy prime", "amount_cad": 1569, "is_total": false },
+    { "date": "2023-10", "vendor": "Lubeworx — Order 57935", "description": "TerraClean products + A/C sealer kit (shop wholesale)", "amount_cad": 1695, "is_total": false },
+    { "date": "2024", "vendor": "West Coast Offroaders", "description": "ARB cargo drawers x2, floor adaptors, BASE81 roof rack", "amount_cad": 5963, "is_total": false },
+    { "date": "2024", "vendor": "EBI Cruisers", "description": "Rear tailgate replacement + taxes", "amount_cad": 844, "is_total": false },
+    { "date": "2024", "vendor": "Dobinsons", "description": "Coil springs front + rear (Slinky) + shipping + duties", "amount_cad": 1521, "is_total": false },
+    { "date": "2024-03", "vendor": "VEVOR Canada", "description": "13,000lb electric winch + bearing puller tool", "amount_cad": 646, "is_total": false },
+    { "date": "2023", "vendor": "Amazon CA — Parts & Electronics", "description": "Lubegard, LED bulbs, Sony head unit, speakers, wiring, relay, trans fluid, gauges", "amount_cad": 1903, "is_total": false },
+    { "date": "2023-12", "vendor": "CruiserParts LLC — Order 2371691", "description": "1HD-T Engine Repair Manual + shipping", "amount_cad": 224, "is_total": false },
+    { "date": "2024-02", "vendor": "Princess Auto", "description": "Measurement tools (deflection gauge + magnetic tray)", "amount_cad": 48, "is_total": false },
+    { "date": "2025-11", "vendor": "EBI Cruisers — Estimate #92098", "description": "Knuckle rebuild — Koyo bearing kit, chassis grease, brake cleaner, 80/90 gear oil, 5.5hrs labour @ $175/hr (passenger + driver knuckle)", "amount_cad": 1298.14, "is_total": false },
+    { "date": "2024", "vendor": "Steel Inc — Custom Fabrication", "description": "Custom winch plate — fabricated + powder coated", "amount_cad": 200, "is_total": false },
+    { "date": "2024", "vendor": "Amazon CA — Air Horn", "description": "HK 150DB Air Train Horn Kit (twin tone chrome)", "amount_cad": 30, "is_total": false },
+    { "date": "2024", "vendor": "Amazon CA — Engine Hoses", "description": "Silicone radiator hose set 10PCS (HDJ80 1HD-T 4.2L)", "amount_cad": 101, "is_total": false },
+    { "date": "2025", "vendor": "Amazon CA — Lighting", "description": "Front bumper parking / signal lights + LED (FJ80 / LX450) x2", "amount_cad": 83, "is_total": false },
+    { "date": "2025", "vendor": "Amazon CA — Weatherstripping", "description": "Door glass run sealing strip set (68141/68151/68142/68152)", "amount_cad": 80, "is_total": false },
+    { "date": "2025", "vendor": "Amazon CA — Engine Bay", "description": "Hood heat shield insulation pad (LC80 80 Series)", "amount_cad": 37, "is_total": false },
+    { "date": "2024-08", "vendor": "DX Engineering — Order #0004937", "description": "Yaesu FTM-6000R 50W dual band FM mobile transceiver + shipping", "amount_cad": 366, "is_total": false },
+    { "date": "2024-09-16", "vendor": "CruiserTeq — Order #99023695", "description": "Knuckle Stud Set OEM Toyota x8 (KS7997KSET) + Route Protection + shipping — shipped to Puller's Repairs, Campbell River", "amount_cad": 161, "is_total": false },
+    { "date": "", "vendor": "Puller's Repairs Ltd (Pete Puller) — Campbell River", "description": "Emergency steering knuckle repair labour — studs fell out, temp fix to get truck to Vancouver/Steve at EBI", "amount_cad": 600, "is_total": false },
+    { "date": "", "vendor": "TOTAL PARTS", "description": "", "amount_cad": 25818.14, "is_total": true },
+    { "date": "2023-12-27", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 400, "is_total": false },
+    { "date": "2023-12-28", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 400, "is_total": false },
+    { "date": "2024-02-16", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 160, "is_total": false },
+    { "date": "2024-02-17", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 200, "is_total": false },
+    { "date": "2024-02-18", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 400, "is_total": false },
+    { "date": "2024-02-19", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 400, "is_total": false },
+    { "date": "2024-03-24", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 400, "is_total": false },
+    { "date": "2024-03-30", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 720, "is_total": false },
+    { "date": "2024-03-31", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 480, "is_total": false },
+    { "date": "2024-04-01", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 1120, "is_total": false },
+    { "date": "2024-05-19", "vendor": "Liam Schram", "description": "Labour", "amount_cad": 320, "is_total": false },
+    { "date": "", "vendor": "TOTAL LABOUR", "description": "", "amount_cad": 5000, "is_total": true },
+    { "date": "", "vendor": "GRAND TOTAL (PURCHASE + PARTS + LABOUR)", "description": "", "amount_cad": 54808.14, "is_total": true }
+  ],
+  "scheduled_maintenance": [
+    { "item": "Engine Oil + Filter (10W-30 Diesel)", "interval": "5,000 km", "last_done_km": 170000, "last_done_notes": "Feb 2026 — AMS 10W-30, fresh", "next_due_km": 175000, "km_until_due": 5000, "status": "upcoming", "status_label": "UPCOMING", "notes": "AMS 10W-30 Diesel. ~9L with filter. Next due ~175,000 km or ~3 months." },
+    { "item": "Air Filter", "interval": "20,000 km", "last_done_km": 150000, "last_done_notes": "Est. ~150k (not confirmed)", "next_due_km": 170000, "km_until_due": 0, "status": "overdue", "status_label": "OVERDUE / CHECK", "notes": "Likely overdue — not confirmed in invoices. Check and replace at next oil change." },
+    { "item": "Fuel Filter + Suction Tube", "interval": "40,000 km", "last_done_km": 170000, "last_done_notes": "Feb 2026 — Partsouq parts", "next_due_km": 210000, "km_until_due": 40000, "status": "ok", "status_label": "OK", "notes": "Just done ✅. Next due ~210,000 km." },
+    { "item": "Valve Clearance Check (1HD-T)", "interval": "40,000 km", "last_done_km": 120000, "last_done_notes": "~120k with timing belt (estimated)", "next_due_km": null, "km_until_due": "Deferred", "status": "deferred", "status_label": "Engine Rebuild", "notes": "Deferred to engine rebuild. 1HD-T spec: inlet 0.20mm, exhaust 0.35mm cold." },
+    { "item": "Timing Belt + Tensioner", "interval": "100,000 km", "last_done_km": 120000, "last_done_notes": "~120k (confirmed in notes)", "next_due_km": 220000, "km_until_due": 50000, "status": "ok", "status_label": "OK", "notes": "Done at ~120k. Next due ~220,000 km. Tensioner + pulley also replaced at that time." },
+    { "item": "Water Pump", "interval": "100,000 km", "last_done_km": 120000, "last_done_notes": "~120k (estimated)", "next_due_km": 220000, "km_until_due": 50000, "status": "ok", "status_label": "OK", "notes": "New water pump on hand (HD Auto) — likely planned for engine rebuild." },
+    { "item": "Coolant Flush", "interval": "40,000 km", "last_done_km": 165000, "last_done_notes": "Feb 2024 — BJ Landers (50-50 premix)", "next_due_km": 205000, "km_until_due": 35000, "status": "ok", "status_label": "OK", "notes": "Done at ~165k. Next due ~205,000 km or 2 years. Monitor level regularly." },
+    { "item": "Glow Plugs — Inspect/Replace", "interval": "40,000 km", "last_done_km": 120000, "last_done_notes": "~120k (estimated)", "next_due_km": null, "km_until_due": "Deferred", "status": "deferred", "status_label": "Engine Rebuild", "notes": "LOW PRIORITY — truck starts in 1 crank without glow plugs. Plug replacement deferred to engine rebuild with Eli (Edmonton)." },
+    { "item": "Injectors — Inspect", "interval": "80,000 km", "last_done_km": 160000, "last_done_notes": "Est. ~160k (TerraClean done)", "next_due_km": 240000, "km_until_due": 70000, "status": "ok", "status_label": "OK", "notes": "TerraClean fuel system done at ~165k. Injector washer/seal kit on hand for engine rebuild." },
+    { "item": "Transmission Fluid (Red Line MT-90)", "interval": "40,000 km", "last_done_km": 170000, "last_done_notes": "Apr 2026 — DIY drain-and-fill, Red Line MT-90 (GL-4)", "next_due_km": 210000, "km_until_due": 40000, "status": "ok", "status_label": "OK", "notes": "Current: Red Line MT-90 (GL-4) — preferred spec, installed Apr 2026 at ~170k. Expect improved shift feel, especially cold/hot 2nd gear. Refill MT-90 again at winter synchro rebuild." },
+    { "item": "Transfer Case Fluid (AMSOIL 75W-140)", "interval": "40,000 km", "last_done_km": 165000, "last_done_notes": "~165k — BJ Landers", "next_due_km": 205000, "km_until_due": 35000, "status": "ok", "status_label": "OK", "notes": "Done at ~165k. IMPORTANT: USE ONLY AMSOIL SEVERE GEAR 75W-140 GL-5 (NO SUBSTITUTES)." },
+    { "item": "Front Differential Fluid (AMSOIL 75W-140)", "interval": "40,000 km", "last_done_km": 165000, "last_done_notes": "~165k — BJ Landers + front diff rebuild", "next_due_km": 205000, "km_until_due": 35000, "status": "ok", "status_label": "OK", "notes": "Front diff fully rebuilt + new fluid. IMPORTANT: USE ONLY AMSOIL SEVERE GEAR 75W-140 GL-5." },
+    { "item": "Rear Differential Fluid (AMSOIL 75W-140)", "interval": "40,000 km", "last_done_km": 170000, "last_done_notes": "Apr 2026 — DIY drain-and-fill, AMSOIL 75W-140 GL-5", "next_due_km": 210000, "km_until_due": 40000, "status": "ok", "status_label": "OK", "notes": "Dark oil drained + refilled at ~170k. IMPORTANT: USE ONLY AMSOIL SEVERE GEAR 75W-140 GL-5 (NO SUBSTITUTES) — matches front diff + transfer case." },
+    { "item": "Propeller Shaft Grease (all joints)", "interval": "10,000 km", "last_done_km": 165000, "last_done_notes": "~165k (est.)", "next_due_km": 175000, "km_until_due": 5000, "status": "upcoming", "status_label": "UPCOMING", "notes": "Due ~175,000 km. Easy DIY grease nipple job — don't skip. Prevents worn U-joints." },
+    { "item": "Front Birfield / Knuckle Grease — Driver", "interval": "40,000 km", "last_done_km": 165000, "last_done_notes": "~165k — BJ Landers (L Birfield rebuilt)", "next_due_km": 205000, "km_until_due": 35000, "status": "ok", "status_label": "OK", "notes": "L Birfield rebuilt ✅. Next grease ~205,000 km." },
+    { "item": "Front Birfield / Knuckle — Passenger", "interval": "40,000 km", "last_done_km": 170000, "last_done_notes": "Nov 2025 — EBI Cruisers (Estimate #92098)", "next_due_km": 210000, "km_until_due": 40000, "status": "ok", "status_label": "OK", "notes": "Passenger birfield rebuilt by EBI Cruisers (Nov 2025). Next grease ~210,000 km. Both sides now done ✅." },
+    { "item": "Steering Gear Box Oil", "interval": "40,000 km", "last_done_km": 165000, "last_done_notes": "~165k — BJ Landers", "next_due_km": 205000, "km_until_due": 35000, "status": "ok", "status_label": "OK", "notes": "Done at ~165k. Next due ~205,000 km." },
+    { "item": "Steering Pump Service", "interval": "40,000 km", "last_done_km": 165000, "last_done_notes": "~165k — BJ Landers", "next_due_km": 205000, "km_until_due": 35000, "status": "ok", "status_label": "OK", "notes": "Done at ~165k. Next due ~205,000 km." },
+    { "item": "Brake Fluid Flush", "interval": "40,000 km", "last_done_km": 165000, "last_done_notes": "Feb 2024 — BJ Landers (DOT4)", "next_due_km": 205000, "km_until_due": 35000, "status": "ok", "status_label": "OK", "notes": "Done ~165k. Next due ~205,000 km or 2 years. Flush before summer off-road season." },
+    { "item": "Brake Pads + Rotors — Inspect", "interval": "20,000 km", "last_done_km": 150000, "last_done_notes": "Assessed ~150k in BJ Landers work", "next_due_km": 170000, "km_until_due": 0, "status": "due_soon", "status_label": "DUE SOON", "notes": "Inspection due. Confirm brake condition at next shop visit." },
+    { "item": "Engine Oil Consumption Monitor (1 ring worn)", "interval": "9,000 km", "last_done_km": 170000, "last_done_notes": "Tracking confirmed: 2.3L / 9,000 km", "next_due_km": 179000, "km_until_due": 9000, "status": "upcoming", "status_label": "UPCOMING", "notes": "Monitor at each oil change. If consumption worsens significantly, move rebuild timeline forward." },
+    { "item": "Power Steering Fluid", "interval": "40,000 km", "last_done_km": 165000, "last_done_notes": "~165k — BJ Landers", "next_due_km": 205000, "km_until_due": 35000, "status": "ok", "status_label": "OK", "notes": "Done ~165k. Check level at each oil change." },
+    { "item": "Clutch Hydraulic Fluid Flush", "interval": "40,000 km / 2 yrs", "last_done_km": 170000, "last_done_notes": "Apr 2026 — DIY flush (DOT3/4)", "next_due_km": 210000, "km_until_due": 40000, "status": "ok", "status_label": "OK", "notes": "Clutch reservoir flushed/bled alongside trans fluid service. FSM: use same DOT3/4 as brakes. Next with brake fluid flush." },
+    { "item": "Clutch — Inspect", "interval": "50,000 km", "last_done_km": 120000, "last_done_notes": "~120k (est.)", "next_due_km": 170000, "km_until_due": 0, "status": "due_soon", "status_label": "DUE SOON", "notes": "Clutch slave cylinder on hand (HD Auto). Check clutch feel — any slipping or hard engagement?" },
+    { "item": "Big End Bearings — Inspect/Replace", "interval": "One-time preventive", "last_done_km": null, "last_done_notes": "Never done", "next_due_km": "ASAP", "km_until_due": "OVERDUE", "status": "urgent", "status_label": "DO BEFORE REBUILD", "notes": "Known 1HD-T delamination issue. Original bearings at 170k km. Drop sump, replace ACL shells + rod bolts, plastigauge journals. 3 hrs, ~$150 parts. Liam Schram." }
+  ],
+  "shop_contacts": [
+    { "name": "Liam Schram", "role": "Primary Mechanic (Red Seal)", "location": "6943 Kelly Rd S, Prince George, BC V2K 2H4", "phone": "+1 (250) 552-9469", "contact": "liamschram@gmail.com / $80/hr labour rate", "specialty": "Red seal mechanic. Brakes, seals, diffs, trans, AC, general mechanical." },
+    { "name": "Steve Tetu — EBI Cruisers (Extreme Bends Inc.)", "role": "Secondary Mechanic / Parts", "location": "105 – 1650 Broadway St, Port Coquitlam, BC V3C 2M8 (~30 min from Vancouver)", "phone": "(604) 944-0382 / Toll-free: (877) 299-3540", "contact": "steven@extremebends.com / www.extremebends.com / $175/hr labour rate", "specialty": "Land Cruiser specialist. Source for rear tailgate (already purchased from EBI)." },
+    { "name": "Bill's Paint Shop", "role": "Body & Paint", "location": "Prince George, BC", "phone": null, "contact": "Roof epoxy prime done May 2024 (Inv. 1376) / Return for final roof paint + bondo", "specialty": "Paint, body prep, rust repair" },
+    { "name": "Pro-Tech Collision Centre", "role": "Body & Paint (alt.)", "location": "1989 1st Ave, Prince George, BC V2L 2Z3", "phone": "(250) 564-9848", "contact": "www.protechcollision.ca", "specialty": "Collision + paint. Alternative to Bill's for roof final coat." },
+    { "name": "Chieftan Auto Parts", "role": "Parts Supplier", "location": "Prince George, BC", "phone": "(250) 562-1258", "contact": "Local shop. 6am-6pm M-F, 7am-5pm Sat, 8am-3pm Sun", "specialty": "Oils, fluids, gaskets, hardware, consumables. Used for AMS oil, brake fluid, coolant." },
+    { "name": "HD Automotive", "role": "Parts Supplier (Australia)", "location": "Australia", "phone": null, "contact": "hdautomotive.com.au / Used for: turbo, intercooler kit, gaskets, water pump, timing belt", "specialty": "1HD-T / 1HZ specific parts. High quality, ships to Canada. Watch AUD/CAD exchange rate." },
+    { "name": "RADD Cruisers", "role": "Parts Supplier (Canada)", "location": "Kamloops, BC (online only — no walk-in)", "phone": null, "contact": "shopraddcruisers.ca / Used for: injector seals, hub bearing kits, exhaust gaskets", "specialty": "Land Cruiser specific. Canadian-based. Fast shipping." },
+    { "name": "Partsouq", "role": "OEM Parts (Japan-sourced)", "location": "UAE / Online", "phone": null, "contact": "partsouq.com/HDJ810040324 / OEM Toyota parts shipped internationally", "specialty": "Best source for OEM Toyota part numbers. Used for diff parts, gaskets, interior trim, filters." },
+    { "name": "Terrain Tamer", "role": "4WD Parts (Australia)", "location": "Australia", "phone": null, "contact": "terraintamer.com / Used for: Eaton E-Locker", "specialty": "Heavy duty 4WD parts, diff lockers, driveline components." },
+    { "name": "Eli — Edmonton Engine Shop", "role": "Engine Rebuild Specialist", "location": "Edmonton, AB", "phone": null, "contact": "TBD — Add contact details. Engine rebuild booked here.", "specialty": "1HD-T engine rebuild. Flag glow plug circuit + vacuum system with Steve at EBI first." },
+    { "name": "Graeme Burvill — Edgetech Automotive", "role": "Breakdown Backup / General Mechanical", "location": "14-38918 Progress Way, Squamish, BC (Sea-to-Sky corridor, ~1hr from Vancouver)", "phone": "(604) 892-0100", "contact": "www.edgetechautomotive.com / Mon–Fri 9am–5pm", "specialty": "Red seal mechanic. Good backup if broken down on Sea-to-Sky / Squamish offroad trips." },
+    { "name": "Cruiser Outfitters / CruiserTeq", "role": "Parts Supplier (USA)", "location": "USA / Online", "phone": "(801) 563-1277", "contact": "cruiseroutfitters.com / cruiserteq.com / Order #99023695", "specialty": "Land Cruiser specific parts. Knuckle stud set ordered after studs fell out in Campbell River." },
+    { "name": "Pete Puller — Puller's Repairs Ltd", "role": "Emergency Repair / General Mechanical", "location": "230 Elk River Timber Rd, Campbell River, BC V9W 3E7", "phone": "(250) 286-9854", "contact": "Emergency knuckle repair — got truck road-safe to drive to Vancouver", "specialty": "Used when steering knuckle studs fell out on the road. ~$600 labour." },
+    { "name": "Jon Fox — Black Fox Diesel", "role": "Diesel Injection Specialist (VE Pump Rebuild / Tune)", "location": "5124 Meadow Creek Rd, Celista, BC V0E 1M6 (~4.5hrs from Vancouver)", "phone": null, "contact": "service@dfdiesel.com / www.dfdiesel.com / Basic rebuild: $1,300 CAD (incl. all gaskets, seals, calibration)", "specialty": "BENCH ONLY — ships pump in, does not work on vehicles. Process: Remove pump → drain fuel → ship to Celista → Jon rebuilds & tunes → ship back → reinstall. Previously quoted Oct 2024 — has full build context." }
+  ]
+}
