@@ -69,7 +69,7 @@ export function renderStrategy(phases, meta) {
   meta = meta || {};
   var BUCKETS = [
     { key: 'now', title: 'To do', statuses: ['CAN DO NOW', 'ONGOING TRACKING', 'NEEDS PARTS', 'URGENT SERVICE', 'NEEDS INVESTIGATION', 'LEAKING — NEEDS BOOKING', 'NEEDS BOOKING', 'SHOP JOB (Pending)', 'BROKEN — REPLACE'] },
-    { key: 'later', title: 'Rebuild planning', statuses: ['PLANNING QUOTE', 'DEFERRED TO REBUILD', 'SCHEDULED 2026/27'] }
+    { key: 'later', title: '2027 Rebuild', statuses: ['PLANNING QUOTE', 'DEFERRED TO REBUILD', 'SCHEDULED 2026/27'] }
   ];
   var bucketOf = {};
   BUCKETS.forEach(function(b) { b.statuses.forEach(function(st) { bucketOf[st] = b.key; }); });
@@ -93,6 +93,9 @@ export function renderStrategy(phases, meta) {
   var sum = function(list) { return list.reduce(function(n, x) { return n + (x.t.cost_cad || 0); }, 0); };
   var money = function(n) { return n ? '~$' + n.toLocaleString() : '$0'; };
   var pct = all.length ? Math.round(done.length / all.length * 100) : 0;
+  var isLater = function(x) { return (bucketOf[x.t.status] || 'later') === 'later'; };
+  var todo = open.filter(function(x) { return !isLater(x); });
+  var later = open.filter(isLater);
 
   var row = function(x, i) {
     var t = x.t;
@@ -130,9 +133,9 @@ export function renderStrategy(phases, meta) {
     '</div></header>' +
     '<div class="strat-vitals strat-stats">' +
     '<div class="stat stat-dark"><div class="stat-label">Progress</div><div class="stat-row"><span class="stat-big">' + done.length + '/' + all.length + '</span><span class="stat-sub">done</span></div><div class="stat-bar"><div class="stat-bar-fill" style="width:' + pct + '%"></div></div></div>' +
-    '<div class="stat"><div class="stat-label">Open</div><div class="stat-row"><span class="stat-big">' + open.length + '</span><span class="stat-sub">open</span></div><div class="stat-foot">across 2 tracks</div></div>' +
+    '<div class="stat"><div class="stat-label">Open</div><div class="stat-row"><span class="stat-big">' + todo.length + '</span><span class="stat-sub">open</span></div><div class="stat-foot">2026 to-do · ' + later.length + ' more in the 2027 rebuild</div></div>' +
     '<div class="stat"><div class="stat-label">Urgent</div><div class="stat-row"><span class="stat-big stat-red">' + urgent.length + '</span><span class="stat-sub">urgent</span></div><div class="stat-foot">' + (urgent.length ? urgent[0].t.task.toLowerCase() : 'nothing on fire') + '</div></div>' +
-    '<div class="stat"><div class="stat-label">Est. outstanding</div><div class="stat-row"><span class="stat-big">' + money(sum(open)) + '</span></div><div class="stat-foot">' + done.length + ' done · listed items below</div></div>' +
+    '<div class="stat"><div class="stat-label">Est. outstanding 2026</div><div class="stat-row"><span class="stat-big">' + money(sum(todo)) + '</span></div><div class="stat-foot">rebuild ' + money(sum(later)) + ' budgeted separately below</div></div>' +
     '</div>' +
     '<div id="strategyBody"><div class="board">';
 
@@ -143,6 +146,10 @@ export function renderStrategy(phases, meta) {
       var ps = statusRank[p.t.status] || 0, qs = statusRank[q.t.status] || 0;
       return pu - qu || ps - qs || p.order - q.order;
     });
+    if (b.key === 'later') {
+      html += '<header class="strat-head strat-head-2027"><div><div class="strat-eyebrow">Deferred · only if symptoms worsen</div><h1 class="strat-title strat-title-sm">2027 Rebuild</h1></div>' +
+        '<div class="strat-facts"><div><div class="strat-fact-label">Est. budget</div><div class="strat-fact-val">' + money(sum(items)) + '</div></div></div></header>';
+    }
     html += '<section class="strat-col col col-' + b.key + '"><div class="strat-col-head"><span class="strat-col-title">' + b.title + '</span><span class="col-count">' + items.length + ' tasks</span><span class="strat-col-cost">' + money(sum(items)) + '</span></div>';
     html += items.length ? items.map(row).join('') : '<div class="col-empty">Nothing here</div>';
     html += '</section>';

@@ -159,12 +159,13 @@ describe('renderStrategy board', () => {
     expect(document.querySelectorAll('#strategyBody input[type="checkbox"]').length).toBe(document.querySelectorAll('#strategyBody .task-row').length);
   });
 
-  test('renders two build-style cards: To do and Rebuild planning, with counts', () => {
+  test('renders two stacked sections: To do and 2027 Rebuild, with counts', () => {
     const cols = document.querySelectorAll('.board .col');
     expect(cols.length).toBe(2);
     cols.forEach(c => expect(c.classList.contains('strat-col')).toBe(true));
     expect(cols[0].querySelector('.strat-col-head').textContent).toContain('To do');
-    expect(cols[1].querySelector('.strat-col-head').textContent).toContain('Rebuild planning');
+    expect(cols[1].querySelector('.strat-col-head').textContent).toContain('2027 Rebuild');
+    expect(document.querySelector('.strat-head-2027 .strat-title').textContent).toBe('2027 Rebuild');
     expect(cols[0].querySelector('.col-count').textContent).toBe('4 tasks');
     expect(cols[1].querySelector('.col-count').textContent).toBe('2 tasks');
     expect(cols[0].querySelector('.strat-col-cost').textContent).toBe('~$200');
@@ -225,7 +226,8 @@ describe('renderStrategy board', () => {
     renderStrategy(phases, { odometer_km: 170000, updated: '2026-09' });
     const stats = [...document.querySelectorAll('.strat-stats .stat')].map(s => s.textContent);
     expect(stats[0]).toContain('1/7');
-    expect(stats[1]).toContain('6');
+    expect(stats[1]).toContain('4');
+    expect(stats[1]).toContain('2 more in the 2027 rebuild');
     expect(stats[2]).toContain('1');
     expect(stats[2]).toContain('brake inspection');
     expect(stats[3]).toContain('~$200');
