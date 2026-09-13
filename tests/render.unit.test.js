@@ -237,6 +237,15 @@ describe('renderStrategy board', () => {
     expect(document.querySelector('.strat-legend')).not.toBeNull();
   });
 
+  test('shop labour rate from meta is shown next to the hours for that person', () => {
+    renderStrategy([{ phase: 'P2', tasks: [
+      { id: 'a', priority: 'low', task: 'Bearings', who: 'Liam Schram', status: 'NEEDS PARTS', time: '3 hrs', cost_cad: 615, checked: false },
+      { id: 'b', priority: 'low', task: 'Strips', who: 'DIY — Brennon', status: 'CAN DO NOW', time: '3 hrs', checked: false }
+    ] }], { labour_rate_liam_cad_hr: 85 });
+    expect(document.querySelector('.task-row[data-task="a"] .bi-meta').textContent).toBe('Liam Schram · 3 hrs @ $85/hr');
+    expect(document.querySelector('.task-row[data-task="b"] .bi-meta').textContent).toBe('DIY — Brennon · 3 hrs');
+  });
+
   test('empty column shows a placeholder and no done card when nothing is done', () => {
     renderStrategy([{ phase: 'P', tasks: [{ id: 'a', priority: 'low', task: 'A', who: 'Me', status: 'NEEDS PARTS', checked: false }] }]);
     expect(document.querySelectorAll('.col-empty').length).toBe(1);

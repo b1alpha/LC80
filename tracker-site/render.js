@@ -102,7 +102,14 @@ export function renderStrategy(phases, meta) {
     var isDone = t.priority === 'done';
     var prio = isDone ? 'done' : t.priority === 'urgent' ? 'urgent' : 'low';
     var metaBits = [t.who];
-    if (t.time && t.time !== '—') metaBits.push(t.time);
+    if (t.time && t.time !== '—') {
+      var timeBit = t.time;
+      Object.keys(meta).forEach(function(k) {
+        var m = /^labour_rate_(\w+)_cad_hr$/.exec(k);
+        if (m && (t.who || '').toLowerCase().indexOf(m[1].toLowerCase()) !== -1 && /\d/.test(t.time)) timeBit += ' @ $' + meta[k] + '/hr';
+      });
+      metaBits.push(timeBit);
+    }
     return '<div class="task-row status-' + prio + '" data-task="' + t.id + '" data-prio="' + t.priority + '">' +
       '<label class="task-check"><input type="checkbox" data-strat="' + t.id + '"' + (isDone ? ' checked' : '') + '></label>' +
       '<span class="task-num">' + (i < 9 ? '0' : '') + (i + 1) + '</span>' +
