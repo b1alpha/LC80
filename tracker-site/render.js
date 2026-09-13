@@ -65,19 +65,20 @@ export function renderFluidGuide(rows) {
   document.getElementById('tab-Fluid-Guide').innerHTML = html;
 }
 
-export function renderStrategy(phases) {
+export function renderStrategy(phases, meta) {
+  meta = meta || {};
   var BUCKETS = [
-    { key: 'now', icon: '🔧', title: 'To do', statuses: ['CAN DO NOW', 'ONGOING TRACKING', 'NEEDS PARTS', 'URGENT SERVICE', 'NEEDS INVESTIGATION', 'LEAKING — NEEDS BOOKING', 'NEEDS BOOKING', 'SHOP JOB (Pending)', 'BROKEN — REPLACE'] },
-    { key: 'later', icon: '📅', title: 'Rebuild planning', statuses: ['PLANNING QUOTE', 'DEFERRED TO REBUILD', 'SCHEDULED 2026/27'] }
+    { key: 'now', title: 'To do', statuses: ['CAN DO NOW', 'ONGOING TRACKING', 'NEEDS PARTS', 'URGENT SERVICE', 'NEEDS INVESTIGATION', 'LEAKING — NEEDS BOOKING', 'NEEDS BOOKING', 'SHOP JOB (Pending)', 'BROKEN — REPLACE'] },
+    { key: 'later', title: 'Rebuild planning', statuses: ['PLANNING QUOTE', 'DEFERRED TO REBUILD', 'SCHEDULED 2026/27'] }
   ];
   var bucketOf = {};
   BUCKETS.forEach(function(b) { b.statuses.forEach(function(st) { bucketOf[st] = b.key; }); });
   var statusRank = { 'CAN DO NOW': 0, 'ONGOING TRACKING': 0, 'NEEDS PARTS': 1, 'URGENT SERVICE': 2, 'NEEDS INVESTIGATION': 2, 'LEAKING — NEEDS BOOKING': 2, 'NEEDS BOOKING': 2, 'SHOP JOB (Pending)': 2, 'BROKEN — REPLACE': 2 };
   var statusTag = {
-    'CAN DO NOW': 'tag-installed', 'ONGOING TRACKING': 'tag-installed',
-    'NEEDS PARTS': 'tag-onhand', 'URGENT SERVICE': 'tag-urgent', 'BROKEN — REPLACE': 'tag-urgent',
-    'NEEDS INVESTIGATION': 'tag-planned', 'LEAKING — NEEDS BOOKING': 'tag-onhand', 'NEEDS BOOKING': 'tag-planned',
-    'SHOP JOB (Pending)': 'tag-planned', 'PLANNING QUOTE': 'tag-planned', 'DEFERRED TO REBUILD': 'tag-planned', 'SCHEDULED 2026/27': 'tag-planned'
+    'CAN DO NOW': 'tag-green', 'ONGOING TRACKING': 'tag-green',
+    'NEEDS PARTS': 'tag-amber', 'LEAKING — NEEDS BOOKING': 'tag-red', 'URGENT SERVICE': 'tag-red', 'BROKEN — REPLACE': 'tag-red',
+    'NEEDS INVESTIGATION': 'tag-blue', 'NEEDS BOOKING': 'tag-blue', 'SHOP JOB (Pending)': 'tag-blue',
+    'PLANNING QUOTE': 'tag-blue', 'DEFERRED TO REBUILD': 'tag-blue', 'SCHEDULED 2026/27': 'tag-blue'
   };
 
   var all = [];
@@ -88,39 +89,52 @@ export function renderStrategy(phases) {
   });
   var open = all.filter(function(x) { return x.t.priority !== 'done'; });
   var done = all.filter(function(x) { return x.t.priority === 'done'; });
-  var urgentCount = open.filter(function(x) { return x.t.priority === 'urgent'; }).length;
+  var urgent = open.filter(function(x) { return x.t.priority === 'urgent'; });
+  var sum = function(list) { return list.reduce(function(n, x) { return n + (x.t.cost_cad || 0); }, 0); };
+  var money = function(n) { return n ? '~$' + n.toLocaleString() : '$0'; };
+  var pct = all.length ? Math.round(done.length / all.length * 100) : 0;
 
-  var cost = function(t) { return t.cost_cad ? '~$' + t.cost_cad.toLocaleString() : '$0'; };
-  var row = function(x) {
+  var row = function(x, i) {
     var t = x.t;
     var isDone = t.priority === 'done';
-    var icon = isDone ? '✅' : t.priority === 'urgent' ? '🔴' : '🟡';
-    var metaBits = [t.who, cost(t)];
+    var prio = isDone ? 'done' : t.priority === 'urgent' ? 'urgent' : 'low';
+    var metaBits = [t.who];
     if (t.time && t.time !== '—') metaBits.push(t.time);
-    return '<div class="build-item task-row ' + (isDone ? 'status-done' : t.priority === 'urgent' ? 'status-urgent' : 'status-low') + '" data-task="' + t.id + '" data-prio="' + t.priority + '">' +
+    return '<div class="task-row status-' + prio + '" data-task="' + t.id + '" data-prio="' + t.priority + '">' +
       '<label class="task-check"><input type="checkbox" data-strat="' + t.id + '"' + (isDone ? ' checked' : '') + '></label>' +
-      '<div class="bi-status">' + icon + '</div>' +
-      '<div class="bi-body">' +
-      '<div class="bi-name' + (isDone ? ' installed' : '') + '">' + t.task + '</div>' +
+      '<span class="task-num">' + (i < 9 ? '0' : '') + (i + 1) + '</span>' +
+      '<span class="bi-status dot dot-' + prio + '"></span>' +
+      '<div class="task-body">' +
+      '<div class="bi-name">' + t.task + '</div>' +
       '<div class="bi-meta">' + metaBits.join(' · ') + '</div>' +
+      '<div class="bi-cost">Est: ' + money(t.cost_cad) + '</div>' +
       (t.still_needed ? '<div class="bi-need">Needs: ' + t.still_needed + '</div>' : '') +
       ((t.notes || t.on_hand) ? '<details class="bi-more"><summary>Notes</summary>' +
         (t.notes ? '<p>' + t.notes + '</p>' : '') +
         (t.on_hand ? '<p><strong>On hand:</strong> ' + t.on_hand + '</p>' : '') +
         '</details>' : '') +
+      '</div>' +
+      '<div class="task-tags">' +
       '<span class="bi-tag tag-phase" title="' + x.phase + '">' + x.tag + '</span>' +
-      (t.status && !isDone ? '<span class="bi-tag ' + (statusTag[t.status] || 'tag-planned') + '">' + t.status + '</span>' : '') +
+      (t.status && !isDone ? '<span class="bi-tag ' + (statusTag[t.status] || 'tag-blue') + '">' + t.status + '</span>' : '') +
       '</div></div>';
   };
 
-  var html = '<div class="build-page">' +
-    '<div class="build-vitals strat-vitals">' +
-    '<div class="build-vitals-title">📋 Sneaky Pete — 2026 Strategy · 170,000 km</div>' +
-    '<div class="vital-item"><strong>' + open.length + '</strong> open</div><div class="vital-divider">|</div>' +
-    '<div class="vital-item"><strong>' + urgentCount + '</strong> urgent</div><div class="vital-divider">|</div>' +
-    '<div class="vital-item"><strong>' + done.length + '</strong> done</div>' +
+  var html = '<div class="strat">' +
+    '<header class="strat-head">' +
+    '<div><div class="strat-eyebrow">Sneaky Pete · ' + (meta.vehicle || '1993 Toyota Land Cruiser HDJ81') + ' · 1HD-T</div>' +
+    '<h1 class="strat-title">2026 Strategy</h1></div>' +
+    '<div class="strat-facts">' +
+    '<div><div class="strat-fact-label">Odometer</div><div class="strat-fact-val">' + (meta.odometer_km ? meta.odometer_km.toLocaleString() + ' km' : '—') + '</div></div>' +
+    '<div><div class="strat-fact-label">Revised</div><div class="strat-fact-val">' + (meta.updated || '—') + '</div></div>' +
+    '</div></header>' +
+    '<div class="strat-vitals strat-stats">' +
+    '<div class="stat stat-dark"><div class="stat-label">Progress</div><div class="stat-row"><span class="stat-big">' + done.length + '/' + all.length + '</span><span class="stat-sub">done</span></div><div class="stat-bar"><div class="stat-bar-fill" style="width:' + pct + '%"></div></div></div>' +
+    '<div class="stat"><div class="stat-label">Open</div><div class="stat-row"><span class="stat-big">' + open.length + '</span><span class="stat-sub">open</span></div><div class="stat-foot">across 2 tracks</div></div>' +
+    '<div class="stat"><div class="stat-label">Urgent</div><div class="stat-row"><span class="stat-big stat-red">' + urgent.length + '</span><span class="stat-sub">urgent</span></div><div class="stat-foot">' + (urgent.length ? urgent[0].t.task.toLowerCase() : 'nothing on fire') + '</div></div>' +
+    '<div class="stat"><div class="stat-label">Est. outstanding</div><div class="stat-row"><span class="stat-big">' + money(sum(open)) + '</span></div><div class="stat-foot">' + done.length + ' done · listed items below</div></div>' +
     '</div>' +
-    '<div id="strategyBody"><div class="build-grid board">';
+    '<div id="strategyBody"><div class="board">';
 
   BUCKETS.forEach(function(b) {
     var items = open.filter(function(x) { return (bucketOf[x.t.status] || 'later') === b.key; });
@@ -129,16 +143,20 @@ export function renderStrategy(phases) {
       var ps = statusRank[p.t.status] || 0, qs = statusRank[q.t.status] || 0;
       return pu - qu || ps - qs || p.order - q.order;
     });
-    html += '<div class="build-card col col-' + b.key + '"><div class="build-card-header"><span class="card-icon">' + b.icon + '</span> ' + b.title + '<span class="card-count col-count">' + items.length + '</span></div>';
-    html += items.length ? items.map(row).join('') : '<div class="build-item col-empty">Nothing here</div>';
-    html += '</div>';
+    html += '<section class="strat-col col col-' + b.key + '"><div class="strat-col-head"><span class="strat-col-title">' + b.title + '</span><span class="col-count">' + items.length + ' tasks</span><span class="strat-col-cost">' + money(sum(items)) + '</span></div>';
+    html += items.length ? items.map(row).join('') : '<div class="col-empty">Nothing here</div>';
+    html += '</section>';
   });
   html += '</div>';
 
   if (done.length) {
-    html += '<div class="build-card strat-done"><div class="build-card-header"><span class="card-icon">✅</span> Done<span class="card-count col-count">' + done.length + '</span></div><div class="done-list">' + done.map(row).join('') + '</div></div>';
+    html += '<section class="strat-col strat-done"><div class="strat-col-head"><span class="strat-col-title">Done</span><span class="col-count">' + done.length + ' tasks</span></div><div class="done-list">' + done.map(row).join('') + '</div></section>';
   }
-  html += '</div></div>';
+  html += '</div>' +
+    '<footer class="strat-legend">' +
+    '<span><i class="dot dot-done"></i>Done</span><span><i class="dot dot-urgent"></i>Urgent / critical</span><span><i class="dot dot-low"></i>Standard</span>' +
+    '<span><i class="bi-tag tag-amber">Needs parts</i></span><span><i class="bi-tag tag-blue">Planned / deferred</i></span><span><i class="bi-tag tag-green">Can do now</i></span>' +
+    '</footer></div>';
   document.getElementById('tab-2026-Strategy').innerHTML = html;
   bindTaskCheckboxes();
 }
@@ -148,8 +166,8 @@ function paintTaskRow(row, done) {
   var prio = row.getAttribute('data-prio');
   row.classList.remove('status-done', 'status-urgent', 'status-low');
   row.classList.add(done ? 'status-done' : prio === 'urgent' ? 'status-urgent' : 'status-low');
-  var icon = row.querySelector('.bi-status');
-  if (icon) icon.textContent = done ? '✅' : prio === 'urgent' ? '🔴' : '🟡';
+  var dot = row.querySelector('.bi-status');
+  if (dot) { dot.classList.remove('dot-done', 'dot-urgent', 'dot-low'); dot.classList.add(done ? 'dot-done' : prio === 'urgent' ? 'dot-urgent' : 'dot-low'); }
   var name = row.querySelector('.bi-name');
   if (name) name.classList.toggle('installed', done);
 }

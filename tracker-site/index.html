@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Sneaky Pete — LC80 Build Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   body { background: #1a1a1a; color: #e0e0e0; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; }
   h1 { background: #111; color: #f0a500; padding: 18px 24px; margin: 0; font-size: 1.4em; letter-spacing: 1px; }
@@ -14,25 +16,70 @@
   table { border-collapse: collapse; width: 100%; font-size: 0.88em; }
   th { background: #2a2a2a; color: #f0a500; padding: 8px 10px; text-align: left; border: 1px solid #333; white-space: nowrap; }
   td { padding: 7px 10px; border: 1px solid #2e2e2e; vertical-align: top; }
-  #tab-2026-Strategy .build-page { max-width: none; }
-  #strategyBody .board { align-items: start; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  /* 2026 Strategy — from the Claude Design mockup */
+  #tab-2026-Strategy { padding: 0; background: #14130F; }
+  .strat { --ink: #EDE8DC; --mute: #9C9686; --mute2: #B3AC9C; --dim: #6E695C; --panel: #1E1C16; --band: #24211A; --line: #35322A; --line2: #2A2822; --orange: #E8630A; --red: #FF6B4A; --amber: #D99A2B; --blue: #5B8FD6; --green: #43A567; --yellow: #E3C42E;
+    color: var(--ink); font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace; padding: 0 clamp(16px, 4vw, 48px) 64px; }
+  .strat-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 36px 0 20px; border-bottom: 3px solid var(--ink); }
+  .strat-eyebrow { font-size: 12px; letter-spacing: 0.18em; color: var(--mute); text-transform: uppercase; margin-bottom: 6px; }
+  .strat-title { margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 700; font-size: clamp(44px, 7vw, 76px); line-height: 0.92; letter-spacing: 0.01em; text-transform: uppercase; color: var(--ink); background: none; padding: 0; }
+  .strat-facts { display: flex; gap: 20px; font-size: 12px; color: var(--mute2); text-align: right; }
+  .strat-fact-label { color: var(--mute); letter-spacing: 0.14em; text-transform: uppercase; font-size: 10px; }
+  .strat-fact-val { font-weight: 600; font-size: 15px; color: var(--ink); }
+  .strat-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 20px 0; }
+  .stat { background: var(--panel); border: 1px solid var(--line); padding: 16px 18px; }
+  .stat-dark { background: #2A2822; border-color: #2A2822; }
+  .stat-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); margin-bottom: 8px; }
+  .stat-row { display: flex; align-items: baseline; gap: 8px; }
+  .stat-big { font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 700; font-size: 34px; line-height: 1; }
+  .stat-red { color: var(--red); }
+  .stat-sub { font-size: 12px; color: var(--mute); }
+  .stat-foot { font-size: 12px; margin-top: 10px; color: var(--mute2); }
+  .stat-bar { height: 6px; background: #3A382F; margin-top: 10px; }
+  .stat-bar-fill { height: 6px; background: var(--orange); }
+  #strategyBody .board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
   @media (max-width: 720px) { #strategyBody .board { grid-template-columns: minmax(0, 1fr); } }
-  .build-card-header .card-count { margin-left: auto; color: #777; font-weight: 500; letter-spacing: 0; }
-  .col-empty { color: #555; }
-  .task-row .task-check { flex-shrink: 0; margin-top: 1px; }
-  .task-row .task-check input { width: 16px; height: 16px; accent-color: #f0a500; cursor: pointer; margin: 0; display: block; }
-  .task-row.local-override .bi-name::after { content: " · this device"; color: #666; font-weight: normal; font-size: 0.8em; }
-  .task-row.status-done .bi-meta, .task-row.status-done .bi-need { opacity: 0.6; }
-  .task-row .bi-meta { color: #8f8f8f; font-size: 0.85em; margin-top: 2px; }
-  .task-row .bi-need { color: #f0a500; font-size: 0.88em; margin-top: 3px; line-height: 1.4; }
-  .task-row .bi-more { margin-top: 3px; font-size: 0.85em; color: #bbb; }
-  .task-row .bi-more summary { cursor: pointer; color: #666; user-select: none; }
-  .task-row .bi-more summary:hover { color: #ccc; }
-  .task-row .bi-more p { margin: 4px 0 0; line-height: 1.5; color: #aaa; }
-  .task-row .bi-more strong { color: #f0a500; }
-  .tag-phase { background: #2a2a2a; color: #aaa; border: 1px solid #3a3a3a; cursor: default; }
-  .strat-done { margin-top: 14px; }
-  .strat-done .done-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .strat-col { background: var(--panel); border: 1px solid var(--line); border-top: 4px solid var(--ink); }
+  .strat-col.col-later { border-top-color: var(--orange); }
+  .strat-col.strat-done { border-top-color: var(--green); margin-top: 14px; }
+  .strat-col-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; padding: 16px 16px 10px; background: var(--band); border-bottom: 1px solid var(--line); }
+  .strat-col-title { font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 700; font-size: 22px; line-height: 1; text-transform: uppercase; }
+  .strat-col-head .col-count { font-size: 11px; color: var(--mute); }
+  .strat-col-cost { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--mute2); }
+  .col-empty { padding: 14px 16px; font-size: 12px; color: var(--dim); }
+  .task-row { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line2); }
+  .task-row:last-child { border-bottom: none; }
+  .task-check { flex: none; padding-top: 1px; }
+  #tab-2026-Strategy input[type="checkbox"] { width: 14px; height: 14px; margin: 0; display: block; accent-color: var(--orange); cursor: pointer; }
+  .task-num { font-size: 11px; color: var(--dim); width: 22px; flex: none; padding-top: 2px; }
+  .dot { width: 9px; height: 9px; flex: none; border-radius: 50%; display: inline-block; margin-top: 4px; background: var(--yellow); }
+  .dot-urgent { background: var(--red); }
+  .dot-done { background: var(--green); }
+  .dot-low { background: var(--yellow); }
+  .task-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .task-row .bi-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .task-row.status-done .bi-name { color: var(--mute2); text-decoration: line-through; }
+  .task-row.local-override .bi-name::after { content: " · this device"; color: var(--dim); font-weight: normal; font-size: 0.85em; }
+  .task-row .bi-meta, .task-row .bi-cost { font-size: 11px; color: var(--mute); }
+  .task-row .bi-need { font-size: 11px; color: var(--amber); line-height: 1.5; }
+  .task-row .bi-more { font-size: 11px; color: var(--mute2); }
+  .task-row .bi-more summary { cursor: pointer; color: var(--dim); user-select: none; }
+  .task-row .bi-more summary:hover { color: var(--ink); }
+  .task-row .bi-more p { margin: 6px 0 0; line-height: 1.55; }
+  .task-row .bi-more strong { color: var(--amber); }
+  .task-tags { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex: none; }
+  .strat .bi-tag { font-size: 10px; letter-spacing: 0.08em; padding: 2px 7px; border-radius: 0; text-transform: uppercase; font-weight: 500; font-style: normal; background: #2A2822; border: 1px solid #45423A; color: var(--mute2); margin: 0; }
+  .strat .tag-red { background: #2A1712; border-color: var(--red); color: #FF8A6E; }
+  .strat .tag-amber { background: #2A2210; border-color: var(--amber); color: #E3B85C; }
+  .strat .tag-blue { background: #141C2A; border-color: var(--blue); color: #8FB4E8; }
+  .strat .tag-green { background: #1B2A1F; border-color: var(--green); color: #7BC698; }
+  .strat .tag-phase { cursor: default; }
+  .strat-done .done-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .strat-done .done-list .task-row { border-bottom: 1px solid var(--line2); }
+  @media (max-width: 720px) { .strat-done .done-list { grid-template-columns: minmax(0, 1fr); } }
+  .strat-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 11px; color: var(--mute2); letter-spacing: 0.06em; }
+  .strat-legend span { display: flex; align-items: center; gap: 6px; }
+  .strat-legend .dot { margin-top: 0; }
   #tab-Maintenance-Log td.log-date, #tab-Maintenance-Log td.log-km { white-space: nowrap; color: #bbb; }
   #tab-Maintenance-Log td.log-item { font-weight: 600; color: #f2f2f2; white-space: nowrap; }
   #tab-Fluid-Guide th:first-child,
@@ -146,7 +193,7 @@ fetch('/data.json')
   .then(function(data) {
     renderBuild(data.build, data.meta);
     renderFluidGuide(data.fluid_guide);
-    renderStrategy(data.strategy_2026);
+    renderStrategy(data.strategy_2026, data.meta);
     renderPartsInventory(data.parts_inventory);
     renderSpendSummary(data.spend_summary);
     renderScheduledMaintenance(data.scheduled_maintenance);

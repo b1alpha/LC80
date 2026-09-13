@@ -162,11 +162,12 @@ describe('renderStrategy board', () => {
   test('renders two build-style cards: To do and Rebuild planning, with counts', () => {
     const cols = document.querySelectorAll('.board .col');
     expect(cols.length).toBe(2);
-    cols.forEach(c => expect(c.classList.contains('build-card')).toBe(true));
-    expect(cols[0].querySelector('.build-card-header').textContent).toContain('To do');
-    expect(cols[1].querySelector('.build-card-header').textContent).toContain('Rebuild planning');
-    expect(cols[0].querySelector('.col-count').textContent).toBe('4');
-    expect(cols[1].querySelector('.col-count').textContent).toBe('2');
+    cols.forEach(c => expect(c.classList.contains('strat-col')).toBe(true));
+    expect(cols[0].querySelector('.strat-col-head').textContent).toContain('To do');
+    expect(cols[1].querySelector('.strat-col-head').textContent).toContain('Rebuild planning');
+    expect(cols[0].querySelector('.col-count').textContent).toBe('4 tasks');
+    expect(cols[1].querySelector('.col-count').textContent).toBe('2 tasks');
+    expect(cols[0].querySelector('.strat-col-cost').textContent).toBe('~$200');
   });
 
   test('To do orders urgent, then can-do-now, needs-parts, shop; rebuild statuses and unknown go right', () => {
@@ -180,12 +181,14 @@ describe('renderStrategy board', () => {
     const first = todo.querySelector('.task-row');
     expect(first.dataset.task).toBe('strat-brakes');
     expect(first.classList.contains('status-urgent')).toBe(true);
-    expect(first.querySelector('.bi-status').textContent).toBe('🔴');
+    expect(first.querySelector('.bi-status').classList.contains('dot-urgent')).toBe(true);
+    expect(first.querySelector('.task-num').textContent).toBe('01');
   });
 
   test('row shows who/cost/time meta, still-needed line, phase and status tags', () => {
     const r = document.querySelector('.task-row[data-task="strat-brakes"]');
-    expect(r.querySelector('.bi-meta').textContent).toBe('Me · ~$200 · 2 hrs');
+    expect(r.querySelector('.bi-meta').textContent).toBe('Me · 2 hrs');
+    expect(r.querySelector('.bi-cost').textContent).toBe('Est: ~$200');
     expect(r.querySelector('.bi-need').textContent).toBe('Needs: Pads if worn');
     const tags = [...r.querySelectorAll('.bi-tag')].map(t => t.textContent);
     expect(tags).toEqual(['P2', 'URGENT SERVICE']);
@@ -209,20 +212,27 @@ describe('renderStrategy board', () => {
 
   test('done tasks go to the visible done card below the board, green, no status tag', () => {
     const done = document.querySelector('.strat-done');
-    expect(done.querySelector('.col-count').textContent).toBe('1');
+    expect(done.querySelector('.col-count').textContent).toBe('1 tasks');
     expect(done.compareDocumentPosition(document.querySelector('.board')) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy();
     const r = done.querySelector('.task-row[data-task="strat-oil"]');
     expect(r.classList.contains('status-done')).toBe(true);
-    expect(r.querySelector('.bi-name').classList.contains('installed')).toBe(true);
+    expect(r.querySelector('.bi-status').classList.contains('dot-done')).toBe(true);
     expect([...r.querySelectorAll('.bi-tag')].map(t => t.textContent)).toEqual(['P2']);
     expect(document.querySelectorAll('.board .task-row[data-task="strat-oil"]').length).toBe(0);
   });
 
-  test('vitals strip counts open, urgent, and done tasks', () => {
-    const txt = document.querySelector('.strat-vitals').textContent;
-    expect(txt).toContain('6 open');
-    expect(txt).toContain('1 urgent');
-    expect(txt).toContain('1 done');
+  test('stat tiles show progress, open, urgent, and outstanding cost; header shows meta', () => {
+    renderStrategy(phases, { odometer_km: 170000, updated: '2026-09' });
+    const stats = [...document.querySelectorAll('.strat-stats .stat')].map(s => s.textContent);
+    expect(stats[0]).toContain('1/7');
+    expect(stats[1]).toContain('6');
+    expect(stats[2]).toContain('1');
+    expect(stats[2]).toContain('brake inspection');
+    expect(stats[3]).toContain('~$200');
+    expect(document.querySelector('.stat-bar-fill').style.width).toBe('14%');
+    expect(document.querySelector('.strat-facts').textContent).toContain('170,000 km');
+    expect(document.querySelector('.strat-facts').textContent).toContain('2026-09');
+    expect(document.querySelector('.strat-legend')).not.toBeNull();
   });
 
   test('empty column shows a placeholder and no done card when nothing is done', () => {
@@ -419,8 +429,7 @@ describe('strategy checkboxes', () => {
     const row = cb.closest('.task-row');
     expect(row.classList.contains('status-done')).toBe(true);
     expect(row.classList.contains('local-override')).toBe(true);
-    expect(row.querySelector('.bi-status').textContent).toBe('✅');
-    expect(row.querySelector('.bi-name').classList.contains('installed')).toBe(true);
+    expect(row.querySelector('.bi-status').classList.contains('dot-done')).toBe(true);
     expect(localStorage.getItem('lc80:done:strat-a')).toBe('true');
   });
 
@@ -441,7 +450,7 @@ describe('strategy checkboxes', () => {
     expect(localStorage.getItem('lc80:done:strat-a')).toBeNull();
     expect(row.classList.contains('status-urgent')).toBe(true);
     expect(row.classList.contains('local-override')).toBe(false);
-    expect(row.querySelector('.bi-status').textContent).toBe('🔴');
+    expect(row.querySelector('.bi-status').classList.contains('dot-urgent')).toBe(true);
   });
 
   test('a done task never has its checkbox pre-checked state contradicted by the data', () => {
