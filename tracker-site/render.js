@@ -30,17 +30,23 @@ export function renderBuild(cards, meta) {
     '</div></div><div class="build-grid">';
   var biggest = cards.reduce(function(best, c) { return (!best || c.items.length > best.items.length) ? c : best; }, null);
   var ordered = cards.filter(function(c) { return c !== biggest; }).concat(biggest ? [biggest] : []);
-  for (var i = 0; i < ordered.length; i++) {
-    var card = ordered[i];
-    html += '<div class="build-card' + (card === biggest && cards.length > 1 ? ' build-card-main' : '') + '"><div class="build-card-header"><span class="card-icon">' + card.icon + '</span> ' + card.category + '<span class="card-count">' + card.items.length + '</span></div>';
+  var cardHtml = function(card, isMain) {
+    var out = '<div class="build-card' + (isMain ? ' build-card-main' : '') + '"><div class="build-card-header"><span class="card-icon">' + card.icon + '</span> ' + card.category + '<span class="card-count">' + card.items.length + '</span></div>';
     for (var j = 0; j < card.items.length; j++) {
       var item = card.items[j];
-      html += '<div class="build-item"><div class="bi-body">' +
+      out += '<div class="build-item"><div class="bi-body">' +
         '<div class="bi-name">' + item.name + '</div>' +
         (item.note ? '<div class="bi-note">' + item.note + '</div>' : '') +
         '</div></div>';
     }
-    html += '</div>';
+    return out + '</div>';
+  };
+  var split = cards.length > 1;
+  if (split) html += '<div class="build-left">';
+  for (var i = 0; i < ordered.length; i++) {
+    var card = ordered[i];
+    if (split && card === biggest) html += '</div>';
+    html += cardHtml(card, split && card === biggest);
   }
   html += '</div></div>';
   document.getElementById('tab-Build').innerHTML = html;
