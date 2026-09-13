@@ -117,7 +117,9 @@ export function renderStrategy(phases, meta) {
       '<div class="task-body">' +
       '<div class="bi-name">' + t.task + '</div>' +
       '<div class="bi-meta">' + metaBits.join(' · ') + '</div>' +
-      '<div class="bi-cost">Est: ' + money(t.cost_cad) + '</div>' +
+      '<div class="bi-cost">Est: ' + money(t.cost_cad) +
+        (typeof t.parts_cad === 'number' ? ' <span class="bi-cost-split">· Parts est: ' + money(t.parts_cad) + ((t.cost_cad || 0) > t.parts_cad ? ' · Labour est: ' + money(t.cost_cad - t.parts_cad) : '') + '</span>' : '') +
+      '</div>' +
       (t.still_needed ? '<div class="bi-need">Needs: ' + t.still_needed + '</div>' : '') +
       ((t.notes || t.on_hand) ? '<details class="bi-more"><summary>Notes</summary>' +
         (t.notes ? '<p>' + t.notes + '</p>' : '') +

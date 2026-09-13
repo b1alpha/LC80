@@ -239,11 +239,13 @@ describe('renderStrategy board', () => {
 
   test('shop labour rate from meta is shown next to the hours for that person', () => {
     renderStrategy([{ phase: 'P2', tasks: [
-      { id: 'a', priority: 'low', task: 'Bearings', who: 'Liam Schram', status: 'NEEDS PARTS', time: '3 hrs', cost_cad: 615, checked: false },
+      { id: 'a', priority: 'low', task: 'Bearings', who: 'Liam Schram', status: 'NEEDS PARTS', time: '3 hrs', cost_cad: 615, parts_cad: 359, checked: false },
       { id: 'b', priority: 'low', task: 'Strips', who: 'DIY — Brennon', status: 'CAN DO NOW', time: '3 hrs', checked: false }
     ] }], { labour_rate_liam_cad_hr: 85 });
     expect(document.querySelector('.task-row[data-task="a"] .bi-meta').textContent).toBe('Liam Schram · 3 hrs @ $85/hr');
+    expect(document.querySelector('.task-row[data-task="b"] .bi-cost').textContent).toBe('Est: $0');
     expect(document.querySelector('.task-row[data-task="b"] .bi-meta').textContent).toBe('DIY — Brennon · 3 hrs');
+    expect(document.querySelector('.task-row[data-task="a"] .bi-cost').textContent).toBe('Est: ~$615 · Parts est: ~$359 · Labour est: ~$256');
   });
 
   test('empty column shows a placeholder and no done card when nothing is done', () => {

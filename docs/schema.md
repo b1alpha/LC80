@@ -28,7 +28,7 @@ The build sheet lists **what changed from stock** — upgrades and modifications
 ## 2026 Strategy (includes the former Project Tracker)
 
 **Required:** `phase`, `task`, `who`, `priority`
-**Optional:** `category`, `status`, `cost_cad`, `time`, `notes`, `on_hand`, `still_needed`, `checked` (default: false), `id` (slug)
+**Optional:** `category`, `status`, `cost_cad` (all-in estimate), `parts_cad` (parts share of `cost_cad`; labour is shown as the difference), `time`, `notes`, `on_hand`, `still_needed`, `checked` (default: false), `id` (slug)
 
 **Allowed `priority`:** `urgent` | `done` | `low` — drives row colour. `checked` must be `true` exactly when `priority` is `done`.
 
