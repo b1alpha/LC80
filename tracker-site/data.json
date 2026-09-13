@@ -208,7 +208,8 @@
             { "item": "Assembly lube, FIPG, thread locker", "have": false, "note": "in RADD EKTO350 kit — liquid gasket 85 g + fitment pack (assembly lube, bore wipes, rod bolt protectors)" },
             { "item": "Machine shop: bore/hone, deck, crank polish/grind, head pressure test + valve job", "have": false, "note": "service — the bulk of the ~$5,600 long block estimate" },
             { "item": "Camshaft bearings", "have": false, "note": "in RADD EKTO350 kit (STD or 0.25)" },
-            { "item": "Piston pin bushings (semi-finished)", "have": false, "note": "in RADD EKTO350 kit — machine shop finishes to size" }
+            { "item": "Piston pin bushings (semi-finished)", "have": false, "note": "in RADD EKTO350 kit — machine shop finishes to size" },
+            { "item": "Valve shims (sizes TBD)", "have": false, "note": "Measure clearances first (inlet 0.20 / exhaust 0.35 mm cold), then order only the thicknesses needed. RADD 13753-xxxx, 2.35–3.30 mm in 0.05 steps, C$12.50 ea — https://www.shopraddcruisers.ca/valve-shims-2lte-3l-1kzte-1hz-1hdt-13753.html" }
           ]
         }
       ]
