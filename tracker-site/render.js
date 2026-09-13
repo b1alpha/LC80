@@ -121,9 +121,12 @@ export function renderStrategy(phases, meta) {
         (typeof t.parts_cad === 'number' ? ' <span class="bi-cost-split">· Parts est: ' + money(t.parts_cad) + ((t.cost_cad || 0) > t.parts_cad ? ' · Labour est: ' + money(t.cost_cad - t.parts_cad) : '') + '</span>' : '') +
       '</div>' +
       (t.still_needed ? '<div class="bi-need">Needs: ' + t.still_needed + '</div>' : '') +
-      ((t.notes || t.on_hand) ? '<details class="bi-more"><summary>Notes</summary>' +
+      ((t.notes || t.on_hand || (t.parts && t.parts.length)) ? '<details class="bi-more"><summary>Notes' + (t.parts && t.parts.length ? ' + parts list' : '') + '</summary>' +
         (t.notes ? '<p>' + t.notes + '</p>' : '') +
         (t.on_hand ? '<p><strong>On hand:</strong> ' + t.on_hand + '</p>' : '') +
+        (t.parts && t.parts.length ? '<ul class="parts-list">' + t.parts.map(function(pt) {
+          return '<li class="' + (pt.have ? 'have' : 'need') + '"><span class="bi-tag ' + (pt.have ? 'tag-green' : 'tag-amber') + '">' + (pt.have ? 'Have' : 'Need') + '</span><span class="pl-item">' + pt.item + '</span>' + (pt.note ? '<span class="pl-note">' + pt.note + '</span>' : '') + '</li>';
+        }).join('') + '</ul>' : '') +
         '</details>' : '') +
       '</div>' +
       '<div class="task-tags">' +

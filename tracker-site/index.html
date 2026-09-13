@@ -69,6 +69,11 @@
   .task-row .bi-more summary:hover { color: var(--ink); }
   .task-row .bi-more p { margin: 6px 0 0; line-height: 1.55; }
   .task-row .bi-more strong { color: var(--amber); }
+  .parts-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 4px 18px; }
+  .parts-list li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 2px 8px; align-items: start; padding: 4px 0; border-bottom: 1px solid var(--line2); }
+  .parts-list li .bi-tag { justify-self: start; }
+  .parts-list .pl-item { color: var(--ink); font-weight: 500; }
+  .parts-list .pl-note { grid-column: 2; color: var(--dim); font-size: 10.5px; }
   .task-tags { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex: none; }
   .strat .bi-tag { font-size: 10px; letter-spacing: 0.08em; padding: 2px 7px; border-radius: 0; text-transform: uppercase; font-weight: 500; font-style: normal; background: #2A2822; border: 1px solid #45423A; color: var(--mute2); margin: 0; }
   .strat .tag-red { background: #2A1712; border-color: var(--red); color: #FF8A6E; }

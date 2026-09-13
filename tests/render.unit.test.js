@@ -237,6 +237,22 @@ describe('renderStrategy board', () => {
     expect(document.querySelector('.strat-legend')).not.toBeNull();
   });
 
+  test('a parts list renders inside Notes with Have/Need labels', () => {
+    renderStrategy([{ phase: 'P4', tasks: [
+      { id: 'rb', priority: 'low', task: 'Rebuild', who: 'Eli', status: 'SCHEDULED 2026/27', checked: false,
+        parts: [{ item: 'Water pump', have: true, note: 'HD Auto' }, { item: 'Head gasket', have: false }] }
+    ] }]);
+    const more = document.querySelector('.task-row[data-task="rb"] details.bi-more');
+    expect(more.querySelector('summary').textContent).toBe('Notes + parts list');
+    const items = [...more.querySelectorAll('.parts-list li')];
+    expect(items.length).toBe(2);
+    expect(items[0].classList.contains('have')).toBe(true);
+    expect(items[0].querySelector('.bi-tag').textContent).toBe('Have');
+    expect(items[0].querySelector('.pl-note').textContent).toBe('HD Auto');
+    expect(items[1].querySelector('.bi-tag').textContent).toBe('Need');
+    expect(items[1].querySelector('.pl-note')).toBeNull();
+  });
+
   test('shop labour rate from meta is shown next to the hours for that person', () => {
     renderStrategy([{ phase: 'P2', tasks: [
       { id: 'a', priority: 'low', task: 'Bearings', who: 'Liam Schram', status: 'NEEDS PARTS', time: '3 hrs', cost_cad: 615, parts_cad: 359, checked: false },
