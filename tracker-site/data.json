@@ -87,7 +87,6 @@
     {
       "phase": "PHASE 1 — 2024/2025 | Completed Groundwork",
       "tasks": [
-        { "id": "strat-window-motors", "checked": true, "priority": "done", "task": "Clean + Re-Grease Window Motors", "category": "Interior", "who": "Steve — EBI Cruisers", "status": "DONE", "cost_cad": 0, "time": "1.5 hrs" },
         { "id": "strat-rust-touchup", "checked": true, "priority": "done", "task": "Rust Spot Touch-Up on Body", "category": "Body / Paint", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "2 hrs" },
         { "id": "strat-fusebox", "checked": true, "priority": "done", "task": "Install 6-Relay Fuse Box + Winch Cut-Off", "category": "Electrical", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "2 hrs" },
         { "id": "strat-winch", "checked": true, "priority": "done", "task": "Winch Install + Control Box Relocate", "category": "Electrical / Body", "who": "DIY", "status": "DONE", "cost_cad": 0, "time": "—" },
